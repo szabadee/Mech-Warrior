@@ -1,10 +1,9 @@
 package com.flow.mechwarrior;
 
-public class MechLight extends Mech implements Action {
-    private final int punchRange = 1;
+public class MechMedium extends Mech implements Action {
+    private final int laserRange = 2;
 
-
-    public MechLight(String name, int armor, int hp) {
+    public MechMedium(String name, int armor, int hp) {
         super(name, armor, hp);
     }
 
