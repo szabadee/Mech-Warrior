@@ -1,10 +1,8 @@
 package com.flow.mechwarrior;
 
-import java.util.Arrays;
-
 public class Mech {
     private String name;
-    private Integer[] leftLeg;
+    private int[] leftLeg;
     private int[] rightLeg;
     private int[] leftArm;
     private int[] rightArm;
@@ -15,7 +13,7 @@ public class Mech {
 
     public Mech(String name, int armor, int hp) {
         this.name = name;
-        leftLeg = new Integer[]{armor, hp};
+        leftLeg = new int[]{armor, hp};
         rightLeg = new int[]{armor, hp};
         leftArm = new int[]{armor, hp};
         rightArm = new int[]{armor, hp};
@@ -27,7 +25,7 @@ public class Mech {
 
     // region Getters
 
-    public Integer[] getLeftLeg() {
+    public int[] getLeftLeg() {
         return leftLeg;
     }
 
@@ -68,7 +66,7 @@ public class Mech {
     // region Setters
 
     public void setLeftLeg(int armor, int hp) {
-        this.leftLeg = new Integer[]{armor, hp};
+        this.leftLeg = new int[]{armor, hp};
     }
 
     public void setRightLeg(int[] rightLeg) {

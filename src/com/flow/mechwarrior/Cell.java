@@ -1,23 +1,38 @@
 package com.flow.mechwarrior;
 
 public class Cell {
-    private String[] terrain;
+    private boolean isBlockage;
     private boolean isMech;
 
-    public Cell (String[] terrain, boolean isMech) {
-        terrain = new String[]{"Plain", "Forest", "Mountain"};
+    public Cell (boolean isBlockage, boolean isMech) {
+        this.isBlockage = isBlockage;
         this.isMech = isMech;
     }
 
-    public String[] getTerrain() {
-        return terrain;
+    public boolean getIsBlockage () {
+        return isBlockage;
     }
 
-    public boolean getIsMech() {
+    public boolean getMech () {
         return isMech;
     }
 
-    public void setMech(boolean mech) {
-        isMech = mech;
+    public void setBlockage (boolean isBlockage) {
+        this.isBlockage = isBlockage;
+    }
+
+    public void setMech (boolean isMech) {
+        this.isMech = isMech;
+    }
+
+    @Override
+    public String toString() {
+        if (isMech == true) {
+            return "M";
+        } else if (isBlockage == true){
+            return "::";
+        } else {
+            return " ";
+        }
     }
 }

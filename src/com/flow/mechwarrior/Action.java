@@ -2,8 +2,7 @@ package com.flow.mechwarrior;
 
 public interface Action {
     void step(int i, int j);
-    void attack(int i, int j, Mech mech, int[] partOfBody);
+    void attack(Cell matrix, Mech mech);
     int[] damage(int damage, int[] partOfBody);
-
 
 }

@@ -1,12 +1,14 @@
 package com.flow.mechwarrior;
 
 public class MechLight extends Mech implements Action {
-    private final int punchRange = 1;
+    private final int PUNCHRANGE = 1;
+    private final int STEPNUMBER = 4;
 
 
     public MechLight(String name, int armor, int hp) {
         super(name, armor, hp);
     }
+
 
     @Override
     public void step(int i, int j) {
@@ -14,7 +16,7 @@ public class MechLight extends Mech implements Action {
     }
 
     @Override
-    public void attack(int i, int j, Mech mech, int[] partOfBody) {
+    public void attack(Cell matrix, Mech mech) {
 
     }
 

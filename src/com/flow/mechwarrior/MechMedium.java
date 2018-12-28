@@ -1,7 +1,8 @@
 package com.flow.mechwarrior;
 
 public class MechMedium extends Mech implements Action {
-    private final int laserRange = 2;
+    private final int LASERRANGE = 2;
+    private final int STEPNUMBER = 3;
 
     public MechMedium(String name, int armor, int hp) {
         super(name, armor, hp);
