@@ -6,6 +6,7 @@ public class MechMedium extends Mech implements Action {
 
     public MechMedium(String name, int armor, int hp) {
         super(name, armor, hp);
+        setWeapon("Laser");
     }
 
     @Override

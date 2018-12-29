@@ -8,7 +8,8 @@ import java.util.Arrays;
 public class TabletopGUI extends JFrame {
     private Table battlefield;
     private JButton[][] buttons;
-    private JTextPane mechProfile;
+    private JLabel mechProfile;
+    private JLabel mechProfileTags;
     private JLabel gameRules;
 
     public TabletopGUI () {
@@ -21,9 +22,19 @@ public class TabletopGUI extends JFrame {
         root.setLayout(null);
         add(root);
 
-        mechProfile = new JTextPane();
-        mechProfile.setMargin(new Insets(10,10,10,10));
-        mechProfile.setBounds(550,20,220, 200);
+        mechProfileTags = new JLabel();
+        mechProfileTags.setVerticalAlignment(JLabel.TOP);
+        mechProfileTags.setVerticalTextPosition(JLabel.TOP);
+        mechProfileTags.setBounds(540,20,90, 240);
+        mechProfileTags.setText("<html><font style=\"font-family: 'Arial'; font-size: 13pt;\">Mech's name:<br>Weapon:<br>Weapon range:<br>Step range:<br><br>- - - - - - - - - - -<br>Left leg:<br>Right leg:<br>Left arm:<br>Right arm:<br>Left shoulder:<br>Right shoulder:<br>Torso:<br>Head:</html>");
+        root.add(mechProfileTags);
+
+        mechProfile = new JLabel();
+        mechProfile.setVerticalAlignment(JLabel.TOP);
+        mechProfile.setVerticalTextPosition(JLabel.TOP);
+        mechProfile.setBounds(640,20,150,240);
+        MechLight mechLight = new MechLight("Johny",21,31);
+        mechProfile.setText(String.valueOf(mechLight));
         root.add(mechProfile);
 
         final int size = 20;
@@ -45,7 +56,5 @@ public class TabletopGUI extends JFrame {
             }
         }
 
-        MechLight mechLight = new MechLight("Johny", 21,31);
-        mechProfile.setText(String.valueOf(mechLight));
     }
 }

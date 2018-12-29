@@ -10,9 +10,15 @@ public class Mech {
     private int[] rightShoulder;
     private int[] torso;
     private int[] head;
+    private String weapon;
+    private int weaponRange;
+    private int stepRange;
 
     public Mech(String name, int armor, int hp) {
         this.name = name;
+        this.weapon = weapon;
+        this.weaponRange = weaponRange;
+        this.stepRange = stepRange;
         leftLeg = new int[]{armor, hp};
         rightLeg = new int[]{armor, hp};
         leftArm = new int[]{armor, hp};
@@ -97,20 +103,36 @@ public class Mech {
         this.head = head;
     }
 
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
+    public void setWeaponRange(int weaponRange) {
+        this.weaponRange = weaponRange;
+    }
+
+    public void setStepRange(int stepRange) {
+        this.stepRange = stepRange;
+    }
 
     // endregion
 
 
     @Override
     public String toString() {
-        return "Name: \t" + name + "\n" +
-                "Left leg: \tarmor[" + leftLeg[0] + "] \thp[" + leftLeg[1] + "]\n" +
-                "Right leg: \tarmor[" + rightLeg[0] + "] \thp[" + rightLeg[1] + "]\n" +
-                "Left arm: \tarmor[" + leftArm[0] + "] \thp[" + leftArm[1] + "]\n" +
-                "Right arm: \tarmor[" + rightArm[0] + "] \thp[" + rightArm[1] + "]\n" +
-                "Left shd: \tarmor[" + leftShoulder[0] + "] \thp[" + leftShoulder[1] + "]\n" +
-                "Right shd: \tarmor[" + rightShoulder[0] + "] \thp[" + rightShoulder[1] + "]\n" +
-                "Torso: \tarmor[" + torso[0] + "] \thp[" + torso[1] + "]\n" +
-                "Head: \tarmor[" + head[0] + "] \thp[" + head[1] + "]\n\n";
+        return "<html><font style=\"font-family: 'Arial'; font-size: 13pt;\">" +
+                name + "<br>" +
+                weapon + "<br>" +
+                weaponRange + "<br>" +
+                stepRange + "<br><br>[armor] - - [hp] - - - -<br> &nbsp;&nbsp; " +
+                leftLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftLeg[1] + "<br> &nbsp;&nbsp; " +
+                rightLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightLeg[1] + "<br> &nbsp;&nbsp; " +
+                leftArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftArm[1] + "<br> &nbsp;&nbsp; " +
+                rightArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightArm[1] + "<br> &nbsp;&nbsp; " +
+                leftShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftShoulder[1] + "<br> &nbsp;&nbsp; " +
+                rightShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightShoulder[1] + "<br> &nbsp;&nbsp; " +
+                torso[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + torso[1] + "<br> &nbsp;&nbsp; " +
+                head[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + head[1] + "<br>" +
+                "</html>";
     }
 }
