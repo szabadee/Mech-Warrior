@@ -103,14 +103,14 @@ public class Mech {
 
     @Override
     public String toString() {
-        return "\nName: \t\t" + name + "\n" +
+        return "Name: \t" + name + "\n" +
                 "Left leg: \tarmor[" + leftLeg[0] + "] \thp[" + leftLeg[1] + "]\n" +
                 "Right leg: \tarmor[" + rightLeg[0] + "] \thp[" + rightLeg[1] + "]\n" +
                 "Left arm: \tarmor[" + leftArm[0] + "] \thp[" + leftArm[1] + "]\n" +
                 "Right arm: \tarmor[" + rightArm[0] + "] \thp[" + rightArm[1] + "]\n" +
                 "Left shd: \tarmor[" + leftShoulder[0] + "] \thp[" + leftShoulder[1] + "]\n" +
                 "Right shd: \tarmor[" + rightShoulder[0] + "] \thp[" + rightShoulder[1] + "]\n" +
-                "Torso: \t\tarmor[" + torso[0] + "] \thp[" + torso[1] + "]\n" +
-                "Head: \t\tarmor[" + head[0] + "] \thp[" + head[1] + "]\n\n";
+                "Torso: \tarmor[" + torso[0] + "] \thp[" + torso[1] + "]\n" +
+                "Head: \tarmor[" + head[0] + "] \thp[" + head[1] + "]\n\n";
     }
 }
