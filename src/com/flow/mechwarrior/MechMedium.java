@@ -14,7 +14,7 @@ public class MechMedium extends Mech implements Action {
     }
 
     @Override
-    public void attack(int i, int j, Mech mech, int[] partOfBody) {
+    public void attack(Cell matrix, Mech mech) {
 
     }
 
