@@ -1,7 +1,11 @@
 package com.flow.mechwarrior;
 
 public class Mech {
+    private String mechType;
     private String name;
+    private String weapon;
+    private int weaponRange;
+    private int stepRange;
     private int[] leftLeg;
     private int[] rightLeg;
     private int[] leftArm;
@@ -10,15 +14,13 @@ public class Mech {
     private int[] rightShoulder;
     private int[] torso;
     private int[] head;
-    private String weapon;
-    private int weaponRange;
-    private int stepRange;
 
     public Mech(String name, int armor, int hp) {
         this.name = name;
         this.weapon = weapon;
         this.weaponRange = weaponRange;
         this.stepRange = stepRange;
+        this.mechType = mechType;
         leftLeg = new int[]{armor, hp};
         rightLeg = new int[]{armor, hp};
         leftArm = new int[]{armor, hp};
@@ -65,6 +67,22 @@ public class Mech {
 
     public String getName() {
         return name;
+    }
+
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public int getWeaponRange() {
+        return weaponRange;
+    }
+
+    public int getStepRange() {
+        return stepRange;
+    }
+
+    public String getMechType() {
+        return mechType;
     }
 
     // endregion
@@ -115,12 +133,17 @@ public class Mech {
         this.stepRange = stepRange;
     }
 
+    public void setMechType(String mechType) {
+        this.mechType = mechType;
+    }
+
     // endregion
 
 
     @Override
     public String toString() {
-        return "<html><font style=\"font-family: 'Arial'; font-size: 13pt;\">" +
+        return "<html><font style=\"font-family: 'Arial'; font-size: 12pt;\">" +
+                mechType + "<br>" +
                 name + "<br>" +
                 weapon + "<br>" +
                 weaponRange + "<br>" +

@@ -1,16 +1,18 @@
 package com.flow.mechwarrior;
 
 public class MechLight extends Mech implements Action {
-    private final int WEAPONRANGE = 1;
-    private final int STEPRANGE = 4;
-    private final String WEAPON = "Punch";
+    private static final String mechType = "Light";
+    private static final String weapon = "Punch";
+    private static final int weaponRange = 1;
+    private static final int steprange = 4;
 
 
     public MechLight(String name, int armor, int hp) {
         super(name, armor, hp);
-        setWeapon(this.WEAPON);
-        setWeaponRange(this.WEAPONRANGE);
-        setStepRange(this.STEPRANGE);
+        setWeapon(this.weapon);
+        setWeaponRange(this.weaponRange);
+        setStepRange(this.steprange);
+        setMechType(this.mechType);
     }
 
 

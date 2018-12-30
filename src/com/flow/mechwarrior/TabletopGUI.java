@@ -1,9 +1,7 @@
 package com.flow.mechwarrior;
 
 import javax.swing.*;
-import javax.swing.plaf.multi.MultiLabelUI;
 import java.awt.*;
-import java.util.Arrays;
 
 public class TabletopGUI extends JFrame {
     private Table battlefield;
@@ -26,7 +24,10 @@ public class TabletopGUI extends JFrame {
         mechProfileTags.setVerticalAlignment(JLabel.TOP);
         mechProfileTags.setVerticalTextPosition(JLabel.TOP);
         mechProfileTags.setBounds(540,20,90, 240);
-        mechProfileTags.setText("<html><font style=\"font-family: 'Arial'; font-size: 13pt;\">Mech's name:<br>Weapon:<br>Weapon range:<br>Step range:<br><br>- - - - - - - - - - -<br>Left leg:<br>Right leg:<br>Left arm:<br>Right arm:<br>Left shoulder:<br>Right shoulder:<br>Torso:<br>Head:</html>");
+        mechProfileTags.setText("<html><font style=\"font-family: 'Arial'; font-size: 12pt;\">" +
+                "Mech's type:<br>Mech's name:<br>Weapon:<br>Weapon range:<br>Step range:<br><br>" +
+                "- - - - - - - - - - - -<br>Left leg:<br>Right leg:<br>Left arm:<br>Right arm:<br>" +
+                "Left shoulder:<br>Right shoulder:<br>Torso:<br>Head:</html>");
         root.add(mechProfileTags);
 
         mechProfile = new JLabel();
@@ -51,10 +52,19 @@ public class TabletopGUI extends JFrame {
                 button.setFont(new Font("Arial", Font.PLAIN, 9));
                 button.getInsets(new Insets(0, 0, 0, 0));
                 buttons[i][j] = button;
-                // button.setActionCommand(i + " " + j);
+                button.setActionCommand(i + " " + j);
 
             }
         }
 
+        drawBattlefield();
+    }
+
+    public void drawBattlefield () {
+        for (int i = 0; i < buttons.length; i++) {
+            for ( int j = 0; j < buttons.length; j++) {
+                buttons[i][j].setText(battlefield.getCell(i, j).toString());
+            }
+        }
     }
 }

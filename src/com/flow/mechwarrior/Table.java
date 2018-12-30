@@ -12,13 +12,16 @@ public class Table {
         matrix = new Cell[size][size];
         fillTable();
         generateMechs();
+        generateBlockage();
     }
 
     private void fillTable () {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                matrix[i][j] = new Cell();
-                matrix[i][j].setCell("•");
+                if (matrix[i][j] == null) {
+                    matrix[i][j] = new Cell();
+                    // matrix[i][j].setCell("");
+                }
             }
         }
     }
@@ -29,16 +32,34 @@ public class Table {
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                matrix[4][0].setMechLight(mechLight);
-                matrix[4][0].setCell("L");
-                matrix[6][0].setMechMedium(mechMedium);
-                matrix[6][0].setCell("M");
-                matrix[5][size - 1].setMechLight(mechLight);
-                matrix[5][size - 1].setCell("L");
-                matrix[7][size - 1].setMechMedium(mechMedium);
-                matrix[7][size - 1].setCell("M");
+                matrix[0][4].setMechLight(mechLight);
+                matrix[0][4].setCell("L");
+                matrix[0][6].setMechMedium(mechMedium);
+                matrix[0][6].setCell("M");
+                matrix[size - 1][5].setMechLight(mechLight);
+                matrix[size - 1][5].setCell("L");
+                matrix[size - 1][7].setMechMedium(mechMedium);
+                matrix[size - 1][7].setCell("M");
             }
         }
+    }
+
+    private void generateBlockage() {
+        int countBlockage = 19;
+        int x;
+        int y;
+
+        for (int i = 0; i < countBlockage; i++) {
+            x = (int) (Math.random() * countBlockage);
+            y = (int) (Math.random() * countBlockage);
+
+            matrix[x][y].isBlockage();
+            matrix[x][y].setCell("||");
+        }
+    }
+
+    public Cell getCell (int i, int j) {
+        return matrix[i][j];
     }
 
     @Override

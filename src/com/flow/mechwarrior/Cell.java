@@ -1,33 +1,43 @@
 package com.flow.mechwarrior;
 
 public class Cell {
-    private boolean isBlockage;
     private MechLight mechLight;
     private MechMedium mechMedium;
     private String cell;
 
-
-    public boolean getIsBlockage() {
+    public boolean isBlockage () {
         return true;
     }
 
-    public MechLight getMechLight() {
+    public boolean isMechLight () {
+        return true;
+    }
+
+    public boolean isMechMedium () {
+        return true;
+    }
+
+    public boolean getIsBlockage () {
+        return true;
+    }
+
+    public MechLight getMechLight () {
         return mechLight;
     }
 
-    public MechMedium getMechMedium() {
+    public MechMedium getMechMedium () {
         return mechMedium;
     }
 
-    public void setMechLight(MechLight mechLight) {
+    public void setMechLight (MechLight mechLight) {
         this.mechLight = mechLight;
     }
 
-    public void setMechMedium(MechMedium mechMedium) {
+    public void setMechMedium (MechMedium mechMedium) {
         this.mechMedium = mechMedium;
     }
 
-    public void setCell(String cell) {
+    public void setCell (String cell) {
         this.cell = cell;
     }
 
