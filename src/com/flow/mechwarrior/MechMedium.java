@@ -2,7 +2,7 @@ package com.flow.mechwarrior;
 
 public class MechMedium extends Mech implements Action {
 
-    private MechMedium(String name) {
+    public MechMedium(String name) {
         super(name, 20, 25);
         setWeapon("Laser");
         setWeaponRange(2);

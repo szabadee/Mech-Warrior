@@ -2,7 +2,7 @@ package com.flow.mechwarrior;
 
 public class MechAssault extends Mech implements Action {
 
-    private MechAssault (String name) {
+    public MechAssault (String name) {
         super(name, 30, 35);
         setWeapon("Missile");
         setWeaponRange(6);

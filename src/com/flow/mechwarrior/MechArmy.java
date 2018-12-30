@@ -7,9 +7,9 @@ public class MechArmy {
 
     public List<Mech> generateMechArmy () {
         String[] mechLightNames = {"Flea", "Locust", "Commando", "Javelin", "Osiris", "Raven"};
-        String[] mechMediumtNames = {"Vulcan", "BlackJack", "Hellspawn", "Vindicator", "Crab", "Huchback"};
+        String[] mechMediumNames = {"Vulcan", "BlackJack", "Hellspawn", "Vindicator", "Crab", "Huchback"};
         String[] mechHeavyNames = {"Dragon", "Rifleman", "Catapult", "Jagermech", "Archer", "Grasshopper"};
-        String[] mechAssaulttNames = {"Awesome", "Victor", "Zeus", "Cyclops", "Highlander", "Atlas"};
+        String[] mechAssaultNames = {"Awesome", "Victor", "Zeus", "Cyclops", "Highlander", "Atlas"};
 
         List<Mech> mechArmy = new ArrayList<>();
 
@@ -19,6 +19,24 @@ public class MechArmy {
             mechArmy.add(mechLight);
         }
 
+        for (int i = 0; i < mechMediumNames.length; i++) {
+            Mech mechMedium = new MechMedium("");
+            mechMedium.setName(mechMediumNames[i]);
+            mechArmy.add(mechMedium);
         }
 
+        for (int i = 0; i < mechHeavyNames.length; i++) {
+            Mech mechHeavy = new MechHeavy("");
+            mechHeavy.setName(mechHeavyNames[i]);
+            mechArmy.add(mechHeavy);
+        }
+
+        for (int i = 0; i < mechAssaultNames.length; i++) {
+            Mech mechAssault = new MechAssault("");
+            mechAssault.setName(mechAssaultNames[i]);
+            mechArmy.add(mechAssault);
+        }
+
+        return mechArmy;
+    }
 }
