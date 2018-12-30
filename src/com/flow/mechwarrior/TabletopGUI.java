@@ -34,7 +34,7 @@ public class TabletopGUI extends JFrame {
         mechProfile.setVerticalAlignment(JLabel.TOP);
         mechProfile.setVerticalTextPosition(JLabel.TOP);
         mechProfile.setBounds(640,20,150,240);
-        MechLight mechLight = new MechLight("Johny",21,31);
+        MechLight mechLight = new MechLight("Johny");
         mechProfile.setText(String.valueOf(mechLight));
         root.add(mechProfile);
 

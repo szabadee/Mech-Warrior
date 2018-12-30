@@ -1,6 +1,8 @@
 package com.flow.mechwarrior;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Table {
     private Cell[][] matrix;
@@ -20,14 +22,18 @@ public class Table {
             for (int j = 0; j < matrix[i].length; j++) {
                 if (matrix[i][j] == null) {
                     matrix[i][j] = new Cell();
-                    // matrix[i][j].setCell("");
                 }
             }
         }
     }
 
     private void generateMechs () {
-        MechLight mechLight = new MechLight("Raven", 15, 20);
+        List<Mech> mechList = new ArrayList<>();
+        mechList.add(MechLight);
+
+
+        Mech mechLight = new MechLight("");
+        mechLight.setName();
         MechMedium mechMedium = new MechMedium("Huchback", 20, 25);
 
         for (int i = 0; i < matrix.length; i++) {
@@ -45,16 +51,15 @@ public class Table {
     }
 
     private void generateBlockage() {
-        int countBlockage = 19;
         int x;
         int y;
 
-        for (int i = 0; i < countBlockage; i++) {
-            x = (int) (Math.random() * countBlockage);
-            y = (int) (Math.random() * countBlockage);
+        for (int i = 0; i < size; i++) {
+            x = (int) (Math.random() * (size - 2) + 1);
+            y = (int) (Math.random() * size);
 
             matrix[x][y].isBlockage();
-            matrix[x][y].setCell("||");
+            matrix[x][y].setCell("<>");
         }
     }
 

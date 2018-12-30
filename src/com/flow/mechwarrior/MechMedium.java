@@ -1,12 +1,13 @@
 package com.flow.mechwarrior;
 
 public class MechMedium extends Mech implements Action {
-    private final int LASERRANGE = 2;
-    private final int STEPNUMBER = 3;
 
-    public MechMedium(String name, int armor, int hp) {
-        super(name, armor, hp);
+    private MechMedium(String name) {
+        super(name, 20, 25);
         setWeapon("Laser");
+        setWeaponRange(2);
+        setStepRange(3);
+        setMechType("Medium");
     }
 
     @Override

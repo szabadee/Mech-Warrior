@@ -5,11 +5,20 @@ import java.util.List;
 
 public class MechArmy {
 
-    public void mechsGenerator() {
+    public List<Mech> generateMechArmy () {
+        String[] mechLightNames = {"Flea", "Locust", "Commando", "Javelin", "Osiris", "Raven"};
+        String[] mechMediumtNames = {"Vulcan", "BlackJack", "Hellspawn", "Vindicator", "Crab", "Huchback"};
+        String[] mechHeavyNames = {"Dragon", "Rifleman", "Catapult", "Jagermech", "Archer", "Grasshopper"};
+        String[] mechAssaulttNames = {"Awesome", "Victor", "Zeus", "Cyclops", "Highlander", "Atlas"};
+
         List<Mech> mechArmy = new ArrayList<>();
-        Mech mechLight = new Mech("Raven", 20, 20);
-        mechArmy.add(mechLight);
-        System.out.println(mechArmy.toString());
-    }
+
+        for (int i = 0; i < mechLightNames.length; i++) {
+            Mech mechLight = new MechLight("");
+            mechLight.setName(mechLightNames[i]);
+            mechArmy.add(mechLight);
+        }
+
+        }
 
 }

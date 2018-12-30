@@ -17,10 +17,6 @@ public class Mech {
 
     public Mech(String name, int armor, int hp) {
         this.name = name;
-        this.weapon = weapon;
-        this.weaponRange = weaponRange;
-        this.stepRange = stepRange;
-        this.mechType = mechType;
         leftLeg = new int[]{armor, hp};
         rightLeg = new int[]{armor, hp};
         leftArm = new int[]{armor, hp};
@@ -85,9 +81,15 @@ public class Mech {
         return mechType;
     }
 
+
+
     // endregion
 
     // region Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setLeftLeg(int armor, int hp) {
         this.leftLeg = new int[]{armor, hp};
@@ -147,15 +149,15 @@ public class Mech {
                 name + "<br>" +
                 weapon + "<br>" +
                 weaponRange + "<br>" +
-                stepRange + "<br><br>[armor] - - [hp] - - - -<br> &nbsp;&nbsp; " +
-                leftLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftLeg[1] + "<br> &nbsp;&nbsp; " +
-                rightLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightLeg[1] + "<br> &nbsp;&nbsp; " +
-                leftArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftArm[1] + "<br> &nbsp;&nbsp; " +
-                rightArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightArm[1] + "<br> &nbsp;&nbsp; " +
-                leftShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftShoulder[1] + "<br> &nbsp;&nbsp; " +
-                rightShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightShoulder[1] + "<br> &nbsp;&nbsp; " +
-                torso[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + torso[1] + "<br> &nbsp;&nbsp; " +
-                head[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + head[1] + "<br>" +
+                stepRange + "<br><br>[armor] - - [hp] - - - - -<br> &nbsp;&nbsp;&nbsp; " +
+                leftLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftLeg[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                rightLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightLeg[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                leftArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftArm[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                rightArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightArm[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                leftShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftShoulder[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                rightShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightShoulder[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                torso[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + torso[1] + "<br> &nbsp;&nbsp;&nbsp; " +
+                head[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + head[1] + "<br>" +
                 "</html>";
     }
 }
