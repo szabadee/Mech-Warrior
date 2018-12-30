@@ -52,7 +52,7 @@ public class TabletopGUI extends JFrame {
                 button.setFont(new Font("Arial", Font.PLAIN, 9));
                 button.getInsets(new Insets(0, 0, 0, 0));
                 buttons[i][j] = button;
-                button.setActionCommand(i + " " + j);
+                // button.setActionCommand(i + " " + j);
 
             }
         }

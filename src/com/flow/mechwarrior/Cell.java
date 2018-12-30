@@ -1,9 +1,18 @@
 package com.flow.mechwarrior;
 
 public class Cell {
+    private Mech mech;
     private MechLight mechLight;
     private MechMedium mechMedium;
     private String cell;
+
+    public boolean isMech () {
+        return true;
+    }
+
+    public Mech getMech() {
+        return mech;
+    }
 
     public boolean isBlockage () {
         return true;

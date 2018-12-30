@@ -1,8 +1,6 @@
 package com.flow.mechwarrior;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Table {
     private Cell[][] matrix;
@@ -28,26 +26,53 @@ public class Table {
     }
 
     private void generateMechs () {
-        List<Mech> mechList = new ArrayList<>();
-        mechList.add(MechLight);
+        MechArmy m = new MechArmy();
+        List<Mech> mechArmy = m.generateMechArmy();
+        List<Mech> selectedMechs = new ArrayList<>();
+        int randomIndex;
+        int temp = mechArmy.size();
+        int tempCounter = 0;
+        int pairs = 2;
+        int counter = 0;
+        int randomLineup = 0;
 
-
-        Mech mechLight = new MechLight("");
-        mechLight.setName();
-        MechMedium mechMedium = new MechMedium("Huchback", 20, 25);
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                matrix[0][4].setMechLight(mechLight);
-                matrix[0][4].setCell("L");
-                matrix[0][6].setMechMedium(mechMedium);
-                matrix[0][6].setCell("M");
-                matrix[size - 1][5].setMechLight(mechLight);
-                matrix[size - 1][5].setCell("L");
-                matrix[size - 1][7].setMechMedium(mechMedium);
-                matrix[size - 1][7].setCell("M");
+        do {
+            randomIndex = (int) (Math.random() * mechArmy.size() - 1);
+            if (mechArmy.get(randomIndex) instanceof MechLight && temp != randomIndex) {
+                selectedMechs.add(mechArmy.get(randomIndex));
+                temp = randomIndex;
+                counter++;
             }
-        }
+        } while (counter != pairs);
+
+        System.out.println(selectedMechs.toString());
+        System.out.println(selectedMechs.get(1));
+        counter = 0;
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            System.out.println(matrix[0][randomLineup]);
+            if (matrix[0][randomLineup].isMech()) {
+                matrix[0][randomLineup].setMechLight((MechLight) selectedMechs.get(0));
+                matrix[0][randomLineup].setCell("L");
+                System.out.println(matrix[0][randomLineup]);
+                counter++;
+            }
+
+        } while (counter != 1);
+
+        counter = 0;
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[matrix.length - 1][randomLineup].isMech()) {
+                matrix[matrix.length - 1][randomLineup].setMechLight((MechLight) selectedMechs.get(1));
+                matrix[matrix.length - 1][randomLineup].setCell("L");
+                System.out.println(matrix[matrix.length - 1][randomLineup]);
+                counter++;
+            }
+
+        } while (counter != 1);
     }
 
     private void generateBlockage() {

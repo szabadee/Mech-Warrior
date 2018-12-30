@@ -15,28 +15,20 @@ public class MechArmy {
 
         for (int i = 0; i < mechLightNames.length; i++) {
             Mech mechLight = new MechLight("");
-            mechLight.setName(mechLightNames[i]);
-            mechArmy.add(mechLight);
-        }
-
-        for (int i = 0; i < mechMediumNames.length; i++) {
             Mech mechMedium = new MechMedium("");
-            mechMedium.setName(mechMediumNames[i]);
-            mechArmy.add(mechMedium);
-        }
-
-        for (int i = 0; i < mechHeavyNames.length; i++) {
             Mech mechHeavy = new MechHeavy("");
-            mechHeavy.setName(mechHeavyNames[i]);
-            mechArmy.add(mechHeavy);
-        }
-
-        for (int i = 0; i < mechAssaultNames.length; i++) {
             Mech mechAssault = new MechAssault("");
+            mechLight.setName(mechLightNames[i]);
+            mechMedium.setName(mechMediumNames[i]);
+            mechHeavy.setName(mechHeavyNames[i]);
             mechAssault.setName(mechAssaultNames[i]);
+            mechArmy.add(mechLight);
+            mechArmy.add(mechMedium);
+            mechArmy.add(mechHeavy);
             mechArmy.add(mechAssault);
         }
 
         return mechArmy;
     }
+
 }
