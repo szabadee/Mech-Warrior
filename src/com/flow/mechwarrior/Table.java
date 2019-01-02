@@ -30,10 +30,13 @@ public class Table {
         List<Mech> selectedMechs = new ArrayList<>();
         int randomIndex;
         int temp = mechArmy.size();
-        int tempCounter = 0;
+        int[] randomIndexes = new int[12];
         int pairs = 2;
         int counter = 0;
+        int index = 0;
         int randomLineup = 0;
+
+        // Standing up 1-1 MechLights for both player
 
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
@@ -41,11 +44,11 @@ public class Table {
                 selectedMechs.add(mechArmy.get(randomIndex));
                 temp = randomIndex;
                 counter++;
+                randomIndexes[index] += randomIndex;
+                index++;
             }
         } while (counter != pairs);
 
-        System.out.println(selectedMechs.toString());
-        // System.out.println(selectedMechs.get(1));
         counter = 0;
 
         do {
@@ -53,28 +56,180 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(selectedMechs.get(0));
                 matrix[0][randomLineup].setStandingOnIt(true);
-                //matrix[0][randomLineup].setCell("L");
-                System.out.println(matrix[0][randomLineup]);
-                counter++;
             }
 
-        } while (counter != 1);
-
-        counter = 0;
+        } while (matrix[0][randomLineup].getStandingOnIt() != true);
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(1));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
-                //matrix[matrix.length - 1][randomLineup].setCell("L");
-                System.out.println(matrix[matrix.length - 1][randomLineup]);
-                counter++;
             }
 
-        } while (counter != 1);
+        } while (matrix[matrix.length - 1][randomLineup].getStandingOnIt() != true);
 
 
+        // Standing up 1-1 MechMediums for both player
+
+        do {
+            randomIndex = (int) (Math.random() * mechArmy.size() - 1);
+            if (mechArmy.get(randomIndex) instanceof MechMedium && temp != randomIndex) {
+                selectedMechs.add(mechArmy.get(randomIndex));
+                temp = randomIndex;
+                counter++;
+                randomIndexes[index] += randomIndex;
+                index++;
+            }
+        } while (counter != pairs);
+
+        counter = 0;
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[0][randomLineup].getStandingOnIt() == false) {
+                matrix[0][randomLineup].setMech(selectedMechs.get(2));
+                matrix[0][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[0][randomLineup].getStandingOnIt() != true);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
+                matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(3));
+                matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[matrix.length - 1][randomLineup].getStandingOnIt() != true);
+
+
+        // Standing up 1-1 MechHeavys for both player
+
+        do {
+            randomIndex = (int) (Math.random() * mechArmy.size() - 1);
+            if (mechArmy.get(randomIndex) instanceof MechHeavy && temp != randomIndex) {
+                selectedMechs.add(mechArmy.get(randomIndex));
+                temp = randomIndex;
+                counter++;
+                randomIndexes[index] += randomIndex;
+                index++;
+            }
+
+        } while (counter != pairs);
+
+        counter = 0;
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[0][randomLineup].getStandingOnIt() == false) {
+                matrix[0][randomLineup].setMech(selectedMechs.get(4));
+                matrix[0][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[0][randomLineup].getStandingOnIt() != true);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
+                matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(5));
+                matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[matrix.length - 1][randomLineup].getStandingOnIt() != true);
+
+
+        // Standing up 1-1 MechAssaults for both player
+
+        do {
+            randomIndex = (int) (Math.random() * mechArmy.size() - 1);
+            if (mechArmy.get(randomIndex) instanceof MechAssault && temp != randomIndex) {
+                selectedMechs.add(mechArmy.get(randomIndex));
+                temp = randomIndex;
+                counter++;
+                randomIndexes[index] += randomIndex;
+                index++;
+            }
+        } while (counter != pairs);
+
+        counter = 0;
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[0][randomLineup].getStandingOnIt() == false) {
+                matrix[0][randomLineup].setMech(selectedMechs.get(6));
+                matrix[0][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[0][randomLineup].getStandingOnIt() != true);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
+                matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(7));
+                matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[matrix.length - 1][randomLineup].getStandingOnIt() != true);
+
+        System.out.println(selectedMechs.toString());
+        System.out.println(index);
+        System.out.println(Arrays.toString(randomIndexes));
+
+
+        // Standing up 2-2 random Mechs for both player
+
+        do {
+            randomIndex = (int) (Math.random() * mechArmy.size() - 1);
+            if (mechArmy.get(randomIndex) instanceof MechAssault && temp != randomIndex) {
+                selectedMechs.add(mechArmy.get(randomIndex));
+                temp = randomIndex;
+                counter++;
+                randomIndexes[index] += randomIndex;
+                index++;
+            }
+
+        } while (counter != pairs);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[0][randomLineup].getStandingOnIt() == false) {
+                matrix[0][randomLineup].setMech(selectedMechs.get(8));
+                matrix[0][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[0][randomLineup].getStandingOnIt() != true);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
+                matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(9));
+                matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[matrix.length - 1][randomLineup].getStandingOnIt() != true);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[0][randomLineup].getStandingOnIt() == false) {
+                matrix[0][randomLineup].setMech(selectedMechs.get(10));
+                matrix[0][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[0][randomLineup].getStandingOnIt() != true);
+
+        do {
+            randomLineup = (int) (Math.random() * matrix.length - 1);
+            if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
+                matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(11));
+                matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+            }
+
+        } while (matrix[matrix.length - 1][randomLineup].getStandingOnIt() != true);
+
+
+        System.out.println(selectedMechs.toString());
+        System.out.println(Arrays.toString(randomIndexes));
     }
 
     private void generateBlockage() {

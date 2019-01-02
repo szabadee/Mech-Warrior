@@ -63,7 +63,19 @@ public class TabletopGUI extends JFrame {
     public void drawBattlefield () {
         for (int i = 0; i < buttons.length; i++) {
             for ( int j = 0; j < buttons.length; j++) {
-                buttons[i][j].setText(battlefield.getCell(i, j).toString());
+                if (battlefield.getCell(i, j).getStandingOnIt() == true) {
+                    if (battlefield.getCell(i, j).getMech() instanceof MechLight) {
+                        buttons[i][j].setText("L");
+                    } else if (battlefield.getCell(i, j).getMech() instanceof MechMedium) {
+                        buttons[i][j].setText("M");
+                    } else if (battlefield.getCell(i, j).getMech() instanceof MechHeavy) {
+                        buttons[i][j].setText("H");
+                    } else if (battlefield.getCell(i, j).getMech() instanceof MechAssault) {
+                        buttons[i][j].setText("A");
+                    }
+                } else {
+                    buttons[i][j].setText(battlefield.getCell(i, j).toString());
+                }
             }
         }
     }

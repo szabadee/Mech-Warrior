@@ -27,15 +27,7 @@ public class Cell {
     @Override
     public String toString () {
         if (standingOnIt) {
-            if (getMech() instanceof MechLight) {
-                return "L";
-            } else if (getMech() instanceof MechMedium) {
-                return "M";
-            } else if (getMech() instanceof MechHeavy) {
-                return "H";
-            } else if (getMech() instanceof MechAssault) {
-                return "A";
-            }
+            return "";
         } else if (isBlockage()) {
             return "<>";
         }
