@@ -81,8 +81,6 @@ public class Mech {
         return mechType;
     }
 
-
-
     // endregion
 
     // region Setters

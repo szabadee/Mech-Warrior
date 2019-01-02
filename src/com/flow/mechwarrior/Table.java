@@ -13,14 +13,13 @@ public class Table {
         fillTable();
         generateMechs();
         generateBlockage();
+
     }
 
     private void fillTable () {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] == null) {
-                    matrix[i][j] = new Cell();
-                }
+                matrix[i][j] = new Cell();
             }
         }
     }
@@ -46,15 +45,15 @@ public class Table {
         } while (counter != pairs);
 
         System.out.println(selectedMechs.toString());
-        System.out.println(selectedMechs.get(1));
+        // System.out.println(selectedMechs.get(1));
         counter = 0;
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(matrix[0][randomLineup]);
-            if (matrix[0][randomLineup].isMech()) {
-                matrix[0][randomLineup].setMechLight((MechLight) selectedMechs.get(0));
-                matrix[0][randomLineup].setCell("L");
+            if (matrix[0][randomLineup].getStandingOnIt() == false) {
+                matrix[0][randomLineup].setMech(selectedMechs.get(0));
+                matrix[0][randomLineup].setStandingOnIt(true);
+                //matrix[0][randomLineup].setCell("L");
                 System.out.println(matrix[0][randomLineup]);
                 counter++;
             }
@@ -65,14 +64,17 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            if (matrix[matrix.length - 1][randomLineup].isMech()) {
-                matrix[matrix.length - 1][randomLineup].setMechLight((MechLight) selectedMechs.get(1));
-                matrix[matrix.length - 1][randomLineup].setCell("L");
+            if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
+                matrix[matrix.length - 1][randomLineup].setMech(selectedMechs.get(1));
+                matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                //matrix[matrix.length - 1][randomLineup].setCell("L");
                 System.out.println(matrix[matrix.length - 1][randomLineup]);
                 counter++;
             }
 
         } while (counter != 1);
+
+
     }
 
     private void generateBlockage() {
@@ -83,8 +85,7 @@ public class Table {
             x = (int) (Math.random() * (size - 2) + 1);
             y = (int) (Math.random() * size);
 
-            matrix[x][y].isBlockage();
-            matrix[x][y].setCell("<>");
+            matrix[x][y] = new Blockage();
         }
     }
 
