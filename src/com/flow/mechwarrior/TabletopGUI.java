@@ -52,8 +52,20 @@ public class TabletopGUI extends JFrame {
                 button.setFont(new Font("Arial", Font.PLAIN, 9));
                 button.getInsets(new Insets(0, 0, 0, 0));
                 buttons[i][j] = button;
-                // button.setActionCommand(i + " " + j);
 
+                button.setActionCommand(i + " " + j);
+
+                button.addActionListener(e -> {
+                    String event = e.getActionCommand();
+                    String[] array = event.split(" ");
+                    int a = Integer.parseInt(array[0]);
+                    int b = Integer.parseInt(array[1]);
+                    if (battlefield.getCell(a, b).getStandingOnIt()) {
+                        mechProfile.setText(String.valueOf(battlefield.getCell(a, b).getMech()));
+                    } else {
+                        mechProfile.setText("");
+                    }
+                });
             }
         }
 
