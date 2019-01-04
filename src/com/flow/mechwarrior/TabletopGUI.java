@@ -1,6 +1,7 @@
 package com.flow.mechwarrior;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class TabletopGUI extends JFrame {
@@ -34,8 +35,7 @@ public class TabletopGUI extends JFrame {
         mechProfile.setVerticalAlignment(JLabel.TOP);
         mechProfile.setVerticalTextPosition(JLabel.TOP);
         mechProfile.setBounds(640,20,150,240);
-        MechLight mechLight = new MechLight("Johny");
-        mechProfile.setText(String.valueOf(mechLight));
+        mechProfile.setText("");
         root.add(mechProfile);
 
         final int size = 20;
@@ -46,11 +46,10 @@ public class TabletopGUI extends JFrame {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 JButton button = new JButton();
-
                 button.setBounds(20 + i * 25,20 + j * 25, 20,20);
-                root.add(button);
                 button.setFont(new Font("Arial", Font.PLAIN, 9));
                 button.getInsets(new Insets(0, 0, 0, 0));
+                root.add(button);
                 buttons[i][j] = button;
 
                 button.setActionCommand(i + " " + j);
