@@ -2,13 +2,11 @@ package com.flow.mechwarrior;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class TabletopGUI extends JFrame {
     private Table battlefield;
     private JButton[][] buttons;
-    private final int size = 20;
-    private Cell[][] actualMatrix = new Cell[size][size];
+    private Cell[][] actualPositions;
 
 
     public TabletopGUI () {
@@ -38,9 +36,12 @@ public class TabletopGUI extends JFrame {
         mechProfile.setText("");
         root.add(mechProfile);
 
+
+        final int size = 20;
         battlefield = new Table(size);
         buttons = new JButton[size][size];
-        redrawTable();
+        actualPositions = new Cell[size][size];
+        drawNewTableForPositions();
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -59,13 +60,20 @@ public class TabletopGUI extends JFrame {
                     String[] array = event.split(" ");
                     int x = Integer.parseInt(array[0]);
                     int y = Integer.parseInt(array[1]);
-                    if (actualMatrix[x][y].getStandingOnIt() == true) {
-                        mechProfile.setText(String.valueOf(actualMatrix[x][y].getMech()));
-                        actualMatrix[x][y].setSelected(true);
-                        System.out.println(actualMatrix[x][y].getSelected());
+                    if (!actualPositions[x][y].getStandingOnIt()) {
+                        actualPositions[x][y].setSelected(false);
+                    }
+                    if (actualPositions[x][y].getStandingOnIt()) {
+                        mechProfile.setText(String.valueOf(actualPositions[x][y].getMech()));
+                        actualPositions[x][y].setSelected(true);
+                        if (actualPositions[x][y].getSelected()) {
+                            buttons[x][y].setForeground(Color.RED);
+                        }
+                        System.out.println(actualPositions[x][y].getSelected());
                     } else {
                         mechProfile.setText("");
                     }
+                    System.out.println(actualPositions[x][y].getSelected());
                 });
             }
         }
@@ -82,15 +90,19 @@ public class TabletopGUI extends JFrame {
             System.out.println("hi");
             for (int i = 0; i < buttons.length; i++) {
                 for (int j = 0; j < buttons.length; j++) {
-                   if (actualMatrix[i][j].getSelected() == true) {
-                       actualMatrix[i][j - 1].setMech(actualMatrix[i][j].getMech());
-                       actualMatrix[i][j - 1].setStandingOnIt(true);
-                       System.out.println(actualMatrix[i][j - 1].getMech());
+                   if (actualPositions[i][j].getSelected()) {
+                       actualPositions[i][j - 1].setMech(actualPositions[i][j].getMech());
+                       actualPositions[i][j - 1].setStandingOnIt(true);
+                       buttons[i][j - 1].setForeground(Color.RED);
+                       actualPositions[i][j].setStandingOnIt(false);
+                       actualPositions[i][j - 1].setSelected(true);
+                       actualPositions[i][j].setSelected(false);
+                       System.out.println(actualPositions[i][j - 1].getMech());
+                       System.out.println(actualPositions[i][j].getStandingOnIt());
                    }
                 }
             }
             System.out.println("redrawing...");
-            //redrawTable();
             drawBattlefield();
 
         });
@@ -102,46 +114,50 @@ public class TabletopGUI extends JFrame {
         root.add(right);
 
         JButton down = new JButton("DOWN");
-        down.setBounds(570,295, 70,35);
+        down.setBounds(620,340, 70,35);
         down.setFont(new Font("Arial", Font.PLAIN, 10));
         down.getInsets(new Insets(0, 0, 0, 0));
         root.add(down);
 
         JButton left = new JButton("LEFT");
-        left.setBounds(620,340, 70,35);
+        left.setBounds(570,295, 70,35);
         left.setFont(new Font("Arial", Font.PLAIN, 10));
         left.getInsets(new Insets(0, 0, 0, 0));
         root.add(left);
 
     }
 
-    public void redrawTable () {
+    public void drawNewTableForPositions () {
         for (int i = 0; i < buttons.length; i++)
             for (int j = 0; j < buttons.length; j++) {
-                actualMatrix[i][j] = battlefield.getCell(i, j);
-                //System.out.println(actualMatrix[i][j].toString());
+                actualPositions[i][j] = battlefield.getCell(i, j);
+                //System.out.println(actualPositions[i][j].toString());
             }
     }
 
+    public void selectedColoring () {
+
+    }
+
     public Cell getCellActual (int i, int j) {
-        return actualMatrix[i][j];
+        return actualPositions[i][j];
     }
 
     public void drawBattlefield () {
         for (int i = 0; i < buttons.length; i++) {
             for ( int j = 0; j < buttons.length; j++) {
-                if (actualMatrix[i][j].getStandingOnIt() == true) {
-                    if (actualMatrix[i][j].getMech() instanceof MechLight) {
+                if (actualPositions[i][j].getStandingOnIt()) {
+                    if (actualPositions[i][j].getMech() instanceof MechLight) {
                         buttons[i][j].setText("L");
-                    } else if (actualMatrix[i][j].getMech() instanceof MechMedium) {
+                    } else if (actualPositions[i][j].getMech() instanceof MechMedium) {
                         buttons[i][j].setText("M");
-                    } else if (actualMatrix[i][j].getMech() instanceof MechHeavy) {
+                    } else if (actualPositions[i][j].getMech() instanceof MechHeavy) {
                         buttons[i][j].setText("H");
-                    } else if (actualMatrix[i][j].getMech() instanceof MechAssault) {
+                    } else if (actualPositions[i][j].getMech() instanceof MechAssault) {
                         buttons[i][j].setText("A");
                     }
                 } else {
-                    buttons[i][j].setText(actualMatrix[i][j].toString());
+                    buttons[i][j].setText(actualPositions[i][j].toString());
                 }
             }
         }
