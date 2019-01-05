@@ -4,6 +4,7 @@ public class Cell {
     private Mech mech;
     private boolean standingOnIt;
 
+
     public void setStandingOnIt (boolean standingOnIt) {
         this.standingOnIt = standingOnIt;
     }
@@ -27,7 +28,15 @@ public class Cell {
     @Override
     public String toString () {
         if (standingOnIt) {
-            return "";
+            if (getMech() instanceof MechLight) {
+                return getMech().toString();
+            } else if (getMech() instanceof MechMedium) {
+                return getMech().toString();
+            } else if (getMech() instanceof MechHeavy) {
+                return (getMech().toString());
+            } else if (getMech() instanceof MechAssault) {
+                return (getMech().toString());
+            }
         } else if (isBlockage()) {
             return "<>";
         }

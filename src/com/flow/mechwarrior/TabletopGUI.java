@@ -1,15 +1,13 @@
 package com.flow.mechwarrior;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class TabletopGUI extends JFrame {
     private Table battlefield;
     private JButton[][] buttons;
-    private JLabel mechProfile;
-    private JLabel mechProfileTags;
     private JLabel gameRules;
+
 
     public TabletopGUI () {
         setTitle("Mech Warrior tabletop mini");
@@ -21,7 +19,7 @@ public class TabletopGUI extends JFrame {
         root.setLayout(null);
         add(root);
 
-        mechProfileTags = new JLabel();
+        JLabel mechProfileTags = new JLabel();
         mechProfileTags.setVerticalAlignment(JLabel.TOP);
         mechProfileTags.setVerticalTextPosition(JLabel.TOP);
         mechProfileTags.setBounds(540,20,90, 240);
@@ -31,7 +29,7 @@ public class TabletopGUI extends JFrame {
                 "Left shoulder:<br>Right shoulder:<br>Torso:<br>Head:</html>");
         root.add(mechProfileTags);
 
-        mechProfile = new JLabel();
+        JLabel mechProfile = new JLabel();
         mechProfile.setVerticalAlignment(JLabel.TOP);
         mechProfile.setVerticalTextPosition(JLabel.TOP);
         mechProfile.setBounds(640,20,150,240);
@@ -69,6 +67,32 @@ public class TabletopGUI extends JFrame {
         }
 
         drawBattlefield();
+
+        JButton up = new JButton("UP");
+        up.setBounds(620,250, 70,35);
+        up.setFont(new Font("Arial", Font.PLAIN, 10));
+        up.getInsets(new Insets(0, 0, 0, 0));
+        up.addActionListener(e -> {});
+        root.add(up);
+
+        JButton right = new JButton("RIGHT");
+        right.setBounds(670,295, 70,35);
+        right.setFont(new Font("Arial", Font.PLAIN, 10));
+        right.getInsets(new Insets(0, 0, 0, 0));
+        root.add(right);
+
+        JButton down = new JButton("DOWN");
+        down.setBounds(570,295, 70,35);
+        down.setFont(new Font("Arial", Font.PLAIN, 10));
+        down.getInsets(new Insets(0, 0, 0, 0));
+        root.add(down);
+
+        JButton left = new JButton("LEFT");
+        left.setBounds(620,340, 70,35);
+        left.setFont(new Font("Arial", Font.PLAIN, 10));
+        left.getInsets(new Insets(0, 0, 0, 0));
+        root.add(left);
+
     }
 
     public void drawBattlefield () {

@@ -4,16 +4,27 @@ import java.util.*;
 
 public class Table {
     private Cell[][] matrix;
+    private Cell[][] actualMatrix;
     private int size;
 
     public Table (int size) {
         this.size = size;
 
         matrix = new Cell[size][size];
+        actualMatrix = new Cell[size][size];
         fillTable();
         generateMechs();
         generateBlockage();
+        redrawTable();
+    }
 
+    public void redrawTable () {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                actualMatrix[i][j] = matrix[i][j];
+                System.out.println((getCellActual(i, j)));
+            }
+        }
     }
 
     private void fillTable () {
@@ -27,23 +38,21 @@ public class Table {
     private void generateMechs () {
         MechArmy m = new MechArmy();
         List<Mech> mechArmy = m.generateMechArmy();
-        List<Mech> selectedMechs = new ArrayList<>();
         PlayerOne playerOne = new PlayerOne();
         PlayerTwo playerTwo = new PlayerTwo();
         int randomIndex;
-        int randomIndex2;
+        int ascendingIndex = 0;
         int hasBeenIndex = mechArmy.size();
         List <Integer> randomIndexes = new ArrayList<>();
         int pairs = 2;
         int counter = 0;
-        int randomLineup = 0;
+        int randomLineup;
 
         // Standing up 1-1 MechLights for both player
 
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechLight && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerOne.mechsOfPlayerOne.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -57,7 +66,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechLight && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerTwo.mechsOfPlayerTwo.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -68,14 +76,10 @@ public class Table {
 
         counter = 0;
 
-        System.out.println("Cool");
-
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[0][randomLineup].getStandingOnIt());
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
-                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(0));
+                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
                 counter++;
             }
@@ -86,16 +90,15 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[matrix.length - 1][randomLineup].getStandingOnIt());
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
-                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(0));
+                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
                 counter++;
             }
 
         } while (counter != 1);
 
+        ascendingIndex++;
         counter = 0;
 
 
@@ -104,7 +107,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechMedium && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerOne.mechsOfPlayerOne.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -118,7 +120,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechMedium && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerTwo.mechsOfPlayerTwo.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -129,14 +130,10 @@ public class Table {
 
         counter = 0;
 
-        System.out.println("Cool2");
-
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[0][randomLineup].getStandingOnIt());
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
-                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(1));
+                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
                 counter++;
             }
@@ -147,16 +144,15 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[matrix.length - 1][randomLineup].getStandingOnIt());
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
-                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(1));
+                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
                 counter++;
             }
 
         } while (counter != 1);
 
+        ascendingIndex++;
         counter = 0;
 
 
@@ -165,7 +161,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechHeavy && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerOne.mechsOfPlayerOne.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -179,7 +174,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechHeavy && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerTwo.mechsOfPlayerTwo.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -190,14 +184,10 @@ public class Table {
 
         counter = 0;
 
-        System.out.println("Cool3");
-
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            // System.out.println(playerOne.mechsOfPlayerOne);
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
-                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(2));
+                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
                 counter++;
             }
@@ -208,16 +198,15 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[matrix.length - 1][randomLineup].getStandingOnIt());
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
-                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(2));
+                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
                 counter++;
             }
 
         } while (counter != 1);
 
+        ascendingIndex++;
         counter = 0;
 
 
@@ -226,7 +215,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechAssault && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerOne.mechsOfPlayerOne.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -240,7 +228,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (mechArmy.get(randomIndex) instanceof MechAssault && hasBeenIndex != randomIndex) {
-                selectedMechs.add(mechArmy.get(randomIndex));
                 playerTwo.mechsOfPlayerTwo.add(mechArmy.get(randomIndex));
                 hasBeenIndex = randomIndex;
                 counter++;
@@ -253,10 +240,8 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[0][randomLineup].getStandingOnIt());
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
-                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(3));
+                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
                 counter++;
             }
@@ -267,23 +252,16 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[matrix.length - 1][randomLineup].getStandingOnIt());
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
-                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(3));
+                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
                 counter++;
             }
 
         } while (counter != 1);
 
+        ascendingIndex++;
         counter = 0;
-
-        System.out.println("Cool4");
-
-        // System.out.println(selectedMechs.toString());
-        // System.out.println(index);
-        // System.out.println(randomIndexes);
 
 
         // Standing up 2-2 random Mechs for both player
@@ -291,7 +269,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (!randomIndexes.contains(randomIndex)) {
-                System.out.println(randomIndex);
                 playerOne.mechsOfPlayerOne.add(mechArmy.get(randomIndex));
                 counter++;
                 randomIndexes.add(randomIndex);
@@ -304,7 +281,6 @@ public class Table {
         do {
             randomIndex = (int) (Math.random() * mechArmy.size() - 1);
             if (!randomIndexes.contains(randomIndex)) {
-                System.out.println(randomIndex);
                 playerTwo.mechsOfPlayerTwo.add(mechArmy.get(randomIndex));
                 counter++;
                 randomIndexes.add(randomIndex);
@@ -316,10 +292,8 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[0][randomLineup].getStandingOnIt());
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
-                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(4));
+                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
                 counter++;
             }
@@ -330,24 +304,21 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[matrix.length - 1][randomLineup].getStandingOnIt());
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
-                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(4));
+                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
                 counter++;
             }
 
         } while (counter != 1);
 
+        ascendingIndex++;
         counter = 0;
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[0][randomLineup].getStandingOnIt());
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
-                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(5));
+                matrix[0][randomLineup].setMech(playerOne.mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
                 counter++;
             }
@@ -358,18 +329,14 @@ public class Table {
 
         do {
             randomLineup = (int) (Math.random() * matrix.length - 1);
-            System.out.println(randomLineup);
-            System.out.println(matrix[matrix.length - 1][randomLineup].getStandingOnIt());
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
-                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(5));
+                matrix[matrix.length - 1][randomLineup].setMech(playerTwo.mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
                 counter++;
             }
 
         } while (counter != 1);
 
-
-        // System.out.println(selectedMechs.toString());
         System.out.println(randomIndexes);
     }
 
@@ -387,6 +354,10 @@ public class Table {
 
     public Cell getCell (int i, int j) {
         return matrix[i][j];
+    }
+
+    public Cell getCellActual (int i, int j) {
+        return actualMatrix[i][j];
     }
 
     @Override

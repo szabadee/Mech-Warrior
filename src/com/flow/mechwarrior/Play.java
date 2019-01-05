@@ -8,5 +8,6 @@ public class Play {
             TabletopGUI tabletopGUI = new TabletopGUI();
             tabletopGUI.setVisible(true);
         });
+
     }
 }
