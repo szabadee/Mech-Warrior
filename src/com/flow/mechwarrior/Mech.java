@@ -1,6 +1,8 @@
 package com.flow.mechwarrior;
 
-public class Mech {
+import java.util.Arrays;
+
+public class Mech implements Action {
     private String mechType;
     private String name;
     private String weapon;
@@ -25,6 +27,22 @@ public class Mech {
         rightShoulder = new int[]{armor, hp};
         torso = new int[]{armor, hp};
         head = new int[]{armor, hp};
+    }
+
+    @Override
+    public void step(int i, int j) {
+
+
+    }
+
+    @Override
+    public void attack(Cell matrix, Mech mech) {
+
+    }
+
+    @Override
+    public int[] damage(int damage, int[] partOfBody) {
+        return new int[0];
     }
 
     // region Getters
@@ -139,7 +157,6 @@ public class Mech {
 
     // endregion
 
-
     @Override
     public String toString() {
         return "<html><font style=\"font-family: 'Arial'; font-size: 12pt;\">" +
@@ -158,4 +175,5 @@ public class Mech {
                 head[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + head[1] + "<br>" +
                 "</html>";
     }
+
 }

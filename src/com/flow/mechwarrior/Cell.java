@@ -2,15 +2,20 @@ package com.flow.mechwarrior;
 
 public class Cell {
     private Mech mech;
-    private boolean standingOnIt;
+    private boolean isStandingOnIt;
+    private boolean isSelected;
 
 
-    public void setStandingOnIt (boolean standingOnIt) {
-        this.standingOnIt = standingOnIt;
+    public void setStandingOnIt (boolean isStandingOnIt) {
+        this.isStandingOnIt = isStandingOnIt;
     }
 
     public void setMech (Mech mech) {
         this.mech = mech;
+    }
+
+    public void setSelected (boolean selected) {
+        isSelected = selected;
     }
 
     public Mech getMech () {
@@ -18,7 +23,11 @@ public class Cell {
     }
 
     public boolean getStandingOnIt () {
-        return standingOnIt;
+        return isStandingOnIt;
+    }
+
+    public boolean getSelected () {
+        return isSelected;
     }
 
     public boolean isBlockage () {
@@ -27,7 +36,7 @@ public class Cell {
 
     @Override
     public String toString () {
-        if (standingOnIt) {
+        if (isStandingOnIt) {
             if (getMech() instanceof MechLight) {
                 return getMech().toString();
             } else if (getMech() instanceof MechMedium) {

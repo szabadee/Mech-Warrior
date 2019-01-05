@@ -4,27 +4,15 @@ import java.util.*;
 
 public class Table {
     private Cell[][] matrix;
-    private Cell[][] actualMatrix;
     private int size;
 
     public Table (int size) {
         this.size = size;
 
         matrix = new Cell[size][size];
-        actualMatrix = new Cell[size][size];
         fillTable();
         generateMechs();
         generateBlockage();
-        redrawTable();
-    }
-
-    public void redrawTable () {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                actualMatrix[i][j] = matrix[i][j];
-                System.out.println((getCellActual(i, j)));
-            }
-        }
     }
 
     private void fillTable () {
@@ -354,10 +342,6 @@ public class Table {
 
     public Cell getCell (int i, int j) {
         return matrix[i][j];
-    }
-
-    public Cell getCellActual (int i, int j) {
-        return actualMatrix[i][j];
     }
 
     @Override

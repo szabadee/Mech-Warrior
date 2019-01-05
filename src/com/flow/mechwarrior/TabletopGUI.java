@@ -2,11 +2,13 @@ package com.flow.mechwarrior;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class TabletopGUI extends JFrame {
     private Table battlefield;
     private JButton[][] buttons;
-    private JLabel gameRules;
+    private final int size = 20;
+    private Cell[][] actualMatrix = new Cell[size][size];
 
 
     public TabletopGUI () {
@@ -36,10 +38,9 @@ public class TabletopGUI extends JFrame {
         mechProfile.setText("");
         root.add(mechProfile);
 
-        final int size = 20;
         battlefield = new Table(size);
         buttons = new JButton[size][size];
-
+        redrawTable();
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -54,11 +55,14 @@ public class TabletopGUI extends JFrame {
 
                 button.addActionListener(e -> {
                     String event = e.getActionCommand();
+                    System.out.println(event);
                     String[] array = event.split(" ");
-                    int a = Integer.parseInt(array[0]);
-                    int b = Integer.parseInt(array[1]);
-                    if (battlefield.getCell(a, b).getStandingOnIt()) {
-                        mechProfile.setText(String.valueOf(battlefield.getCell(a, b).getMech()));
+                    int x = Integer.parseInt(array[0]);
+                    int y = Integer.parseInt(array[1]);
+                    if (actualMatrix[x][y].getStandingOnIt() == true) {
+                        mechProfile.setText(String.valueOf(actualMatrix[x][y].getMech()));
+                        actualMatrix[x][y].setSelected(true);
+                        System.out.println(actualMatrix[x][y].getSelected());
                     } else {
                         mechProfile.setText("");
                     }
@@ -68,12 +72,28 @@ public class TabletopGUI extends JFrame {
 
         drawBattlefield();
 
+
         JButton up = new JButton("UP");
         up.setBounds(620,250, 70,35);
         up.setFont(new Font("Arial", Font.PLAIN, 10));
         up.getInsets(new Insets(0, 0, 0, 0));
-        up.addActionListener(e -> {});
         root.add(up);
+        up.addActionListener(e -> {
+            System.out.println("hi");
+            for (int i = 0; i < buttons.length; i++) {
+                for (int j = 0; j < buttons.length; j++) {
+                   if (actualMatrix[i][j].getSelected() == true) {
+                       actualMatrix[i][j - 1].setMech(actualMatrix[i][j].getMech());
+                       actualMatrix[i][j - 1].setStandingOnIt(true);
+                       System.out.println(actualMatrix[i][j - 1].getMech());
+                   }
+                }
+            }
+            System.out.println("redrawing...");
+            //redrawTable();
+            drawBattlefield();
+
+        });
 
         JButton right = new JButton("RIGHT");
         right.setBounds(670,295, 70,35);
@@ -95,21 +115,33 @@ public class TabletopGUI extends JFrame {
 
     }
 
+    public void redrawTable () {
+        for (int i = 0; i < buttons.length; i++)
+            for (int j = 0; j < buttons.length; j++) {
+                actualMatrix[i][j] = battlefield.getCell(i, j);
+                //System.out.println(actualMatrix[i][j].toString());
+            }
+    }
+
+    public Cell getCellActual (int i, int j) {
+        return actualMatrix[i][j];
+    }
+
     public void drawBattlefield () {
         for (int i = 0; i < buttons.length; i++) {
             for ( int j = 0; j < buttons.length; j++) {
-                if (battlefield.getCell(i, j).getStandingOnIt() == true) {
-                    if (battlefield.getCell(i, j).getMech() instanceof MechLight) {
+                if (actualMatrix[i][j].getStandingOnIt() == true) {
+                    if (actualMatrix[i][j].getMech() instanceof MechLight) {
                         buttons[i][j].setText("L");
-                    } else if (battlefield.getCell(i, j).getMech() instanceof MechMedium) {
+                    } else if (actualMatrix[i][j].getMech() instanceof MechMedium) {
                         buttons[i][j].setText("M");
-                    } else if (battlefield.getCell(i, j).getMech() instanceof MechHeavy) {
+                    } else if (actualMatrix[i][j].getMech() instanceof MechHeavy) {
                         buttons[i][j].setText("H");
-                    } else if (battlefield.getCell(i, j).getMech() instanceof MechAssault) {
+                    } else if (actualMatrix[i][j].getMech() instanceof MechAssault) {
                         buttons[i][j].setText("A");
                     }
                 } else {
-                    buttons[i][j].setText(battlefield.getCell(i, j).toString());
+                    buttons[i][j].setText(actualMatrix[i][j].toString());
                 }
             }
         }
