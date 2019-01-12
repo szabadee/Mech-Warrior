@@ -26,6 +26,11 @@ public class MechHeavy extends Mech {
     }
 
     @Override
+    public boolean canMoveOutOfAxis() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return super.toString();
     }

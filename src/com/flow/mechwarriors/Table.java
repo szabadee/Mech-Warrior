@@ -5,17 +5,19 @@ import com.flow.mechwarriors.items.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StartTable {
+public class Table {
     public static CellItem[][] matrix;
-    public static int size;
+    private int size;
+    public static Player playerOne;
+    public static Player playerTwo;
 
-    public StartTable(int size) {
+    public Table(int size) {
         this.size = size;
 
         matrix = new CellItem[size][size];
         fillTable();
         generateMechs();
-        generateBlockage();
+        generateBarrier();
     }
 
     private void fillTable () {
@@ -31,8 +33,8 @@ public class StartTable {
         List<Mech> mechArmy = m.generateMechArmy();
         List<Mech> mechsOfPlayerOne = new ArrayList<>();
         List<Mech> mechsOfPlayerTwo = new ArrayList<>();
-        Player playerOne = new Player("Chuck", mechsOfPlayerOne);
-        Player playerTwo = new Player("Norris", mechsOfPlayerTwo);
+        playerOne = new Player("Chuck", mechsOfPlayerOne);
+        playerTwo = new Player("Norris", mechsOfPlayerTwo);
         int randomIndex;
         int ascendingIndex = 0;
         int hasBeenIndex = mechArmy.size();
@@ -333,7 +335,7 @@ public class StartTable {
         System.out.println(randomIndexes);
     }
 
-    private void generateBlockage() {
+    private void generateBarrier() {
         int x;
         int y;
 

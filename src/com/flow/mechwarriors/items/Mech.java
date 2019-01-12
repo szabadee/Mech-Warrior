@@ -27,22 +27,7 @@ public abstract class Mech implements Action {
         torso = new int[]{armor, hp};
         head = new int[]{armor, hp};
     }
-
-    @Override
-    public boolean isMovable() {
-        return false;
-    }
-
-    @Override
-    public int maxStep() {
-        return 0;
-    }
-
-    @Override
-    public int maxAttack() {
-        return 0;
-    }
-
+    
     // region Getters
 
     public int[] getLeftLeg() {

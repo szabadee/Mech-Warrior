@@ -21,6 +21,7 @@ public class Main extends JFrame implements MainContract.View {
     private MainContract.Presenter presenter;
 
     private JPanel layoutButtons;
+    private JPanel layoutPlayers;
     private JLabel mechProfile;
 
 
@@ -53,10 +54,17 @@ public class Main extends JFrame implements MainContract.View {
         layoutButtons.setLayout(null);
         root.add(layoutButtons);
 
+        layoutPlayers = new JPanel();
+        layoutPlayers.setBounds(560, 20, 200, 60);
+        layoutPlayers.setBackground(Color.LIGHT_GRAY);
+        layoutPlayers.setLayout(new GridLayout(2, 1));
+        layoutPlayers.getInsets(new Insets(0,15,0,0));
+        root.add(layoutPlayers);
+
         JLabel mechProfileTags = new JLabel();
         mechProfileTags.setVerticalAlignment(JLabel.TOP);
         mechProfileTags.setVerticalTextPosition(JLabel.TOP);
-        mechProfileTags.setBounds(560,20,90, 240);
+        mechProfileTags.setBounds(560,100,90, 240);
         mechProfileTags.setText("<html><font style=\"font-family: 'Arial'; font-size: 12pt;\">" +
                 "Mech's type:<br>Mech's name:<br>Weapon:<br>Weapon range:<br>Step range:<br><br>" +
                 "- - - - - - - - - - - -<br>Left leg:<br>Right leg:<br>Left arm:<br>Right arm:<br>" +
@@ -66,7 +74,7 @@ public class Main extends JFrame implements MainContract.View {
         mechProfile = new JLabel();
         mechProfile.setVerticalAlignment(JLabel.TOP);
         mechProfile.setVerticalTextPosition(JLabel.TOP);
-        mechProfile.setBounds(660,20,150,240);
+        mechProfile.setBounds(660,100,150,240);
         mechProfile.setText("");
         root.add(mechProfile);
 
@@ -122,22 +130,23 @@ public class Main extends JFrame implements MainContract.View {
                     button.setText(Battlefield.battlefield[i][j].toString());
                 }
             }
-
         }
     }
 
     @Override
     public void setSelection(Position position, boolean selection) {
         Component component = layoutButtons.getComponent(position.x * 20 + position.y);
-        component.setBackground(selection ? Color.RED : null);
+        component.setBackground(selection ? Color.RED : Color.white);
 
         System.out.println(component);
         System.out.println(position.x + " " + position.y);
     }
 
     @Override
-    public void updateCellItem(Position position, CellItem cellItem) {
+    public void updateBattlefieldItem(Position position, CellItem cellItem) {
+        JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
 
+        button.setText(cellItem != null ? cellItem.toString() : null);
     }
 
     @Override
@@ -146,17 +155,32 @@ public class Main extends JFrame implements MainContract.View {
     }
 
     @Override
-    public void showPlayers(List<Player> player) {
+    public void showPlayers(List<Player> players) {
+        layoutPlayers.removeAll();
 
+        for (Player player : players) {
+            layoutPlayers.add(new Label(player.getName()));
+        }
     }
 
     @Override
     public void selectCurrentPlayer(Player player) {
+        for (int i = 0; i < layoutPlayers.getComponentCount(); i++) {
+           Label component = (Label) layoutPlayers.getComponent(i);
+
+           if (component.getText().equals(player.getName())) {
+               component.setBackground(Color.GREEN);
+           } else {
+               component.setBackground(null);
+           }
+        }
+
+        layoutPlayers.repaint();
 
     }
 
     @Override
-    public void highLightRange() {
+    public void highlightRange(Range range, Position center) {
 
     }
 

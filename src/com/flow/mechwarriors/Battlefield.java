@@ -5,7 +5,7 @@ import com.flow.mechwarriors.items.CellItem;
 public class Battlefield {
     public static CellItem[][] battlefield;
     private final int size = 20;
-    private StartTable startTable = new StartTable(size);
+    private Table table = new Table(size);
 
 
     public Battlefield() {
@@ -16,8 +16,7 @@ public class Battlefield {
     public void drawBattlefield() {
         for (int i = 0; i < battlefield.length; i++)
             for (int j = 0; j < battlefield.length; j++) {
-                battlefield[i][j] = startTable.getCell(i, j);
+                battlefield[i][j] = table.getCell(i, j);
             }
     }
-
 }
