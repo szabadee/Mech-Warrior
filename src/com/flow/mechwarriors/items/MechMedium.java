@@ -1,6 +1,6 @@
-package com.flow.mechwarrior;
+package com.flow.mechwarriors.items;
 
-public class MechMedium extends Mech implements Action {
+public class MechMedium extends Mech {
 
     public MechMedium(String name) {
         super(name, 20, 25);
@@ -11,22 +11,23 @@ public class MechMedium extends Mech implements Action {
     }
 
     @Override
-    public void step(int i, int j) {
-
+    public boolean isMovable() {
+        return true;
     }
 
     @Override
-    public void attack(Cell matrix, Mech mech) {
-
+    public int maxStep() {
+        return 3;
     }
 
     @Override
-    public int[] damage(int damage, int[] partOfBody) {
-        return new int[0];
+    public int maxAttack() {
+        return 2;
     }
 
     @Override
     public String toString() {
         return super.toString();
     }
+
 }

@@ -1,6 +1,6 @@
-package com.flow.mechwarrior;
+package com.flow.mechwarriors.items;
 
-public class MechLight extends Mech implements Action {
+public class MechLight extends Mech {
 
     public MechLight(String name) {
         super(name, 15, 20);
@@ -11,18 +11,18 @@ public class MechLight extends Mech implements Action {
     }
 
     @Override
-    public void step(int i, int j) {
-
+    public boolean isMovable() {
+        return false;
     }
 
     @Override
-    public void attack(Cell matrix, Mech mech) {
-
+    public int maxStep() {
+        return 4;
     }
 
     @Override
-    public int[] damage(int damage, int[] partOfBody) {
-        return new int[0];
+    public int maxAttack() {
+        return 1;
     }
 
     @Override

@@ -1,8 +1,7 @@
-package com.flow.mechwarrior;
+package com.flow.mechwarriors.items;
 
-import java.util.Arrays;
 
-public class Mech implements Action {
+public abstract class Mech implements Action {
     private String mechType;
     private String name;
     private String weapon;
@@ -30,19 +29,18 @@ public class Mech implements Action {
     }
 
     @Override
-    public void step(int i, int j) {
-
-
+    public boolean isMovable() {
+        return false;
     }
 
     @Override
-    public void attack(Cell matrix, Mech mech) {
-
+    public int maxStep() {
+        return 0;
     }
 
     @Override
-    public int[] damage(int damage, int[] partOfBody) {
-        return new int[0];
+    public int maxAttack() {
+        return 0;
     }
 
     // region Getters

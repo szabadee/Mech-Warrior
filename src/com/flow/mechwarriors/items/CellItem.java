@@ -1,10 +1,22 @@
-package com.flow.mechwarrior;
+package com.flow.mechwarriors.items;
 
-public class Cell {
+
+public class CellItem {
     private Mech mech;
+    private Barrier barrier;
     private boolean isStandingOnIt;
-    private boolean isSelected;
 
+    public Mech getMech () {
+        return mech;
+    }
+
+    public Barrier getBarrier() {
+        return barrier;
+    }
+
+    public boolean getStandingOnIt () {
+        return isStandingOnIt;
+    }
 
     public void setStandingOnIt (boolean isStandingOnIt) {
         this.isStandingOnIt = isStandingOnIt;
@@ -14,23 +26,11 @@ public class Cell {
         this.mech = mech;
     }
 
-    public void setSelected (boolean selected) {
-        isSelected = selected;
+    public void setBarrier(Barrier barrier) {
+        this.barrier = barrier;
     }
 
-    public Mech getMech () {
-        return mech;
-    }
-
-    public boolean getStandingOnIt () {
-        return isStandingOnIt;
-    }
-
-    public boolean getSelected () {
-        return isSelected;
-    }
-
-    public boolean isBlockage () {
+    public boolean isBarrier () {
         return false;
     }
 
@@ -46,10 +46,11 @@ public class Cell {
             } else if (getMech() instanceof MechAssault) {
                 return (getMech().toString());
             }
-        } else if (isBlockage()) {
+        } else if (isBarrier()) {
             return "<>";
         }
 
         return null;
     }
+
 }
