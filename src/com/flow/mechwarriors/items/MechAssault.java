@@ -11,11 +11,6 @@ public class MechAssault extends Mech {
     }
 
     @Override
-    public boolean isMovable() {
-        return true;
-    }
-
-    @Override
     public int maxStep() {
         return 1;
     }
@@ -23,11 +18,6 @@ public class MechAssault extends Mech {
     @Override
     public int maxAttack() {
         return 6;
-    }
-
-    @Override
-    public boolean canMoveOutOfAxis() {
-        return false;
     }
 
     @Override

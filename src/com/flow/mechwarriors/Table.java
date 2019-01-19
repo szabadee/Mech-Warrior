@@ -33,8 +33,8 @@ public class Table {
         List<Mech> mechArmy = m.generateMechArmy();
         List<Mech> mechsOfPlayerOne = new ArrayList<>();
         List<Mech> mechsOfPlayerTwo = new ArrayList<>();
-        playerOne = new Player("Chuck", mechsOfPlayerOne);
-        playerTwo = new Player("Norris", mechsOfPlayerTwo);
+        playerOne = new Player("Player 1: Chuck", mechsOfPlayerOne);
+        playerTwo = new Player("Player 2: Norris", mechsOfPlayerTwo);
         int randomIndex;
         int ascendingIndex = 0;
         int hasBeenIndex = mechArmy.size();
@@ -76,6 +76,7 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
+                matrix[0][randomLineup].setOwner(playerOne);
                 counter++;
             }
 
@@ -88,6 +89,7 @@ public class Table {
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                matrix[matrix.length - 1][randomLineup].setOwner(playerTwo);
                 counter++;
             }
 
@@ -130,6 +132,7 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
+                matrix[0][randomLineup].setOwner(playerOne);
                 counter++;
             }
 
@@ -142,6 +145,7 @@ public class Table {
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                matrix[matrix.length - 1][randomLineup].setOwner(playerTwo);
                 counter++;
             }
 
@@ -184,6 +188,7 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
+                matrix[0][randomLineup].setOwner(playerOne);
                 counter++;
             }
 
@@ -196,6 +201,7 @@ public class Table {
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                matrix[matrix.length - 1][randomLineup].setOwner(playerTwo);
                 counter++;
             }
 
@@ -238,6 +244,7 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
+                matrix[0][randomLineup].setOwner(playerOne);
                 counter++;
             }
 
@@ -250,6 +257,7 @@ public class Table {
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                matrix[matrix.length - 1][randomLineup].setOwner(playerTwo);
                 counter++;
             }
 
@@ -290,6 +298,7 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
+                matrix[0][randomLineup].setOwner(playerOne);
                 counter++;
             }
 
@@ -302,6 +311,7 @@ public class Table {
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                matrix[matrix.length - 1][randomLineup].setOwner(playerTwo);
                 counter++;
             }
 
@@ -315,6 +325,7 @@ public class Table {
             if (matrix[0][randomLineup].getStandingOnIt() == false) {
                 matrix[0][randomLineup].setMech(mechsOfPlayerOne.get(ascendingIndex));
                 matrix[0][randomLineup].setStandingOnIt(true);
+                matrix[0][randomLineup].setOwner(playerOne);
                 counter++;
             }
 
@@ -327,6 +338,7 @@ public class Table {
             if (matrix[matrix.length - 1][randomLineup].getStandingOnIt() == false) {
                 matrix[matrix.length - 1][randomLineup].setMech(mechsOfPlayerTwo.get(ascendingIndex));
                 matrix[matrix.length - 1][randomLineup].setStandingOnIt(true);
+                matrix[matrix.length - 1][randomLineup].setOwner(playerTwo);
                 counter++;
             }
 

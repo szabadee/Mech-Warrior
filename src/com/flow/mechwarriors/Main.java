@@ -88,6 +88,8 @@ public class Main extends JFrame implements MainContract.View {
 
             if (Battlefield.battlefield[x][y].getStandingOnIt()) {
                 mechProfile.setText(String.valueOf(Battlefield.battlefield[x][y].getMech()));
+            } else {
+                mechProfile.setText("");
             }
         };
 
@@ -118,16 +120,21 @@ public class Main extends JFrame implements MainContract.View {
                 if (Battlefield.battlefield[i][j].getStandingOnIt()) {
                     if (Battlefield.battlefield[i][j].getMech() instanceof MechLight) {
                         button.setText("L");
-                        button.setBackground(Color.orange);
+                        button.setBackground(Color.yellow);
                     } else if (Battlefield.battlefield[i][j].getMech() instanceof MechMedium) {
                         button.setText("M");
+                        button.setBackground(Color.pink);
                     } else if (Battlefield.battlefield[i][j].getMech() instanceof MechHeavy) {
                         button.setText("H");
+                        button.setBackground(Color.orange);
                     } else if (Battlefield.battlefield[i][j].getMech() instanceof MechAssault) {
                         button.setText("A");
+                        button.setBackground(Color.green);
                     }
-                } else {
+                } else if (Battlefield.battlefield[i][j].isBarrier()) {
                     button.setText(Battlefield.battlefield[i][j].toString());
+                    button.createToolTip();
+                    button.setToolTipText("Sorry, this is an Barrier");
                 }
             }
         }
@@ -136,20 +143,19 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void setSelection(Position position, boolean selection) {
         Component component = layoutButtons.getComponent(position.x * 20 + position.y);
-        component.setBackground(selection ? Color.RED : Color.white);
+        ((JButton) component).setBorder(BorderFactory.createLineBorder(selection ? Color.RED : Color.gray));
 
         System.out.println(component);
-        System.out.println(position.x + " " + position.y);
+        System.out.println(selection);
     }
 
     @Override
     public void updateBattlefieldItem(Position position, CellItem cellItem) {
-        JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
-
-        button.setText(cellItem != null ? cellItem.toString() : null);
+       /* JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
+        button.setText(cellItem != null ? cellItem.toString() : null);*/
     }
 
-    @Override
+    /* @Override
     public int selectFromList(String[] list) {
         return 0;
     }
@@ -177,16 +183,28 @@ public class Main extends JFrame implements MainContract.View {
 
         layoutPlayers.repaint();
 
-    }
+    }*/
 
     @Override
     public void highlightRange(Range range, Position center) {
-
+        for (int i = range.topLeft.x; i <= range.bottomRight.x; i++) {
+            for (int j = range.topLeft.y; j <= range.bottomRight.y; j++) {
+                if (center == null ||
+                        center.x == i || center.y == j) {
+                    int index = i * 20 + j;
+                    ((JButton) layoutButtons.getComponent(index))
+                            .setBorder(BorderFactory.createLineBorder(Color.green));
+                }
+            }
+        }
     }
 
     @Override
     public void removeHighLight() {
-
+        for (int i = 0; i < layoutButtons.getComponentCount(); i++) {
+            ((JButton) layoutButtons.getComponent(i))
+                    .setBorder(BorderFactory.createLineBorder(null));
+        }
     }
 
 }

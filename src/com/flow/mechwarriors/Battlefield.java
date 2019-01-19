@@ -2,7 +2,7 @@ package com.flow.mechwarriors;
 
 import com.flow.mechwarriors.items.CellItem;
 
-public class Battlefield {
+public class Battlefield extends CellItem {
     public static CellItem[][] battlefield;
     private final int size = 20;
     private Table table = new Table(size);
@@ -14,9 +14,11 @@ public class Battlefield {
     }
 
     public void drawBattlefield() {
-        for (int i = 0; i < battlefield.length; i++)
+        for (int i = 0; i < battlefield.length; i++) {
             for (int j = 0; j < battlefield.length; j++) {
                 battlefield[i][j] = table.getCell(i, j);
             }
+        }
     }
+
 }

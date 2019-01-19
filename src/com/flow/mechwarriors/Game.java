@@ -38,11 +38,12 @@ public class Game {
         CellItem battlefieldItem = Battlefield.battlefield[from.x][from.y];
         CellItem battlefieldNextItem = Battlefield.battlefield[to.x][to.y];
 
-        if (battlefieldItem != null && battlefieldNextItem == null) {
-            Battlefield.battlefield[from.x][from.y] = null;
-            Battlefield.battlefield[to.x][to.y] = battlefieldItem;
-
+        if (battlefieldItem.getStandingOnIt() && !battlefieldNextItem.getStandingOnIt()) {
+            battlefieldNextItem.setMech(battlefieldItem.getMech());
+            battlefieldItem.setStandingOnIt(false);
+            battlefieldNextItem.setStandingOnIt(true);
         }
+
     }
 
     public Battlefield getBattlefield() {
@@ -66,8 +67,8 @@ public class Game {
 
         return startPosition != null &&
                 (from.x == to.x || from.y == to.y) &&
-                Math.abs(from.x - to.x) <= startPosition.maxStep() &&
-                Math.abs(from.y - to.y) <= startPosition.maxStep();
+                Math.abs(from.x - to.x) <= startPosition.getMech().maxStep() &&
+                Math.abs(from.y - to.y) <= startPosition.getMech().maxStep();
     }
 
 

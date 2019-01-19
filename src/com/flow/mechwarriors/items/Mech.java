@@ -1,7 +1,9 @@
 package com.flow.mechwarriors.items;
 
 
-public abstract class Mech implements Action {
+import javafx.scene.control.Cell;
+
+public abstract class Mech extends CellItem {
     private String mechType;
     private String name;
     private String weapon;

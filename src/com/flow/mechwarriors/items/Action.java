@@ -1,8 +1,8 @@
 package com.flow.mechwarriors.items;
 
 public interface Action {
-    boolean isMovable();
+    // boolean isMovable();
     int maxStep();
     int maxAttack();
-    boolean canMoveOutOfAxis();
+    //boolean canMoveOutOfAxis();
 }

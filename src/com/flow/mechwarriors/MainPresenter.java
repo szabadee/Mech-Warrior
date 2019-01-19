@@ -1,6 +1,7 @@
 package com.flow.mechwarriors;
 
 import com.flow.mechwarriors.items.CellItem;
+import com.flow.mechwarriors.items.MechLight;
 import javafx.geometry.Pos;
 
 
@@ -13,16 +14,54 @@ public class MainPresenter implements MainContract.Presenter {
         game = new Game();
 
         view.showBattlefield(game.getBattlefield());
-        view.showPlayers(game.getPlayers());
-        view.selectCurrentPlayer(game.getCurrentPlayer());
+        //view.showPlayers(game.getPlayers());
+        //view.selectCurrentPlayer(game.getCurrentPlayer());
     }
 
     @Override
     public void onTableItemClicked(Position position) {
         CellItem battlefieldItem = game.getBattlefieldItem(position);
-        Player currentPlayer = game.getCurrentPlayer();
-
         Position selectedPosition = game.getSelectedPosition();
+        System.out.println("Érték: " + battlefieldItem);
+
+        //CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
+
+
+        if (battlefieldItem != null) {
+            if (changeItemSelection(position, selectedPosition)) {
+                if (selectedPosition != null) {
+                    CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
+                    if (selectedItem.getStandingOnIt() &&
+                            game.isValidStep(selectedPosition, position)) {
+                        moveItem(position, selectedPosition);
+                    }
+                }
+            }
+        }
+
+
+
+
+        //
+
+        //CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
+
+        /*if (selectedPosition == null) {
+            moveItem(position, selectedPosition);
+        }*/
+
+        /*
+        if (actualPositions[i][j].getSelected()) {
+                        actualPositions[i - 1][j].setMech(actualPositions[i][j].getMech());
+                        actualPositions[i - 1][j].setStandingOnIt(true);
+                        buttons[i - 1][j].setForeground(Color.RED);
+                        actualPositions[i][j].setStandingOnIt(false);
+                        actualPositions[i - 1][j].setSelected(true);
+                        actualPositions[i][j].setSelected(false);
+                        System.out.println(actualPositions[i - 1][j].getMech());
+                        System.out.println(actualPositions[i][j].getStandingOnIt());
+
+        Player currentPlayer = game.getCurrentPlayer();
         if (battlefieldItem != null) {
             view.removeHighLight();
             if (changeItemSelection(position, selectedPosition)) {
@@ -33,7 +72,7 @@ public class MainPresenter implements MainContract.Presenter {
         } else {
             if (selectedPosition != null) {
                 CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
-                if (selectedItem.isMovable() &&
+                if (selectedItem.getStandingOnIt() &&
                     game.isValidStep(selectedPosition, position) &&
                     selectedItem.getOwner().equals(currentPlayer)) {
                     moveItem(position, selectedPosition);
@@ -42,10 +81,10 @@ public class MainPresenter implements MainContract.Presenter {
             } else {
                 nextPlayer();
             }
-        }
+        }*/
     }
 
-    private void highlightItemRange(Position itemPosition, CellItem item) {
+    /*private void highlightItemRange(Position itemPosition, CellItem item) {
         view.removeHighLight();
 
         Position p1 = new Position(
@@ -60,7 +99,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void nextPlayer() {
-        game.nextPlayer();
+        /*game.nextPlayer();
         view.selectCurrentPlayer(game.getCurrentPlayer());
 
         Position selectedPosition = game.getSelectedPosition();
@@ -68,16 +107,16 @@ public class MainPresenter implements MainContract.Presenter {
             game.deselectItem();
             view.setSelection(selectedPosition, false);
         }
-    }
+    }*/
 
-    public boolean changeItemSelection(Position position, Position selectedPosition) {
-        game.selectItem(position);
-        view.setSelection(position, true);
+    public boolean changeItemSelection(Position newPosition, Position selectedPosition) {
+        game.selectItem(newPosition);
+        view.setSelection(newPosition, true);
 
         if (selectedPosition != null) {
             view.setSelection(selectedPosition, false);
 
-            if (selectedPosition.equals(position)) {
+            if (selectedPosition.equals(newPosition)) {
                 game.deselectItem();
                 return false;
             }
@@ -86,18 +125,20 @@ public class MainPresenter implements MainContract.Presenter {
         return true;
     }
 
-    private void moveItem(Position position, Position selectedPosition) {
-        game.moveBattlefieldItem(selectedPosition, position);
-        game.selectItem(position);
+    private void moveItem(Position newPosition, Position selectedPosition) {
+        game.moveBattlefieldItem(selectedPosition, newPosition);
+        game.selectItem(newPosition);
 
         view.setSelection(selectedPosition, false);
 
-        view.updateBattlefieldItem(selectedPosition, null);
-        view.updateBattlefieldItem(position, game.getBattlefieldItem(position));
+        //view.updateBattlefieldItem(selectedPosition, game.getBattlefieldItem(selectedPosition));
+        //view.updateBattlefieldItem(newPosition, game.getBattlefieldItem(newPosition));
+        view.showBattlefield(game.getBattlefield());
 
-        view.setSelection(position, true);
+        view.setSelection(newPosition, true);
 
-        view.removeHighLight();
+        //view.removeHighLight();
     }
+
 
 }

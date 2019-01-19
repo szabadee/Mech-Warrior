@@ -5,16 +5,12 @@ import com.flow.mechwarriors.Player;
 
 public class CellItem implements Action {
     private Mech mech;
-    private Barrier barrier;
     private boolean isStandingOnIt;
     private Player owner;
+    private boolean isSelected;
 
     public Mech getMech () {
         return mech;
-    }
-
-    public Barrier getBarrier() {
-        return barrier;
     }
 
     public boolean getStandingOnIt () {
@@ -25,6 +21,10 @@ public class CellItem implements Action {
         return owner;
     }
 
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
+    }
+
     public void setStandingOnIt (boolean isStandingOnIt) {
         this.isStandingOnIt = isStandingOnIt;
     }
@@ -33,31 +33,11 @@ public class CellItem implements Action {
         this.mech = mech;
     }
 
-    public void setBarrier(Barrier barrier) {
-        this.barrier = barrier;
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
     public boolean isBarrier () {
-        return false;
-    }
-
-    @Override
-    public boolean isMovable() {
-        return false;
-    }
-
-    @Override
-    public int maxStep() {
-        return 0;
-    }
-
-    @Override
-    public int maxAttack() {
-        return 0;
-    }
-
-    @Override
-    public boolean canMoveOutOfAxis() {
         return false;
     }
 
@@ -74,10 +54,20 @@ public class CellItem implements Action {
                 return (getMech().toString());
             }
         } else if (isBarrier()) {
-            return "<>";
+            return "X";
         }
 
         return null;
+    }
+
+    @Override
+    public int maxStep() {
+        return 0;
+    }
+
+    @Override
+    public int maxAttack() {
+        return 0;
     }
 
 }
