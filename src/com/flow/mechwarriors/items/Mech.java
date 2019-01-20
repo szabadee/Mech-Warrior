@@ -2,7 +2,7 @@ package com.flow.mechwarriors.items;
 
 
 import com.flow.mechwarriors.Player;
-import javafx.scene.control.Cell;
+
 
 public abstract class Mech extends CellItem {
     private String mechType;

@@ -1,8 +1,6 @@
 package com.flow.mechwarriors.items;
 
 
-import com.flow.mechwarriors.Player;
-
 public class CellItem implements Action {
     private Mech mech;
     private boolean isStandingOnIt;

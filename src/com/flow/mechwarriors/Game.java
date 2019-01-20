@@ -38,7 +38,9 @@ public class Game {
         CellItem battlefieldItem = Battlefield.battlefield[from.x][from.y];
         CellItem battlefieldNextItem = Battlefield.battlefield[to.x][to.y];
 
-        if (battlefieldItem.getStandingOnIt() && !battlefieldNextItem.getStandingOnIt()) {
+        if (battlefieldItem.getStandingOnIt() &&
+                !battlefieldNextItem.getStandingOnIt() &&
+                !battlefieldNextItem.isBarrier()) {
             battlefieldNextItem.setMech(battlefieldItem.getMech());
             battlefieldItem.setStandingOnIt(false);
             battlefieldNextItem.setStandingOnIt(true);
@@ -71,5 +73,21 @@ public class Game {
                 Math.abs(from.y - to.y) <= startPosition.getMech().maxStep();
     }
 
+    public boolean isValidAttack(Position from, Position to) {
+        CellItem mech1 = getBattlefieldItem(from);
+        CellItem mech2 = getBattlefieldItem(to);
 
+        return mech1 != null && mech2 != null &&
+                !mech1.getMech().getOwner().equals(mech2.getMech().getOwner()) &&
+                Math.abs(from.x - to.x) <= mech1.getMech().maxAttack() &&
+                Math.abs(from.y - to.y) <= mech1.getMech().maxAttack();
+    }
+
+    public void removeItem(Position position) {
+        Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
+
+        CellItem damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
+
+
+    }
 }

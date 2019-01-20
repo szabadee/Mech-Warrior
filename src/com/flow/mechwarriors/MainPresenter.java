@@ -1,9 +1,6 @@
 package com.flow.mechwarriors;
 
 import com.flow.mechwarriors.items.CellItem;
-import com.flow.mechwarriors.items.Mech;
-
-import java.util.Arrays;
 
 
 public class MainPresenter implements MainContract.Presenter {
@@ -21,23 +18,19 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onTableItemClicked(Position position) {
+        Player currentPlayer = game.getCurrentPlayer();
         CellItem battlefieldItem = game.getBattlefieldItem(position);
         Position selectedPosition = game.getSelectedPosition();
-        Player currentPlayer = game.getCurrentPlayer();
 
         if (battlefieldItem != null) {
             if (changeItemSelection(position, selectedPosition)) {
+
                 if (selectedPosition != null) {
                     CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
+
                     if (selectedItem.getStandingOnIt() &&
                             game.isValidStep(selectedPosition, position) &&
-                            selectedItem.getMech().getOwner().equals(currentPlayer))
-                    //System.out.println("SelectedItem: " + selectedItem);
-                    //System.out.println("SelectedPosition: " + selectedPosition.toString());
-                    //System.out.println("position: " + position.toString());
-                    {
-                        //System.out.println("Érték: " + selectedItem.getMech().maxStep());
-                        //System.out.println("Player: " + currentPlayer);
+                            selectedItem.getMech().getOwner().equals(currentPlayer)) {
                         moveItem(position, selectedPosition);
                         nextPlayer();
                     }
@@ -45,48 +38,22 @@ public class MainPresenter implements MainContract.Presenter {
             }
         }
 
+
     }
 
-        /*
-        CellItem cellItem = game.getCellItem(position);
-        Player currentPlayer = game.getCurrentPlayer();
-
-        Position selectedPosition = game.getSelectedPosition();
-        if (cellItem != null) {
-            view.removeHighlight();
-            if (changeItemSelection(position, selectedPosition)) {
-                if (cellItem.getOwner().equals(currentPlayer)) {
-                    highlightItemRange(position, cellItem);
-                }
-            }
-        } else {
-            if (selectedPosition != null) {
-                CellItem selectedItem = game.getCellItem(selectedPosition);
-                if (selectedItem.isMovable() &&
-                        game.isValidStep(selectedPosition, position) &&
-                        selectedItem.getOwner().equals(currentPlayer)) {
-                    moveItem(position, selectedPosition);
-                    nextPlayer();
-                }
-            } else {
-                addNewItem(position);
-                nextPlayer();
-            }
-        }
-    }*/
-
-    private void highlightItemRange(Position itemPosition, CellItem item) {
-        view.removeHighLight();
+    private void attackableItems(Position itemPosition, CellItem item) {
+        view.removeHighlight();
 
         Position p1 = new Position(
-                Math.max(0, itemPosition.x - item.maxStep()),
-                Math.max(0, itemPosition.y - item.maxStep()));
+                Math.max(0, itemPosition.x - item.getMech().maxAttack()),
+                Math.max(0, itemPosition.y - item.getMech().maxAttack()));
         Position p2 = new Position(
-                Math.max(9, itemPosition.x + item.maxStep()),
-                Math.max(9, itemPosition.y + item.maxStep()));
+                Math.max(item.getMech().maxStep(), itemPosition.x + item.getMech().maxAttack()),
+                Math.max(item.getMech().maxStep(), itemPosition.y + item.getMech().maxAttack()));
 
         Range range = new Range(p1, p2);
-        view.highlightRange(range, item.canMoveOutOfAxis() ? null : itemPosition);
+        view.highlightAttackableItems(range, itemPosition);
+
     }
 
     private void nextPlayer() {
@@ -109,6 +76,7 @@ public class MainPresenter implements MainContract.Presenter {
 
             if (selectedPosition.equals(newPosition)) {
                 game.deselectItem();
+                //view.removeHighlight();
                 return false;
             }
         }
@@ -121,14 +89,10 @@ public class MainPresenter implements MainContract.Presenter {
         game.selectItem(newPosition);
 
         view.setSelection(selectedPosition, false);
-
-        //view.updateBattlefieldItem(selectedPosition, game.getBattlefieldItem(selectedPosition));
-        //view.updateBattlefieldItem(newPosition, game.getBattlefieldItem(newPosition));
         view.showBattlefield(game.getBattlefield());
-
         view.setSelection(newPosition, true);
 
-        //view.removeHighLight();
+        view.removeHighlight();
     }
 
 }

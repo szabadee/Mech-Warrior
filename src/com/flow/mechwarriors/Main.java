@@ -31,19 +31,6 @@ public class Main extends JFrame implements MainContract.View {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        /* try {
-            UIManager.setLookAndFeel(
-                    UIManager.getCrossPlatformLookAndFeelClassName());
-        }
-        catch (UnsupportedLookAndFeelException e) {
-        }
-        catch (ClassNotFoundException e) {
-        }
-        catch (InstantiationException e) {
-        }
-        catch (IllegalAccessException e) {
-        } */
-
         JPanel root = new JPanel();
         root.setLayout(null);
         add(root);
@@ -99,6 +86,7 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void showBattlefield(Battlefield battlefield) {
         layoutButtons.removeAll();
+        layoutButtons.repaint();
 
         for (int i = 0; i < Battlefield.battlefield.length; i++) {
             for (int j = 0; j < Battlefield.battlefield[i].length; j++) {
@@ -138,27 +126,16 @@ public class Main extends JFrame implements MainContract.View {
                 }
             }
         }
-        layoutButtons.repaint();
+
+//        layoutButtons.repaint();
     }
 
     @Override
     public void setSelection(Position position, boolean selection) {
         Component component = layoutButtons.getComponent(position.x * 20 + position.y);
-        ((JButton) component).setBorder(BorderFactory.createLineBorder(selection ? Color.RED : Color.gray));
+        ((JButton) component).setBorder(BorderFactory.createLineBorder(selection ? Color.red : Color.gray));
 
-        System.out.println(component);
         System.out.println(selection);
-    }
-
-    @Override
-    public void updateBattlefieldItem(Position position, CellItem cellItem) {
-       /* JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
-        button.setText(cellItem != null ? cellItem.toString() : null);*/
-    }
-
-    @Override
-    public int selectFromList(String[] list) {
-        return 0;
     }
 
     @Override
@@ -187,24 +164,26 @@ public class Main extends JFrame implements MainContract.View {
     }
 
     @Override
-    public void highlightRange(Range range, Position center) {
+    public void highlightAttackableItems(Range range, Position center) {
         for (int i = range.topLeft.x; i <= range.bottomRight.x; i++) {
             for (int j = range.topLeft.y; j <= range.bottomRight.y; j++) {
                 if (center == null ||
                         center.x == i || center.y == j) {
                     int index = i * 20 + j;
-                    ((JButton) layoutButtons.getComponent(index))
-                            .setBorder(BorderFactory.createLineBorder(Color.green));
+                    if (Battlefield.battlefield[i][j].getStandingOnIt()) {
+                        ((JButton) layoutButtons.getComponent(index))
+                                .setBorder(BorderFactory.createLineBorder(Color.magenta));
+                    }
                 }
             }
         }
     }
 
     @Override
-    public void removeHighLight() {
+    public void removeHighlight() {
         for (int i = 0; i < layoutButtons.getComponentCount(); i++) {
             ((JButton) layoutButtons.getComponent(i))
-                    .setBorder(BorderFactory.createLineBorder(null));
+                    .setBorder(BorderFactory.createLineBorder(Color.gray));
         }
     }
 

@@ -8,12 +8,10 @@ public interface MainContract {
     interface View {
         void showBattlefield(Battlefield battlefield);
         void setSelection(Position position, boolean selection);
-        void updateBattlefieldItem(Position position, CellItem cellItem);
-        int selectFromList(String[] list);
         void showPlayers(List<Player> players);
         void selectCurrentPlayer(Player player);
-        void highlightRange(Range range, Position center);
-        void removeHighLight();
+        void highlightAttackableItems(Range range, Position center);
+        void removeHighlight();
 
         }
     interface Presenter {
