@@ -138,6 +138,7 @@ public class Main extends JFrame implements MainContract.View {
                 }
             }
         }
+        layoutButtons.repaint();
     }
 
     @Override

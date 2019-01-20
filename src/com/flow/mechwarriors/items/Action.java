@@ -4,5 +4,5 @@ public interface Action {
     // boolean isMovable();
     int maxStep();
     int maxAttack();
-    //boolean canMoveOutOfAxis();
+    boolean canMoveOutOfAxis();
 }

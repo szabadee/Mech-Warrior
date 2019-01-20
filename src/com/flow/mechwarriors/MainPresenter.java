@@ -1,15 +1,16 @@
 package com.flow.mechwarriors;
 
 import com.flow.mechwarriors.items.CellItem;
-import com.flow.mechwarriors.items.MechLight;
-import javafx.geometry.Pos;
+import com.flow.mechwarriors.items.Mech;
+
+import java.util.Arrays;
 
 
 public class MainPresenter implements MainContract.Presenter {
     private MainContract.View view;
     private Game game;
 
-    public MainPresenter (MainContract.View view) {
+    public MainPresenter(MainContract.View view) {
         this.view = view;
         game = new Game();
 
@@ -24,69 +25,55 @@ public class MainPresenter implements MainContract.Presenter {
         Position selectedPosition = game.getSelectedPosition();
         Player currentPlayer = game.getCurrentPlayer();
 
-
-        //CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
-
-
         if (battlefieldItem != null) {
             if (changeItemSelection(position, selectedPosition)) {
                 if (selectedPosition != null) {
                     CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
                     if (selectedItem.getStandingOnIt() &&
                             game.isValidStep(selectedPosition, position) &&
-                            selectedItem.getOwner().equals(currentPlayer)) {
+                            selectedItem.getMech().getOwner().equals(currentPlayer))
+                    //System.out.println("SelectedItem: " + selectedItem);
+                    //System.out.println("SelectedPosition: " + selectedPosition.toString());
+                    //System.out.println("position: " + position.toString());
+                    {
+                        //System.out.println("Érték: " + selectedItem.getMech().maxStep());
+                        //System.out.println("Player: " + currentPlayer);
                         moveItem(position, selectedPosition);
                         nextPlayer();
-                        System.out.println("Érték: " + battlefieldItem.getMech().maxStep());
                     }
                 }
             }
         }
 
-
-
-
-        //
-
-        //CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
-
-        /*if (selectedPosition == null) {
-            moveItem(position, selectedPosition);
-        }*/
+    }
 
         /*
-        if (actualPositions[i][j].getSelected()) {
-                        actualPositions[i - 1][j].setMech(actualPositions[i][j].getMech());
-                        actualPositions[i - 1][j].setStandingOnIt(true);
-                        buttons[i - 1][j].setForeground(Color.RED);
-                        actualPositions[i][j].setStandingOnIt(false);
-                        actualPositions[i - 1][j].setSelected(true);
-                        actualPositions[i][j].setSelected(false);
-                        System.out.println(actualPositions[i - 1][j].getMech());
-                        System.out.println(actualPositions[i][j].getStandingOnIt());
-
+        CellItem cellItem = game.getCellItem(position);
         Player currentPlayer = game.getCurrentPlayer();
-        if (battlefieldItem != null) {
-            view.removeHighLight();
+
+        Position selectedPosition = game.getSelectedPosition();
+        if (cellItem != null) {
+            view.removeHighlight();
             if (changeItemSelection(position, selectedPosition)) {
-                if (battlefieldItem.getOwner().equals(currentPlayer)) {
-                    highlightItemRange(position, battlefieldItem);
+                if (cellItem.getOwner().equals(currentPlayer)) {
+                    highlightItemRange(position, cellItem);
                 }
             }
         } else {
             if (selectedPosition != null) {
-                CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
-                if (selectedItem.getStandingOnIt() &&
-                    game.isValidStep(selectedPosition, position) &&
-                    selectedItem.getOwner().equals(currentPlayer)) {
+                CellItem selectedItem = game.getCellItem(selectedPosition);
+                if (selectedItem.isMovable() &&
+                        game.isValidStep(selectedPosition, position) &&
+                        selectedItem.getOwner().equals(currentPlayer)) {
                     moveItem(position, selectedPosition);
                     nextPlayer();
                 }
             } else {
+                addNewItem(position);
                 nextPlayer();
             }
-        }*/
-    }
+        }
+    }*/
 
     private void highlightItemRange(Position itemPosition, CellItem item) {
         view.removeHighLight();
@@ -143,6 +130,5 @@ public class MainPresenter implements MainContract.Presenter {
 
         //view.removeHighLight();
     }
-
 
 }

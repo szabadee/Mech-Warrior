@@ -1,6 +1,7 @@
 package com.flow.mechwarriors.items;
 
 
+import com.flow.mechwarriors.Player;
 import javafx.scene.control.Cell;
 
 public abstract class Mech extends CellItem {
@@ -17,6 +18,7 @@ public abstract class Mech extends CellItem {
     private int[] rightShoulder;
     private int[] torso;
     private int[] head;
+    private Player owner;
 
     public Mech(String name, int armor, int hp) {
         this.name = name;
@@ -84,6 +86,10 @@ public abstract class Mech extends CellItem {
         return mechType;
     }
 
+    public Player getOwner() {
+        return owner;
+    }
+
     // endregion
 
     // region Setters
@@ -138,6 +144,10 @@ public abstract class Mech extends CellItem {
 
     public void setMechType(String mechType) {
         this.mechType = mechType;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
     // endregion

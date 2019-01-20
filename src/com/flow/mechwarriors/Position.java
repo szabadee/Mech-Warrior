@@ -13,4 +13,9 @@ public class Position {
     public boolean equals(Object obj) {
         return obj instanceof Position && ((Position) obj).x == x && ((Position) obj).y == y;
     }
+
+    @Override
+    public String toString() {
+        return "x: "+ x + " y: " + y;
+    }
 }

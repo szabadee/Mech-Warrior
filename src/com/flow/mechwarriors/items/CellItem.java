@@ -6,8 +6,7 @@ import com.flow.mechwarriors.Player;
 public class CellItem implements Action {
     private Mech mech;
     private boolean isStandingOnIt;
-    private Player owner;
-    private boolean isSelected;
+
 
     public Mech getMech () {
         return mech;
@@ -17,24 +16,12 @@ public class CellItem implements Action {
         return isStandingOnIt;
     }
 
-    public Player getOwner() {
-        return owner;
-    }
-
-    public void setSelected(boolean selected) {
-        this.isSelected = selected;
-    }
-
     public void setStandingOnIt (boolean isStandingOnIt) {
         this.isStandingOnIt = isStandingOnIt;
     }
 
     public void setMech (Mech mech) {
         this.mech = mech;
-    }
-
-    public void setOwner(Player owner) {
-        this.owner = owner;
     }
 
     public boolean isBarrier () {
