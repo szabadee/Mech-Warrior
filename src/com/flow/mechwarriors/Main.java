@@ -155,7 +155,7 @@ public class Main extends JFrame implements MainContract.View {
         button.setText(cellItem != null ? cellItem.toString() : null);*/
     }
 
-    /* @Override
+    @Override
     public int selectFromList(String[] list) {
         return 0;
     }
@@ -183,7 +183,7 @@ public class Main extends JFrame implements MainContract.View {
 
         layoutPlayers.repaint();
 
-    }*/
+    }
 
     @Override
     public void highlightRange(Range range, Position center) {

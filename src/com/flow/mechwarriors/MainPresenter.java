@@ -14,15 +14,16 @@ public class MainPresenter implements MainContract.Presenter {
         game = new Game();
 
         view.showBattlefield(game.getBattlefield());
-        //view.showPlayers(game.getPlayers());
-        //view.selectCurrentPlayer(game.getCurrentPlayer());
+        view.showPlayers(game.getPlayers());
+        view.selectCurrentPlayer(game.getCurrentPlayer());
     }
 
     @Override
     public void onTableItemClicked(Position position) {
         CellItem battlefieldItem = game.getBattlefieldItem(position);
         Position selectedPosition = game.getSelectedPosition();
-        System.out.println("Érték: " + battlefieldItem);
+        Player currentPlayer = game.getCurrentPlayer();
+
 
         //CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
 
@@ -32,8 +33,11 @@ public class MainPresenter implements MainContract.Presenter {
                 if (selectedPosition != null) {
                     CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
                     if (selectedItem.getStandingOnIt() &&
-                            game.isValidStep(selectedPosition, position)) {
+                            game.isValidStep(selectedPosition, position) &&
+                            selectedItem.getOwner().equals(currentPlayer)) {
                         moveItem(position, selectedPosition);
+                        nextPlayer();
+                        System.out.println("Érték: " + battlefieldItem.getMech().maxStep());
                     }
                 }
             }
@@ -84,7 +88,7 @@ public class MainPresenter implements MainContract.Presenter {
         }*/
     }
 
-    /*private void highlightItemRange(Position itemPosition, CellItem item) {
+    private void highlightItemRange(Position itemPosition, CellItem item) {
         view.removeHighLight();
 
         Position p1 = new Position(
@@ -99,7 +103,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void nextPlayer() {
-        /*game.nextPlayer();
+        game.nextPlayer();
         view.selectCurrentPlayer(game.getCurrentPlayer());
 
         Position selectedPosition = game.getSelectedPosition();
@@ -107,7 +111,7 @@ public class MainPresenter implements MainContract.Presenter {
             game.deselectItem();
             view.setSelection(selectedPosition, false);
         }
-    }*/
+    }
 
     public boolean changeItemSelection(Position newPosition, Position selectedPosition) {
         game.selectItem(newPosition);
