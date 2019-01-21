@@ -1,7 +1,5 @@
 package com.flow.mechwarriors;
 
-import com.flow.mechwarriors.items.CellItem;
-
 import java.util.List;
 
 public interface MainContract {
@@ -12,6 +10,7 @@ public interface MainContract {
         void selectCurrentPlayer(Player player);
         void highlightAttackableItems(Range range, Position center);
         void removeHighlight();
+        void message();
 
         }
     interface Presenter {

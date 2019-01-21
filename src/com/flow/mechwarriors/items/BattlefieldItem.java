@@ -1,7 +1,7 @@
 package com.flow.mechwarriors.items;
 
 
-public class CellItem implements Action {
+public class BattlefieldItem implements Action {
     private Mech mech;
     private boolean isStandingOnIt;
 

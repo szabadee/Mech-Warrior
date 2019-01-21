@@ -3,6 +3,7 @@ package com.flow.mechwarriors;
 import com.flow.mechwarriors.items.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -23,6 +24,8 @@ public class Main extends JFrame implements MainContract.View {
     private JPanel layoutButtons;
     private JPanel layoutPlayers;
     private JLabel mechProfile;
+    private JLabel mechProfileTags;
+    private JLabel message;
 
 
     public Main() {
@@ -45,10 +48,10 @@ public class Main extends JFrame implements MainContract.View {
         layoutPlayers.setBounds(560, 20, 200, 60);
         layoutPlayers.setBackground(Color.LIGHT_GRAY);
         layoutPlayers.setLayout(new GridLayout(2, 1));
-        layoutPlayers.getInsets(new Insets(0,15,0,0));
+        layoutPlayers.setBorder(new EmptyBorder(3,3,3,3));
         root.add(layoutPlayers);
 
-        JLabel mechProfileTags = new JLabel();
+        mechProfileTags = new JLabel();
         mechProfileTags.setVerticalAlignment(JLabel.TOP);
         mechProfileTags.setVerticalTextPosition(JLabel.TOP);
         mechProfileTags.setBounds(560,100,90, 240);
@@ -64,6 +67,17 @@ public class Main extends JFrame implements MainContract.View {
         mechProfile.setBounds(660,100,150,240);
         mechProfile.setText("");
         root.add(mechProfile);
+
+        message = new JLabel();
+        message.setVerticalAlignment(JLabel.TOP);
+        message.setVerticalTextPosition(JLabel.TOP);
+        message.setOpaque(true);
+        message.setBackground(Color.WHITE);
+        message.setForeground(Color.RED);
+        message.setBounds(560,360,200,100);
+        message.setBorder(new EmptyBorder(10,10,0,0));
+        message.setText("");
+        root.add(message);
 
         actionListener = e -> {
             String[] array = e.getActionCommand().split(" ");
@@ -185,6 +199,11 @@ public class Main extends JFrame implements MainContract.View {
             ((JButton) layoutButtons.getComponent(i))
                     .setBorder(BorderFactory.createLineBorder(Color.gray));
         }
+    }
+
+    @Override
+    public void message() {
+
     }
 
 }

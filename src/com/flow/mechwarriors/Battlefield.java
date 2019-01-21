@@ -1,15 +1,15 @@
 package com.flow.mechwarriors;
 
-import com.flow.mechwarriors.items.CellItem;
+import com.flow.mechwarriors.items.BattlefieldItem;
 
-public class Battlefield extends CellItem {
-    public static CellItem[][] battlefield;
+public class Battlefield extends BattlefieldItem {
+    public static BattlefieldItem[][] battlefield;
     private final int size = 20;
     private Table table = new Table(size);
 
 
     public Battlefield() {
-        battlefield = new CellItem[size][size];
+        battlefield = new BattlefieldItem[size][size];
         drawBattlefield();
     }
 

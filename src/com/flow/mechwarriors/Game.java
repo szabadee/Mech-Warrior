@@ -1,6 +1,6 @@
 package com.flow.mechwarriors;
 
-import com.flow.mechwarriors.items.CellItem;
+import com.flow.mechwarriors.items.BattlefieldItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Game {
     private List<Player> players = new ArrayList<>();
 
-    private Battlefield battlefield = new Battlefield();
+    public Battlefield battlefield = new Battlefield();
     private Position selectedPosition;
 
     private int currentPlayerIndex = 0;
@@ -30,13 +30,13 @@ public class Game {
         return selectedPosition;
     }
 
-    public CellItem getBattlefieldItem(Position position) {
+    public BattlefieldItem getBattlefieldItem(Position position) {
         return Battlefield.battlefield[position.x][position.y];
     }
 
     public void moveBattlefieldItem(Position from, Position to) {
-        CellItem battlefieldItem = Battlefield.battlefield[from.x][from.y];
-        CellItem battlefieldNextItem = Battlefield.battlefield[to.x][to.y];
+        BattlefieldItem battlefieldItem = Battlefield.battlefield[from.x][from.y];
+        BattlefieldItem battlefieldNextItem = Battlefield.battlefield[to.x][to.y];
 
         if (battlefieldItem.getStandingOnIt() &&
                 !battlefieldNextItem.getStandingOnIt() &&
@@ -65,7 +65,7 @@ public class Game {
     }
 
     public boolean isValidStep(Position from, Position to) {
-        CellItem startPosition = getBattlefieldItem(from);
+        BattlefieldItem startPosition = getBattlefieldItem(from);
 
         return startPosition != null &&
                 (from.x == to.x || from.y == to.y) &&
@@ -74,10 +74,10 @@ public class Game {
     }
 
     public boolean isValidAttack(Position from, Position to) {
-        CellItem mech1 = getBattlefieldItem(from);
-        CellItem mech2 = getBattlefieldItem(to);
+        BattlefieldItem mech1 = getBattlefieldItem(from);
+        BattlefieldItem mech2 = getBattlefieldItem(to);
 
-        return mech1 != null && mech2 != null &&
+        return mech1.getStandingOnIt() && mech2.getStandingOnIt() &&
                 !mech1.getMech().getOwner().equals(mech2.getMech().getOwner()) &&
                 Math.abs(from.x - to.x) <= mech1.getMech().maxAttack() &&
                 Math.abs(from.y - to.y) <= mech1.getMech().maxAttack();
@@ -85,8 +85,9 @@ public class Game {
 
     public void removeItem(Position position) {
         Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
+        System.out.println("Damaged Mech");
 
-        CellItem damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
+        //BattlefieldItem damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
 
 
     }

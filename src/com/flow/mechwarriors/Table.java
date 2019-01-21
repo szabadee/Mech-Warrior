@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-    public static CellItem[][] matrix;
+    private BattlefieldItem[][] matrix;
     private int size;
     public static Player playerOne;
     public static Player playerTwo;
@@ -14,7 +14,7 @@ public class Table {
     public Table(int size) {
         this.size = size;
 
-        matrix = new CellItem[size][size];
+        matrix = new BattlefieldItem[size][size];
         fillTable();
         generateMechs();
         generateBarrier();
@@ -23,7 +23,7 @@ public class Table {
     private void fillTable () {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                matrix[i][j] = new CellItem();
+                matrix[i][j] = new BattlefieldItem();
             }
         }
     }
@@ -359,7 +359,7 @@ public class Table {
         }
     }
 
-    public CellItem getCell (int i, int j) {
+    public BattlefieldItem getCell (int i, int j) {
         return matrix[i][j];
     }
 

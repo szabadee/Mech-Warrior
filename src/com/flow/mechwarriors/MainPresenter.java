@@ -1,6 +1,6 @@
 package com.flow.mechwarriors;
 
-import com.flow.mechwarriors.items.CellItem;
+import com.flow.mechwarriors.items.BattlefieldItem;
 
 
 public class MainPresenter implements MainContract.Presenter {
@@ -19,29 +19,48 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onTableItemClicked(Position position) {
         Player currentPlayer = game.getCurrentPlayer();
-        CellItem battlefieldItem = game.getBattlefieldItem(position);
+        BattlefieldItem battlefieldItem = game.getBattlefieldItem(position);
         Position selectedPosition = game.getSelectedPosition();
 
         if (battlefieldItem != null) {
             if (changeItemSelection(position, selectedPosition)) {
 
                 if (selectedPosition != null) {
-                    CellItem selectedItem = game.getBattlefieldItem(selectedPosition);
+                    BattlefieldItem selectedItem = game.getBattlefieldItem(selectedPosition);
 
                     if (selectedItem.getStandingOnIt() &&
-                            game.isValidStep(selectedPosition, position) &&
+                            game.isValidAttack(selectedPosition, position) &&
                             selectedItem.getMech().getOwner().equals(currentPlayer)) {
-                        moveItem(position, selectedPosition);
+                        game.removeItem(position);
+                        view.setSelection(selectedPosition, false);
                         nextPlayer();
+                        view.showBattlefield(game.getBattlefield());
+                    } else {
+                        if (selectedItem.getStandingOnIt() &&
+                                game.isValidStep(selectedPosition, position) &&
+                                selectedItem.getMech().getOwner().equals(currentPlayer)) {
+                            moveItem(position, selectedPosition);
+                            nextPlayer();
+                        }
                     }
                 }
             }
         }
-
-
     }
 
-    private void attackableItems(Position itemPosition, CellItem item) {
+    /*
+    } else {
+            if (selectedPosition != null) {
+                CellItem selectedItem = game.getCellItem(selectedPosition);
+                if (selectedItem.isMovable() &&
+                        game.isValidStep(selectedPosition, position) &&
+                        selectedItem.getOwner().equals(currentPlayer)) {
+                    moveItem(position, selectedPosition);
+                    nextPlayer();
+                }
+     */
+
+    private void attackableItems(Position itemPosition, BattlefieldItem item) {
         view.removeHighlight();
 
         Position p1 = new Position(
@@ -76,7 +95,6 @@ public class MainPresenter implements MainContract.Presenter {
 
             if (selectedPosition.equals(newPosition)) {
                 game.deselectItem();
-                //view.removeHighlight();
                 return false;
             }
         }
