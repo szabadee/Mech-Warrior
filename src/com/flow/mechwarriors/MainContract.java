@@ -10,7 +10,8 @@ public interface MainContract {
         void selectCurrentPlayer(Player player);
         void highlightAttackableItems(Range range, Position center);
         void removeHighlight();
-        void message();
+        void message(int messageCode);
+        void highlightAttackableItem(Position position, boolean highlight);
 
         }
     interface Presenter {

@@ -202,8 +202,23 @@ public class Main extends JFrame implements MainContract.View {
     }
 
     @Override
-    public void message() {
+    public void highlightAttackableItem(Position position, boolean highlight) {
+        JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
+        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.magenta: Color.gray));
 
+        if (highlight)
+            message(2);
+    }
+
+    @Override
+    public void message(int messageCode) {
+        switch(messageCode) {
+            case 0: message.setText(" ");
+            break;
+            case 1: message.setText("Out of Range!");
+            break;
+            case 2: message.setText("<html>There is attackable Mech<br> in the near!</html>");
+        }
     }
 
 }
