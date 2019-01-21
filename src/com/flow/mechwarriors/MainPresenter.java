@@ -24,6 +24,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         if (battlefieldItem != null) {
             if (changeItemSelection(position, selectedPosition)) {
+                //highlightItemRange(position, battlefieldItem);
 
                 for (int i = 0; i < 20; ++i) {
                     for (int j = 0; j < 20; ++j) {
@@ -41,7 +42,8 @@ public class MainPresenter implements MainContract.Presenter {
                     if (selectedItem.getStandingOnIt() &&
                             game.isValidAttack(selectedPosition, position) &&
                             selectedItem.getMech().getOwner().equals(currentPlayer)) {
-                        game.removeItem(position);
+                        game.attack(position);
+                        view.message(0);
                         view.setSelection(selectedPosition, false);
                         nextPlayer();
                         view.showBattlefield(game.getBattlefield());
@@ -73,7 +75,7 @@ public class MainPresenter implements MainContract.Presenter {
                 }
      */
 
-    private void attackableItems(Position itemPosition, BattlefieldItem item) {
+    private void highlightItemRange(Position itemPosition, BattlefieldItem item) {
 
         Position p1 = new Position(
                 Math.max(0, itemPosition.x - item.getMech().maxAttack()),
@@ -83,7 +85,7 @@ public class MainPresenter implements MainContract.Presenter {
                 Math.max(item.getMech().maxStep(), itemPosition.y + item.getMech().maxAttack()));
 
         Range range = new Range(p1, p2);
-        view.highlightAttackableItems(range, itemPosition);
+        view.highlightRange(range, itemPosition);
 
     }
 

@@ -8,7 +8,7 @@ public interface MainContract {
         void setSelection(Position position, boolean selection);
         void showPlayers(List<Player> players);
         void selectCurrentPlayer(Player player);
-        void highlightAttackableItems(Range range, Position center);
+        void highlightRange(Range range, Position center);
         void removeHighlight();
         void message(int messageCode);
         void highlightAttackableItem(Position position, boolean highlight);

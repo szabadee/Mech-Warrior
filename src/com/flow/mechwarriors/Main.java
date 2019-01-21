@@ -178,7 +178,7 @@ public class Main extends JFrame implements MainContract.View {
     }
 
     @Override
-    public void highlightAttackableItems(Range range, Position center) {
+    public void highlightRange(Range range, Position center) {
         for (int i = range.topLeft.x; i <= range.bottomRight.x; i++) {
             for (int j = range.topLeft.y; j <= range.bottomRight.y; j++) {
                 if (center == null ||

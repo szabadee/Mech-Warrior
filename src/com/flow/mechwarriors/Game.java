@@ -1,8 +1,10 @@
 package com.flow.mechwarriors;
 
 import com.flow.mechwarriors.items.BattlefieldItem;
+import com.flow.mechwarriors.items.Mech;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Game {
@@ -11,7 +13,7 @@ public class Game {
     public Battlefield battlefield = new Battlefield();
     private Position selectedPosition;
 
-    private int currentPlayerIndex = 0;
+    private float currentPlayerIndex = Math.round(Math.random());
 
     public Game() {
         players.add(Table.playerOne);
@@ -53,7 +55,8 @@ public class Game {
     }
 
     public Player getCurrentPlayer() {
-        return players.get(currentPlayerIndex);
+        System.out.println(currentPlayerIndex);
+        return players.get((int) currentPlayerIndex);
     }
 
     public void nextPlayer() {
@@ -83,12 +86,29 @@ public class Game {
                 Math.abs(from.y - to.y) <= mech1.getMech().maxAttack();
     }
 
-    public void removeItem(Position position) {
-        Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
-        System.out.println("Damaged Mech");
+    public void attack(Position position) {
 
-        //BattlefieldItem damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
+        Mech damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
 
+        int[] torso = damagedMech.getTorso();
+
+        if (torso[0] != 0) {
+            if (torso[0] - 5 <= 0) {
+                torso[0] = 0;
+            } else {
+                torso[0] = torso[0] - 5;
+            }
+        } else if (torso[0] == 0) {
+            if (torso[1] - 5 <= 0);
+                torso[1] = 0;
+                // Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
+            } else {
+                torso[1] = torso[1] - 5;
+        }
+
+        damagedMech.setTorso(torso);
+
+        System.out.println(Arrays.toString(damagedMech.getTorso()));
 
     }
 }
