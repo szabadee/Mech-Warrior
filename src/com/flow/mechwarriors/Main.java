@@ -72,9 +72,10 @@ public class Main extends JFrame implements MainContract.View {
         message.setVerticalAlignment(JLabel.TOP);
         message.setVerticalTextPosition(JLabel.TOP);
         message.setOpaque(true);
-        message.setBackground(Color.WHITE);
-        message.setForeground(Color.RED);
-        message.setBounds(560,360,200,100);
+        message.setForeground(Color.yellow);
+        message.setBackground(Color.darkGray);
+        message.setFont(new Font("Courier", Font.ITALIC, 14));
+        message.setBounds(560,350,200,50);
         message.setBorder(new EmptyBorder(10,10,0,0));
         message.setText("");
         root.add(message);
@@ -186,7 +187,7 @@ public class Main extends JFrame implements MainContract.View {
                     int index = i * 20 + j;
                     if (Battlefield.battlefield[i][j].getStandingOnIt()) {
                         ((JButton) layoutButtons.getComponent(index))
-                                .setBorder(BorderFactory.createLineBorder(Color.magenta));
+                                .setBorder(BorderFactory.createLineBorder(Color.cyan));
                     }
                 }
             }
@@ -204,10 +205,7 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void highlightAttackableItem(Position position, boolean highlight) {
         JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
-        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.magenta: Color.gray));
-
-        if (highlight)
-            message(2);
+        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.cyan: Color.gray));
     }
 
     @Override
@@ -218,6 +216,10 @@ public class Main extends JFrame implements MainContract.View {
             case 1: message.setText("Out of Range!");
             break;
             case 2: message.setText("<html>There is attackable Mech<br> in the near!</html>");
+            break;
+            case 3: message.setText("<html>Game Over!<br> The Player One Won</html>");
+            break;
+            case 4: message.setText("<html>Game Over!<br> The Player One Won</html>");
         }
     }
 

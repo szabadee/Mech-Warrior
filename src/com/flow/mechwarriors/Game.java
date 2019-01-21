@@ -69,7 +69,7 @@ public class Game {
 
     public boolean isValidStep(Position from, Position to) {
         BattlefieldItem startPosition = getBattlefieldItem(from);
-
+        
         return startPosition != null &&
                 (from.x == to.x || from.y == to.y) &&
                 Math.abs(from.x - to.x) <= startPosition.getMech().maxStep() &&
@@ -92,18 +92,22 @@ public class Game {
 
         int[] torso = damagedMech.getTorso();
 
-        if (torso[0] != 0) {
+        if (torso[0] > 0) {
+            torso[0] = torso[0] - 5;
             if (torso[0] - 5 <= 0) {
                 torso[0] = 0;
-            } else {
-                torso[0] = torso[0] - 5;
             }
         } else if (torso[0] == 0) {
-            if (torso[1] - 5 <= 0);
+            torso[1] = torso[1] - 5;
+            if (torso[1] - 5 <= 0) {
                 torso[1] = 0;
-                // Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
-            } else {
-                torso[1] = torso[1] - 5;
+                damagedMech.setStandingOnIt(false);
+                if (Table.playerOne.getUniqueMechs().contains(damagedMech)) {
+                    Table.playerOne.getUniqueMechs().remove(damagedMech);
+                } else {
+                    Table.playerTwo.getUniqueMechs().remove(damagedMech);
+                }
+            }
         }
 
         damagedMech.setTorso(torso);

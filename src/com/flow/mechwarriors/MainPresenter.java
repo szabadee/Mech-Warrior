@@ -24,7 +24,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         if (battlefieldItem != null) {
             if (changeItemSelection(position, selectedPosition)) {
-                //highlightItemRange(position, battlefieldItem);
+                // highlightItemRange(position, battlefieldItem);
 
                 for (int i = 0; i < 20; ++i) {
                     for (int j = 0; j < 20; ++j) {
@@ -37,7 +37,6 @@ public class MainPresenter implements MainContract.Presenter {
 
                 if (selectedPosition != null) {
                     BattlefieldItem selectedItem = game.getBattlefieldItem(selectedPosition);
-
 
                     if (selectedItem.getStandingOnIt() &&
                             game.isValidAttack(selectedPosition, position) &&
@@ -60,20 +59,15 @@ public class MainPresenter implements MainContract.Presenter {
                     }
                 }
             }
+        } else {
+            if (Table.playerOne.getUniqueMechs().size() == 0) {
+                view.message(3);
+            }
+            if (Table.playerTwo.getUniqueMechs().size() == 0) {
+                view.message(4);
+            }
         }
     }
-
-    /*
-    } else {
-            if (selectedPosition != null) {
-                CellItem selectedItem = game.getCellItem(selectedPosition);
-                if (selectedItem.isMovable() &&
-                        game.isValidStep(selectedPosition, position) &&
-                        selectedItem.getOwner().equals(currentPlayer)) {
-                    moveItem(position, selectedPosition);
-                    nextPlayer();
-                }
-     */
 
     private void highlightItemRange(Position itemPosition, BattlefieldItem item) {
 

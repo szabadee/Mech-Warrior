@@ -47,12 +47,12 @@ public class BattlefieldItem implements Action {
 
     @Override
     public int maxStep() {
-        return 0;
+        return 6;
     }
 
     @Override
     public int maxAttack() {
-        return 0;
+        return 6;
     }
 
 }
