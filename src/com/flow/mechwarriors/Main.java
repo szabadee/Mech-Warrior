@@ -74,7 +74,7 @@ public class Main extends JFrame implements MainContract.View {
         message.setOpaque(true);
         message.setForeground(Color.yellow);
         message.setBackground(Color.darkGray);
-        message.setFont(new Font("Courier", Font.ITALIC, 14));
+        message.setFont(new Font("Courier", Font.ITALIC, 12));
         message.setBounds(560,350,200,50);
         message.setBorder(new EmptyBorder(10,10,0,0));
         message.setText("");
@@ -185,10 +185,10 @@ public class Main extends JFrame implements MainContract.View {
                 if (center == null ||
                         center.x == i || center.y == j) {
                     int index = i * 20 + j;
-                    if (Battlefield.battlefield[i][j].getStandingOnIt()) {
+                    /*if (Battlefield.battlefield[i][j].getStandingOnIt()) {
                         ((JButton) layoutButtons.getComponent(index))
                                 .setBorder(BorderFactory.createLineBorder(Color.cyan));
-                    }
+                    }*/
                 }
             }
         }

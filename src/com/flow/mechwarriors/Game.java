@@ -55,7 +55,6 @@ public class Game {
     }
 
     public Player getCurrentPlayer() {
-        System.out.println(currentPlayerIndex);
         return players.get((int) currentPlayerIndex);
     }
 
@@ -69,7 +68,7 @@ public class Game {
 
     public boolean isValidStep(Position from, Position to) {
         BattlefieldItem startPosition = getBattlefieldItem(from);
-        
+
         return startPosition != null &&
                 (from.x == to.x || from.y == to.y) &&
                 Math.abs(from.x - to.x) <= startPosition.getMech().maxStep() &&
@@ -90,29 +89,69 @@ public class Game {
 
         Mech damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
 
+        int[] leftLeg = damagedMech.getLeftLeg();
+        int[] rightLeg = damagedMech.getLeftLeg();
+        int[] leftArm = damagedMech.getLeftArm();
+        int[] rightArm = damagedMech.getRightArm();
+        int[] leftShoulder = damagedMech.getLeftShoulder();
+        int[] rightShoulder = damagedMech.getRightShoulder();
         int[] torso = damagedMech.getTorso();
+        int[] head = damagedMech.getHead();
+
+        List<int[]> bodyOfParts = new ArrayList<>();
+        bodyOfParts.add(leftLeg);
+        bodyOfParts.add(rightLeg);
+        bodyOfParts.add(leftArm);
+        bodyOfParts.add(rightArm);
+        bodyOfParts.add(leftShoulder);
+        bodyOfParts.add(rightShoulder);
+        bodyOfParts.add(torso);
+        bodyOfParts.add(head);
+
+        int random = (int) (Math.random() * (100 - 1 + 1) + 1);
 
         if (torso[0] > 0) {
-            torso[0] = torso[0] - 5;
-            if (torso[0] - 5 <= 0) {
+            int temp = torso[0];
+            System.out.println("temp: " + temp);
+            torso[0] = temp - 5;
+            System.out.println("torso: " + torso[0]);
+            if (torso[0] <= 0) {
                 torso[0] = 0;
             }
         } else if (torso[0] == 0) {
-            torso[1] = torso[1] - 5;
-            if (torso[1] - 5 <= 0) {
+            int temp = torso[1];
+            torso[1] = temp - 5;
+            if (torso[1] <= 0) {
                 torso[1] = 0;
                 damagedMech.setStandingOnIt(false);
-                if (Table.playerOne.getUniqueMechs().contains(damagedMech)) {
-                    Table.playerOne.getUniqueMechs().remove(damagedMech);
-                } else {
-                    Table.playerTwo.getUniqueMechs().remove(damagedMech);
-                }
+            }
+        }
+        if (torso[0] == 0 && torso[1] == 0) {
+            Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
+            if (Table.playerOne.getUniqueMechs().contains(damagedMech)) {
+                Table.playerOne.getUniqueMechs().remove(damagedMech);
+            } else {
+                Table.playerTwo.getUniqueMechs().remove(damagedMech);
             }
         }
 
-        damagedMech.setTorso(torso);
+        System.out.println(("Player One: " + Table.playerOne.getUniqueMechs().size()));
+        System.out.println(("Player Two: " + Table.playerTwo.getUniqueMechs().size()));
 
-        System.out.println(Arrays.toString(damagedMech.getTorso()));
+    }
 
+    public void barrierListener(Range range, Position center) {
+        for (int i = range.topLeft.x; i <= range.bottomRight.x; i++) {
+            for (int j = range.topLeft.y; j <= range.bottomRight.y; j++) {
+                if (center == null ||
+                        center.x == i || center.y == j) {
+                    int index = i * 20 + j;
+                    /*if (Battlefield.battlefield[i][j].getStandingOnIt()) {
+                        ((JButton) layoutButtons.getComponent(index))
+                                .setBorder(BorderFactory.createLineBorder(Color.cyan));
+                    }*/
+                }
+            }
+        }
     }
 }

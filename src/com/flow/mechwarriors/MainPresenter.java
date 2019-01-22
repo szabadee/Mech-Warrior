@@ -37,22 +37,23 @@ public class MainPresenter implements MainContract.Presenter {
 
                 if (selectedPosition != null) {
                     BattlefieldItem selectedItem = game.getBattlefieldItem(selectedPosition);
+                    view.message(2);
 
                     if (selectedItem.getStandingOnIt() &&
                             game.isValidAttack(selectedPosition, position) &&
                             selectedItem.getMech().getOwner().equals(currentPlayer)) {
                         game.attack(position);
-                        view.message(0);
                         view.setSelection(selectedPosition, false);
                         nextPlayer();
                         view.showBattlefield(game.getBattlefield());
+                        view.message(0);
                     } else {
                         if (selectedItem.getStandingOnIt() &&
                                 game.isValidStep(selectedPosition, position) &&
                                 selectedItem.getMech().getOwner().equals(currentPlayer)) {
-                            view.message(0);
                             moveItem(position, selectedPosition);
                             nextPlayer();
+                            view.message(0);
                         } else {
                             view.message(1);
                         }
@@ -72,11 +73,11 @@ public class MainPresenter implements MainContract.Presenter {
     private void highlightItemRange(Position itemPosition, BattlefieldItem item) {
 
         Position p1 = new Position(
-                Math.max(0, itemPosition.x - item.getMech().maxAttack()),
-                Math.max(0, itemPosition.y - item.getMech().maxAttack()));
+                Math.max(0, itemPosition.x - item.getMech().maxStep()),
+                Math.max(0, itemPosition.y - item.getMech().maxStep()));
         Position p2 = new Position(
-                Math.max(item.getMech().maxStep(), itemPosition.x + item.getMech().maxAttack()),
-                Math.max(item.getMech().maxStep(), itemPosition.y + item.getMech().maxAttack()));
+                Math.max(item.getMech().maxStep(), itemPosition.x + item.getMech().maxStep()),
+                Math.max(item.getMech().maxStep(), itemPosition.y + item.getMech().maxStep()));
 
         Range range = new Range(p1, p2);
         view.highlightRange(range, itemPosition);
