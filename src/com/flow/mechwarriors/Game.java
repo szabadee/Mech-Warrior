@@ -67,20 +67,60 @@ public class Game {
     public boolean isValidStep(Position from, Position to) {
         BattlefieldItem startPosition = getBattlefieldItem(from);
 
-        return startPosition != null &&
+        boolean result = startPosition != null &&
                 (from.x == to.x || from.y == to.y) &&
                 Math.abs(from.x - to.x) <= startPosition.getMech().maxStep() &&
                 Math.abs(from.y - to.y) <= startPosition.getMech().maxStep();
+
+        if (from.x != to.x) {
+            int step = from.x < to.x ? 1 : -1;
+            for (int i = from.x + step; i != to.x; i += step) {
+                if (getBattlefieldItem(new Position(i, from.y)).isBarrier()) {
+                    result = false;
+                }
+            }
+        }
+
+        if (from.y != to.y) {
+            int step = from.y < to.y ? 1 : -1;
+            for (int i = from.y + step; i != to.y; i += step) {
+                if (getBattlefieldItem(new Position(from.x, i)).isBarrier()) {
+                    result = false;
+                }
+            }
+        }
+
+        return result;
     }
 
     public boolean isValidAttack(Position from, Position to) {
         BattlefieldItem mech1 = getBattlefieldItem(from);
         BattlefieldItem mech2 = getBattlefieldItem(to);
 
-        return mech1.getStandingOnIt() && mech2.getStandingOnIt() &&
+        boolean result = mech1.getStandingOnIt() && mech2.getStandingOnIt() &&
                 !mech1.getMech().getOwner().equals(mech2.getMech().getOwner()) &&
                 Math.abs(from.x - to.x) <= mech1.getMech().maxAttack() &&
                 Math.abs(from.y - to.y) <= mech1.getMech().maxAttack();
+
+        if (from.x != to.x) {
+            int step = from.x < to.x ? 1 : -1;
+            for (int i = from.x + step; i != to.x; i += step) {
+                if (getBattlefieldItem(new Position(i, from.y)).isBarrier()) {
+                    result = false;
+                }
+            }
+        }
+
+        if (from.y != to.y) {
+            int step = from.y < to.y ? 1 : -1;
+            for (int i = from.y + step; i != to.y; i += step) {
+                if (getBattlefieldItem(new Position(from.x, i)).isBarrier()) {
+                    result = false;
+                }
+            }
+        }
+
+        return result;
     }
 
     public void attack(Position position, int attackForce) {

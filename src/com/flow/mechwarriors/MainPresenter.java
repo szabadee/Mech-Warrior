@@ -46,7 +46,7 @@ public class MainPresenter implements MainContract.Presenter {
                         view.setSelection(selectedPosition, false);
                         nextPlayer();
                         view.showBattlefield(game.getBattlefield());
-                        view.removeHighlight();
+                        removeHighlight();
                         view.message(0);
                     } else {
                         if (selectedItem.getStandingOnIt() &&
@@ -63,12 +63,7 @@ public class MainPresenter implements MainContract.Presenter {
                 }
             }
         } else {
-            if (Table.playerOne.getUniqueMechs().size() == 0) {
-                view.message(3);
-            }
-            if (Table.playerTwo.getUniqueMechs().size() == 0) {
-                view.message(4);
-            }
+            isGameOver();
         }
     }
 
@@ -84,6 +79,23 @@ public class MainPresenter implements MainContract.Presenter {
         Range range = new Range(p1, p2);
         //game.barrierListener(range, itemPosition);
 
+    }
+
+    private void removeHighlight() {
+        view.removeHighlight();
+        Position selectedPosition = game.getSelectedPosition();
+
+        for (int i = 0; i < 10; ++i) {
+            for (int j = 0; j < 10; ++j) {
+                Position to = new Position(i, j);
+
+
+                if (selectedPosition == null ||
+                        !selectedPosition.equals(to)) {
+                    view.highlightAttackableItem(to, false);
+                }
+            }
+        }
     }
 
     private void nextPlayer() {
@@ -122,6 +134,15 @@ public class MainPresenter implements MainContract.Presenter {
         view.setSelection(newPosition, true);
 
         view.removeHighlight();
+    }
+
+    private void isGameOver() {
+        if (Table.playerOne.getUniqueMechs().size() == 0) {
+            view.message(3);
+        }
+        if (Table.playerTwo.getUniqueMechs().size() == 0) {
+            view.message(4);
+        }
     }
 
 }

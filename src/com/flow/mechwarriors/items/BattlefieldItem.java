@@ -25,26 +25,6 @@ public class BattlefieldItem {
         return false;
     }
 
-    /*@Override
-    public int maxStep() {
-        return 6;
-    }
-
-    @Override
-    public int maxAttack() {
-        return 6;
-    }
-
-    @Override
-    public boolean isMovable() {
-        return false;
-    }
-
-    @Override
-    public boolean canAttack() {
-        return false;
-    }*/
-
     @Override
     public String toString () {
         if (isStandingOnIt) {

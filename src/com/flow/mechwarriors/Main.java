@@ -205,7 +205,14 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void highlightAttackableItem(Position position, boolean highlight) {
         JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
-        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.cyan: Color.gray));
+        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.cyan : Color.gray));
+
+        if (highlight == true) {
+            message(2);
+        } else {
+            message(0);
+        }
+
     }
 
     @Override
