@@ -2,7 +2,7 @@ package com.flow.mechwarriors;
 
 import com.flow.mechwarriors.items.BattlefieldItem;
 
-public class Battlefield extends BattlefieldItem {
+public class Battlefield {
     public static BattlefieldItem[][] battlefield;
     private final int size = 20;
     private Table table = new Table(size);

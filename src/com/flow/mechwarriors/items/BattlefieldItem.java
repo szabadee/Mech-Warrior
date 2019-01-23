@@ -1,10 +1,9 @@
 package com.flow.mechwarriors.items;
 
 
-public class BattlefieldItem implements Action {
+public class BattlefieldItem {
     private Mech mech;
     private boolean isStandingOnIt;
-
 
     public Mech getMech () {
         return mech;
@@ -26,6 +25,26 @@ public class BattlefieldItem implements Action {
         return false;
     }
 
+    /*@Override
+    public int maxStep() {
+        return 6;
+    }
+
+    @Override
+    public int maxAttack() {
+        return 6;
+    }
+
+    @Override
+    public boolean isMovable() {
+        return false;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return false;
+    }*/
+
     @Override
     public String toString () {
         if (isStandingOnIt) {
@@ -43,16 +62,6 @@ public class BattlefieldItem implements Action {
         }
 
         return null;
-    }
-
-    @Override
-    public int maxStep() {
-        return 6;
-    }
-
-    @Override
-    public int maxAttack() {
-        return 6;
     }
 
 }

@@ -39,14 +39,13 @@ public class Game {
         BattlefieldItem battlefieldItem = Battlefield.battlefield[from.x][from.y];
         BattlefieldItem battlefieldNextItem = Battlefield.battlefield[to.x][to.y];
 
-        if (battlefieldItem.getStandingOnIt() &&
+        if (battlefieldItem.getStandingOnIt() && battlefieldItem.getMech().isMovable() &&
                 !battlefieldNextItem.getStandingOnIt() &&
                 !battlefieldNextItem.isBarrier()) {
             battlefieldNextItem.setMech(battlefieldItem.getMech());
             battlefieldItem.setStandingOnIt(false);
             battlefieldNextItem.setStandingOnIt(true);
         }
-
     }
 
     public Battlefield getBattlefield() {
@@ -58,7 +57,7 @@ public class Game {
     }
 
     public void nextPlayer() {
-        currentPlayerIndex = (currentPlayerIndex + players.size());
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
     public List<Player> getPlayers() {
@@ -104,27 +103,35 @@ public class Game {
         switch (hitChance) {
             case 0:
                 setArmorAndHpValues(head, attackForce);
+                break;
 
             case 1:
                 setArmorAndHpValues(leftArm, attackForce);
+                break;
 
             case 2:
                 setArmorAndHpValues(rightArm, attackForce);
+                break;
 
             case 3:
                 setArmorAndHpValues(leftShoulder, attackForce);
+                break;
 
             case 4:
                 setArmorAndHpValues(rightShoulder, attackForce);
+                break;
 
             case 5:
                 setArmorAndHpValues(leftLeg, attackForce);
+                break;
 
             case 6:
                 setArmorAndHpValues(rightLeg, attackForce);
+                break;
 
             case 7:
                 setArmorAndHpValues(torso, attackForce);
+                break;
         }
 
         if (head[0] == 0 && head[1] == 0 || torso[0] == 0 && torso[1] == 0) {
@@ -167,6 +174,5 @@ public class Game {
                 bodyOfParts[1] = 0;
             }
         }
-
     }
 }

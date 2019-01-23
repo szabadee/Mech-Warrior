@@ -4,7 +4,7 @@ package com.flow.mechwarriors.items;
 import com.flow.mechwarriors.Player;
 
 
-public abstract class Mech extends BattlefieldItem {
+public abstract class Mech implements Action {
     private String mechType;
     private String name;
     private String weapon;
