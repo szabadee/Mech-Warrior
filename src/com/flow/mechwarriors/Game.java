@@ -4,7 +4,6 @@ import com.flow.mechwarriors.items.BattlefieldItem;
 import com.flow.mechwarriors.items.Mech;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Game {
@@ -59,7 +58,7 @@ public class Game {
     }
 
     public void nextPlayer() {
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        currentPlayerIndex = (currentPlayerIndex + players.size());
     }
 
     public List<Player> getPlayers() {
@@ -85,48 +84,50 @@ public class Game {
                 Math.abs(from.y - to.y) <= mech1.getMech().maxAttack();
     }
 
-    public void attack(Position position) {
+    public void attack(Position position, int attackForce) {
 
         Mech damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
 
-        int[] leftLeg = damagedMech.getLeftLeg();
-        int[] rightLeg = damagedMech.getLeftLeg();
-        int[] leftArm = damagedMech.getLeftArm();
-        int[] rightArm = damagedMech.getRightArm();
-        int[] leftShoulder = damagedMech.getLeftShoulder();
-        int[] rightShoulder = damagedMech.getRightShoulder();
-        int[] torso = damagedMech.getTorso();
-        int[] head = damagedMech.getHead();
+        int[] head = damagedMech.getHead();                     //5%
+        int[] leftArm = damagedMech.getLeftArm();               //10%
+        int[] rightArm = damagedMech.getRightArm();             //10%
+        int[] leftShoulder = damagedMech.getLeftShoulder();     //13%
+        int[] rightShoulder = damagedMech.getRightShoulder();   //13%
+        int[] leftLeg = damagedMech.getLeftLeg();               //15%
+        int[] rightLeg = damagedMech.getLeftLeg();              //15%
+        int[] torso = damagedMech.getTorso();                   //19%
 
-        List<int[]> bodyOfParts = new ArrayList<>();
-        bodyOfParts.add(leftLeg);
-        bodyOfParts.add(rightLeg);
-        bodyOfParts.add(leftArm);
-        bodyOfParts.add(rightArm);
-        bodyOfParts.add(leftShoulder);
-        bodyOfParts.add(rightShoulder);
-        bodyOfParts.add(torso);
-        bodyOfParts.add(head);
 
         int random = (int) (Math.random() * (100 - 1 + 1) + 1);
+        int hitChance = chance(random);
 
-        if (torso[0] > 0) {
-            int temp = torso[0];
-            System.out.println("temp: " + temp);
-            torso[0] = temp - 5;
-            System.out.println("torso: " + torso[0]);
-            if (torso[0] <= 0) {
-                torso[0] = 0;
-            }
-        } else if (torso[0] == 0) {
-            int temp = torso[1];
-            torso[1] = temp - 5;
-            if (torso[1] <= 0) {
-                torso[1] = 0;
-                damagedMech.setStandingOnIt(false);
-            }
+        switch (hitChance) {
+            case 0:
+                setArmorAndHpValues(head, attackForce);
+
+            case 1:
+                setArmorAndHpValues(leftArm, attackForce);
+
+            case 2:
+                setArmorAndHpValues(rightArm, attackForce);
+
+            case 3:
+                setArmorAndHpValues(leftShoulder, attackForce);
+
+            case 4:
+                setArmorAndHpValues(rightShoulder, attackForce);
+
+            case 5:
+                setArmorAndHpValues(leftLeg, attackForce);
+
+            case 6:
+                setArmorAndHpValues(rightLeg, attackForce);
+
+            case 7:
+                setArmorAndHpValues(torso, attackForce);
         }
-        if (torso[0] == 0 && torso[1] == 0) {
+
+        if (head[0] == 0 && head[1] == 0 || torso[0] == 0 && torso[1] == 0) {
             Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
             if (Table.playerOne.getUniqueMechs().contains(damagedMech)) {
                 Table.playerOne.getUniqueMechs().remove(damagedMech);
@@ -140,18 +141,32 @@ public class Game {
 
     }
 
-    public void barrierListener(Range range, Position center) {
-        for (int i = range.topLeft.x; i <= range.bottomRight.x; i++) {
-            for (int j = range.topLeft.y; j <= range.bottomRight.y; j++) {
-                if (center == null ||
-                        center.x == i || center.y == j) {
-                    int index = i * 20 + j;
-                    /*if (Battlefield.battlefield[i][j].getStandingOnIt()) {
-                        ((JButton) layoutButtons.getComponent(index))
-                                .setBorder(BorderFactory.createLineBorder(Color.cyan));
-                    }*/
-                }
+    public int chance(int num) {
+        if (num <= 5 && num >= 0) return 0;
+        if (num <= 15 && num > 5) return 1;
+        if (num <= 25 && num > 15) return 2;
+        if (num <= 38 && num > 25) return 3;
+        if (num <= 51 && num > 38) return 4;
+        if (num <= 67 && num > 51) return 5;
+        if (num <= 83 && num > 68) return 6;
+        if (num <= 100 && num > 84) return 7;
+        return -1;
+    }
+
+    public void setArmorAndHpValues(int[] bodyOfParts, int attackForce) {
+        if (bodyOfParts[0] > 0) {
+            int temp = bodyOfParts[0];
+            bodyOfParts[0] = temp - attackForce;
+            if (bodyOfParts[0] <= 0) {
+                bodyOfParts[0] = 0;
+            }
+        } else if (bodyOfParts[0] == 0) {
+            int temp = bodyOfParts[1];
+            bodyOfParts[1] = temp - attackForce;
+            if (bodyOfParts[1] <= 0) {
+                bodyOfParts[1] = 0;
             }
         }
+
     }
 }

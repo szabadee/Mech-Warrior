@@ -56,7 +56,7 @@ public class Main extends JFrame implements MainContract.View {
         mechProfileTags.setVerticalTextPosition(JLabel.TOP);
         mechProfileTags.setBounds(560,100,90, 240);
         mechProfileTags.setText("<html><font style=\"font-family: 'Arial'; font-size: 12pt;\">" +
-                "Mech's type:<br>Mech's name:<br>Weapon:<br>Weapon range:<br>Step range:<br><br>" +
+                "Mech's type:<br>Mech's name:<br>Weapon:<br>Weapon range:<br>Attack Force:<br>Step range:<br><br>" +
                 "- - - - - - - - - - - -<br>Left leg:<br>Right leg:<br>Left arm:<br>Right arm:<br>" +
                 "Left shoulder:<br>Right shoulder:<br>Torso:<br>Head:</html>");
         root.add(mechProfileTags);

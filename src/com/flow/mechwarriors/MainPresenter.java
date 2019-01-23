@@ -42,10 +42,11 @@ public class MainPresenter implements MainContract.Presenter {
                     if (selectedItem.getStandingOnIt() &&
                             game.isValidAttack(selectedPosition, position) &&
                             selectedItem.getMech().getOwner().equals(currentPlayer)) {
-                        game.attack(position);
+                        game.attack(position, selectedItem.getMech().getAttackForce());
                         view.setSelection(selectedPosition, false);
                         nextPlayer();
                         view.showBattlefield(game.getBattlefield());
+                        view.removeHighlight();
                         view.message(0);
                     } else {
                         if (selectedItem.getStandingOnIt() &&
@@ -80,7 +81,7 @@ public class MainPresenter implements MainContract.Presenter {
                 Math.max(item.getMech().maxStep(), itemPosition.y + item.getMech().maxStep()));
 
         Range range = new Range(p1, p2);
-        view.highlightRange(range, itemPosition);
+        //game.barrierListener(range, itemPosition);
 
     }
 

@@ -18,9 +18,10 @@ public abstract class Mech extends BattlefieldItem {
     private int[] rightShoulder;
     private int[] torso;
     private int[] head;
+    private int attackForce;
     private Player owner;
 
-    public Mech(String name, int armor, int hp) {
+    public Mech(String name, int armor, int hp, int attackForce) {
         this.name = name;
         leftLeg = new int[]{armor, hp};
         rightLeg = new int[]{armor, hp};
@@ -30,6 +31,7 @@ public abstract class Mech extends BattlefieldItem {
         rightShoulder = new int[]{armor, hp};
         torso = new int[]{armor, hp};
         head = new int[]{armor, hp};
+        this.attackForce = attackForce;
     }
     
     // region Getters
@@ -88,6 +90,10 @@ public abstract class Mech extends BattlefieldItem {
 
     public Player getOwner() {
         return owner;
+    }
+
+    public int getAttackForce() {
+        return attackForce;
     }
 
     // endregion
@@ -150,6 +156,10 @@ public abstract class Mech extends BattlefieldItem {
         this.owner = owner;
     }
 
+    public void setAttackForce(int attackForce) {
+        this.attackForce = attackForce;
+    }
+
     // endregion
 
     @Override
@@ -159,6 +169,7 @@ public abstract class Mech extends BattlefieldItem {
                 name + "<br>" +
                 weapon + "<br>" +
                 weaponRange + "<br>" +
+                attackForce + "<br>" +
                 stepRange + "<br><br>[armor] - - [hp] - - - - -<br> &nbsp;&nbsp;&nbsp; " +
                 leftLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftLeg[1] + "<br> &nbsp;&nbsp;&nbsp; " +
                 rightLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightLeg[1] + "<br> &nbsp;&nbsp;&nbsp; " +

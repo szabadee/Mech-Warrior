@@ -3,7 +3,7 @@ package com.flow.mechwarriors.items;
 public class MechLight extends Mech {
 
     public MechLight(String name) {
-        super(name, 15, 20);
+        super(name, 15, 20, 2);
         setWeapon("Punch");
         setWeaponRange(1);
         setStepRange(4);
@@ -18,6 +18,16 @@ public class MechLight extends Mech {
     @Override
     public int maxAttack() {
         return 1;
+    }
+
+    @Override
+    public boolean isMovable() {
+        return true;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return true;
     }
 
     @Override
