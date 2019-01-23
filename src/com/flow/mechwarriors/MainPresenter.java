@@ -39,7 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
                     BattlefieldItem selectedItem = game.getBattlefieldItem(selectedPosition);
 
                     if (selectedItem.getStandingOnIt() &&
-                            selectedItem.getMech().canAttack() &&
+                            selectedItem.getMech().getCanAttack() &&
                             game.isValidAttack(selectedPosition, position) &&
                             selectedItem.getMech().getOwner().equals(currentPlayer)) {
                         game.attack(position, selectedItem.getMech().getAttackForce());
@@ -51,6 +51,7 @@ public class MainPresenter implements MainContract.Presenter {
                     } else {
                         if (selectedItem.getStandingOnIt() &&
                                 game.isValidStep(selectedPosition, position) &&
+                                selectedItem.getMech().getIsMovable() &&
                                 selectedItem.getMech().getOwner().equals(currentPlayer)) {
                             moveItem(position, selectedPosition);
                             nextPlayer();

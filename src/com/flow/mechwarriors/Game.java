@@ -39,7 +39,7 @@ public class Game {
         BattlefieldItem battlefieldItem = Battlefield.battlefield[from.x][from.y];
         BattlefieldItem battlefieldNextItem = Battlefield.battlefield[to.x][to.y];
 
-        if (battlefieldItem.getStandingOnIt() && battlefieldItem.getMech().isMovable() &&
+        if (battlefieldItem.getStandingOnIt() && battlefieldItem.getMech().getIsMovable() &&
                 !battlefieldNextItem.getStandingOnIt() &&
                 !battlefieldNextItem.isBarrier()) {
             battlefieldNextItem.setMech(battlefieldItem.getMech());
@@ -93,54 +93,71 @@ public class Game {
         int[] leftShoulder = damagedMech.getLeftShoulder();     //13%
         int[] rightShoulder = damagedMech.getRightShoulder();   //13%
         int[] leftLeg = damagedMech.getLeftLeg();               //15%
-        int[] rightLeg = damagedMech.getLeftLeg();              //15%
+        int[] rightLeg = damagedMech.getRightLeg();             //15%
         int[] torso = damagedMech.getTorso();                   //19%
-
 
         int random = (int) (Math.random() * (100 - 1 + 1) + 1);
         int hitChance = chance(random);
 
+        int armor = 0;
+        int hp = 1;
+
         switch (hitChance) {
             case 0:
-                setArmorAndHpValues(head, attackForce);
+                setArmorAndHpValues(head, armor, hp, attackForce);
                 break;
 
             case 1:
-                setArmorAndHpValues(leftArm, attackForce);
+                setArmorAndHpValues(leftArm, armor, hp, attackForce);
                 break;
 
             case 2:
-                setArmorAndHpValues(rightArm, attackForce);
+                setArmorAndHpValues(rightArm, armor, hp, attackForce);
                 break;
 
             case 3:
-                setArmorAndHpValues(leftShoulder, attackForce);
+                setArmorAndHpValues(leftShoulder, armor, hp, attackForce);
                 break;
 
             case 4:
-                setArmorAndHpValues(rightShoulder, attackForce);
+                setArmorAndHpValues(rightShoulder, armor, hp, attackForce);
                 break;
 
             case 5:
-                setArmorAndHpValues(leftLeg, attackForce);
+                setArmorAndHpValues(leftLeg, armor, hp, attackForce);
                 break;
 
             case 6:
-                setArmorAndHpValues(rightLeg, attackForce);
+                setArmorAndHpValues(rightLeg, armor, hp, attackForce);
                 break;
 
             case 7:
-                setArmorAndHpValues(torso, attackForce);
+                setArmorAndHpValues(torso, armor, hp, attackForce);
                 break;
         }
 
-        if (head[0] == 0 && head[1] == 0 || torso[0] == 0 && torso[1] == 0) {
+        if (head[armor] == 0 && head[hp] == 0 || torso[armor] == 0 && torso[hp] == 0) {
             Battlefield.battlefield[position.x][position.y].setStandingOnIt(false);
             if (Table.playerOne.getUniqueMechs().contains(damagedMech)) {
                 Table.playerOne.getUniqueMechs().remove(damagedMech);
             } else {
                 Table.playerTwo.getUniqueMechs().remove(damagedMech);
             }
+        }
+
+        if (leftShoulder[armor] == 0 && leftShoulder[hp] == 0) {
+            leftArm[armor] = 0;
+            leftArm[hp] = 0;
+        }
+
+        if (rightShoulder[armor] == 0 && rightShoulder[hp] == 0 || rightArm[armor] == 0 && rightArm[hp] == 0) {
+            rightArm[armor] = 0;
+            rightArm[hp] = 0;
+            damagedMech.setCanAttack(false);
+        }
+
+        if (leftLeg[armor] == 0 && leftLeg[hp] == 0 || rightLeg[armor] == 0 && rightLeg[hp] == 0) {
+            damagedMech.setMovable(false    );
         }
 
         System.out.println(("Player One: " + Table.playerOne.getUniqueMechs().size()));
@@ -160,18 +177,18 @@ public class Game {
         return -1;
     }
 
-    public void setArmorAndHpValues(int[] bodyOfParts, int attackForce) {
-        if (bodyOfParts[0] > 0) {
-            int temp = bodyOfParts[0];
-            bodyOfParts[0] = temp - attackForce;
-            if (bodyOfParts[0] <= 0) {
-                bodyOfParts[0] = 0;
+    public void setArmorAndHpValues(int[] bodyOfParts, int armor, int hp, int attackForce) {
+        if (bodyOfParts[armor] > 0) {
+            int temp = bodyOfParts[armor];
+            bodyOfParts[armor] = temp - attackForce;
+            if (bodyOfParts[armor] <= 0) {
+                bodyOfParts[armor] = 0;
             }
-        } else if (bodyOfParts[0] == 0) {
-            int temp = bodyOfParts[1];
-            bodyOfParts[1] = temp - attackForce;
-            if (bodyOfParts[1] <= 0) {
-                bodyOfParts[1] = 0;
+        } else if (bodyOfParts[armor] == 0) {
+            int temp = bodyOfParts[hp];
+            bodyOfParts[hp] = temp - attackForce;
+            if (bodyOfParts[hp] <= 0) {
+                bodyOfParts[hp] = 0;
             }
         }
     }

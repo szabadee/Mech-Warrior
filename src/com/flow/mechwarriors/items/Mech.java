@@ -20,8 +20,10 @@ public abstract class Mech implements Action {
     private int[] head;
     private int attackForce;
     private Player owner;
+    private boolean isMovable;
+    private boolean canAttack;
 
-    public Mech(String name, int armor, int hp, int attackForce) {
+    public Mech(String name, int armor, int hp, int attackForce, boolean isMovable, boolean canAttack) {
         this.name = name;
         leftLeg = new int[]{armor, hp};
         rightLeg = new int[]{armor, hp};
@@ -32,6 +34,8 @@ public abstract class Mech implements Action {
         torso = new int[]{armor, hp};
         head = new int[]{armor, hp};
         this.attackForce = attackForce;
+        this.isMovable = isMovable;
+        this.canAttack = canAttack;
     }
     
     // region Getters
@@ -96,6 +100,14 @@ public abstract class Mech implements Action {
         return attackForce;
     }
 
+    public boolean getIsMovable() {
+        return isMovable;
+    }
+
+    public boolean getCanAttack() {
+        return canAttack;
+    }
+
     // endregion
 
     // region Setters
@@ -156,8 +168,12 @@ public abstract class Mech implements Action {
         this.owner = owner;
     }
 
-    public void setAttackForce(int attackForce) {
-        this.attackForce = attackForce;
+    public void setMovable(boolean movable) {
+        this.isMovable = movable;
+    }
+
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
     }
 
     // endregion

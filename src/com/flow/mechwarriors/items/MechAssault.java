@@ -3,7 +3,7 @@ package com.flow.mechwarriors.items;
 public class MechAssault extends Mech {
 
     public MechAssault (String name) {
-        super(name, 30, 35, 5);
+        super(name, 30, 35, 5, true, true);
         setWeapon("Missile");
         setWeaponRange(6);
         setStepRange(1);
@@ -18,16 +18,6 @@ public class MechAssault extends Mech {
     @Override
     public int maxAttack() {
         return 6;
-    }
-
-    @Override
-    public boolean isMovable() {
-        return true;
-    }
-
-    @Override
-    public boolean canAttack() {
-        return true;
     }
 
     @Override
