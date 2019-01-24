@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main extends JFrame implements MainContract.View {
@@ -35,8 +34,14 @@ public class Main extends JFrame implements MainContract.View {
     private JLabel mechArmySize;
     private JLabel message;
     private JLabel header;
+    private JLabel mechImage;
     private BufferedImage backgroundImage;
     private BufferedImage headerImage;
+    private BufferedImage mechLightImage;
+    private BufferedImage mechMediumImage;
+    private BufferedImage mechHeavyImage;
+    private BufferedImage mechAssaultImage;
+    private BufferedImage barrierImage;
 
 
     public Main() {
@@ -124,6 +129,10 @@ public class Main extends JFrame implements MainContract.View {
         header.setBounds(750,27,500,61);
         root.add(header);
 
+        mechImage = new JLabel();
+        mechImage.setBounds(1010,180,240,200);
+        root.add(mechImage);
+
 
         /*images();
         layoutBackground = new JLabel(new ImageIcon(background));
@@ -138,14 +147,28 @@ public class Main extends JFrame implements MainContract.View {
 
             presenter.onTableItemClicked(new Position(x, y));
 
-            if (Battlefield.battlefield[x][y].getStandingOnIt()) {
-                mechProfile.setText(Battlefield.battlefield[x][y].getMech().toString());
+            Mech showMech = Battlefield.battlefield[x][y].getMech();
+
+            if (Battlefield.battlefield[x][y].isBarrier()) {
+                mechImage.setIcon(new ImageIcon(barrierImage));
+
+            } else if (Battlefield.battlefield[x][y].getStandingOnIt()) {
+                mechProfile.setText(showMech.toString());
                 mechArmySize.setText("<html><font style=\"color: red;\">" +
-                        String.valueOf(Battlefield.battlefield[x][y].getMech().getOwner().getUniqueMechs().size()) +
-                        "</html>");
+                        String.valueOf(showMech.getOwner().getUniqueMechs().size()) + "</html>");
+                if (showMech instanceof MechLight) {
+                    mechImage.setIcon(new ImageIcon(mechLightImage));
+                } else if (showMech instanceof MechMedium) {
+                    mechImage.setIcon(new ImageIcon(mechMediumImage));
+                } else if (showMech instanceof MechHeavy) {
+                    mechImage.setIcon(new ImageIcon(mechHeavyImage));
+                } else if (showMech instanceof MechAssault) {
+                    mechImage.setIcon(new ImageIcon(mechAssaultImage));
+                }
             } else {
                 mechProfile.setText("");
                 mechArmySize.setText("");
+                mechImage.setIcon(null);
             }
         };
 
@@ -168,44 +191,44 @@ public class Main extends JFrame implements MainContract.View {
                 button.setBackground(Color.white);
                 button.setBorderPainted(true);
                 button.setBorder(BorderFactory.createLineBorder(Color.gray));
-                button.setBounds(30 + i * 33,27 + j * 33, 30,30);
-                button.setFont(new Font("Arial", Font.PLAIN, 13));
+                button.setBounds(30 + i * 33,27 + j * 33, 28,28);
+                button.setFont(new Font("Arial", Font.PLAIN, 12));
                 button.getInsets(new Insets(0, 0, 0, 0));
 
                 layoutButtons.add(button);
 
                 button.setOpaque(true);
 
-                Mech showMech = Battlefield.battlefield[i][j].getMech();
+                Mech foundMech = Battlefield.battlefield[i][j].getMech();
 
                 if (Battlefield.battlefield[i][j].getStandingOnIt()) {
 
-                    if (showMech.getOwner().equals(Table.playerOne)) {
-                        if (showMech instanceof MechLight) {
+                    if (foundMech.getOwner().equals(Table.playerOne)) {
+                        if (foundMech instanceof MechLight) {
                             button.setText("L");
                             button.setBackground(Color.orange);
-                        } else if (showMech instanceof MechMedium) {
+                        } else if (foundMech instanceof MechMedium) {
                             button.setText("M");
                             button.setBackground(Color.orange);
-                        } else if (showMech instanceof MechHeavy) {
+                        } else if (foundMech instanceof MechHeavy) {
                             button.setText("H");
                             button.setBackground(Color.orange);
-                        } else if (showMech instanceof MechAssault) {
+                        } else if (foundMech instanceof MechAssault) {
                             button.setText("A");
                             button.setBackground(Color.orange);
                         }
                     }
-                    if (showMech.getOwner().equals(Table.playerTwo)) {
-                        if (showMech instanceof MechLight) {
+                    if (foundMech.getOwner().equals(Table.playerTwo)) {
+                        if (foundMech instanceof MechLight) {
                             button.setText("L");
                             button.setBackground(Color.green);
-                        } else if (showMech instanceof MechMedium) {
+                        } else if (foundMech instanceof MechMedium) {
                             button.setText("M");
                             button.setBackground(Color.green);
-                        } else if (showMech instanceof MechHeavy) {
+                        } else if (foundMech instanceof MechHeavy) {
                             button.setText("H");
                             button.setBackground(Color.green);
-                        } else if (showMech instanceof MechAssault) {
+                        } else if (foundMech instanceof MechAssault) {
                             button.setText("A");
                             button.setBackground(Color.green);
                         }
@@ -224,7 +247,7 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void setSelection(Position position, boolean selection) {
         Component component = layoutButtons.getComponent(position.x * 20 + position.y);
-        ((JButton) component).setBorder(BorderFactory.createLineBorder(selection ? Color.red : Color.gray));
+        ((JButton) component).setBackground((selection ? Color.red : Color.gray));
 
         System.out.println(selection);
     }
@@ -309,6 +332,11 @@ public class Main extends JFrame implements MainContract.View {
         try {
             backgroundImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/background.jpg"));
             headerImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-header.jpg"));
+            mechLightImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechLight.png"));
+            mechMediumImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechMedium.png"));
+            mechHeavyImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechHeavy.png"));
+            mechAssaultImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechAssault.png"));
+            barrierImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/barrier.png"));
         } catch (
             IOException exp) {
             exp.printStackTrace();
