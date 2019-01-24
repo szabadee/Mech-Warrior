@@ -186,7 +186,7 @@ public abstract class Mech implements Action {
                 weapon + "<br>" +
                 weaponRange + "<br>" +
                 attackForce + "<br>" +
-                stepRange + "<br><br>[armor] - - [hp] - - -<br>&emsp;" +
+                stepRange + "<br><br><br>[armor] - - [hp] - - -<br><&emsp;" +
                 leftLeg[0] + "&emsp;&emsp;&emsp;" + leftLeg[1] + "<br>&emsp;" +
                 rightLeg[0] + "&emsp;&emsp;&emsp;" + rightLeg[1] + "<br>&emsp;" +
                 leftArm[0] + "&emsp;&emsp;&emsp;" + leftArm[1] + "<br>&emsp;" +

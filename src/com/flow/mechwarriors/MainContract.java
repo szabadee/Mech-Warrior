@@ -12,6 +12,7 @@ public interface MainContract {
         void removeHighlight();
         void message(int messageCode);
         void highlightAttackableItem(Position position, boolean highlight);
+        void setMechDraft (int state);
 
         }
     interface Presenter {

@@ -123,7 +123,7 @@ public class Game {
         return result;
     }
 
-    public void attack(Position position, int attackForce) {
+    public int attack(Position position, int attackForce) {
 
         Mech damagedMech = Battlefield.battlefield[position.x][position.y].getMech();
 
@@ -188,20 +188,38 @@ public class Game {
         if (leftShoulder[armor] == 0 && leftShoulder[hp] == 0) {
             leftArm[armor] = 0;
             leftArm[hp] = 0;
+            return 1;
         }
 
-        if (rightShoulder[armor] == 0 && rightShoulder[hp] == 0 || rightArm[armor] == 0 && rightArm[hp] == 0) {
+        if (rightShoulder[armor] == 0 && rightShoulder[hp] == 0) {
             rightArm[armor] = 0;
             rightArm[hp] = 0;
             damagedMech.setCanAttack(false);
+            return 2;
+        }
+        
+        if (leftLeg[armor] == 0 && leftLeg[hp] == 0) {
+            damagedMech.setMovable(false);
+            return 3;
         }
 
-        if (leftLeg[armor] == 0 && leftLeg[hp] == 0 || rightLeg[armor] == 0 && rightLeg[hp] == 0) {
-            damagedMech.setMovable(false    );
+        if (rightLeg[armor] == 0 && rightLeg[hp] == 0) {
+            damagedMech.setMovable(false);
+            return 4;
         }
 
-        System.out.println(("Player One: " + Table.playerOne.getUniqueMechs().size()));
-        System.out.println(("Player Two: " + Table.playerTwo.getUniqueMechs().size()));
+        if (rightArm[armor] == 0 && rightArm[hp] == 0) {
+            return 5;
+        }
+
+        if (leftArm[armor] == 0 && leftArm[hp] == 0) {
+            return 6;
+        }
+
+        return 0;
+
+        // System.out.println(("Player One: " + Table.playerOne.getUniqueMechs().size()));
+        // System.out.println(("Player Two: " + Table.playerTwo.getUniqueMechs().size()));
 
     }
 

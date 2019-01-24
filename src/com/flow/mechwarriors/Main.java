@@ -35,6 +35,7 @@ public class Main extends JFrame implements MainContract.View {
     private JLabel message;
     private JLabel header;
     private JLabel mechImage;
+    private JLabel mechDraftImage;
     private BufferedImage backgroundImage;
     private BufferedImage headerImage;
     private BufferedImage mechLightImage;
@@ -42,6 +43,9 @@ public class Main extends JFrame implements MainContract.View {
     private BufferedImage mechHeavyImage;
     private BufferedImage mechAssaultImage;
     private BufferedImage barrierImage;
+    private BufferedImage mechDefaultDraftImage;
+    private BufferedImage mechLeftShoulderArmDraftImage;
+    private BufferedImage mechRightShoulderArmDraftImage;
 
 
     public Main() {
@@ -70,7 +74,7 @@ public class Main extends JFrame implements MainContract.View {
         mechProfileTags = new JLabel();
         mechProfileTags.setVerticalAlignment(JLabel.TOP);
         mechProfileTags.setVerticalTextPosition(JLabel.TOP);
-        mechProfileTags.setBounds(750,230,120, 280);
+        mechProfileTags.setBounds(750,260,120, 300);
         mechProfileTags.setFont(new Font("Arial", Font.PLAIN, 14));
         mechProfileTags.setText("<html>" +
                 "Mech's type:<br>" +
@@ -78,7 +82,7 @@ public class Main extends JFrame implements MainContract.View {
                 "Weapon:<br>" +
                 "Weapon range:<br>" +
                 "Attack Force:<br>" +
-                "Step range:<br><br>" +
+                "Step range:<br><br><br>" +
                 "- - - - - - - - - - - -<br>" +
                 "Left leg:<br>Right leg:<br>" +
                 "Left arm:<br>Right arm:<br>" +
@@ -91,14 +95,14 @@ public class Main extends JFrame implements MainContract.View {
         mechProfile = new JLabel();
         mechProfile.setVerticalAlignment(JLabel.TOP);
         mechProfile.setVerticalTextPosition(JLabel.TOP);
-        mechProfile.setBounds(860,230,150,280);
+        mechProfile.setBounds(860,260,150,300);
         mechProfile.setText("");
         root.add(mechProfile);
 
         mechArmy = new JLabel();
         mechArmy.setVerticalAlignment(JLabel.TOP);
         mechArmy.setVerticalTextPosition(JLabel.TOP);
-        mechArmy.setBounds(750,180,240,40);
+        mechArmy.setBounds(750,195,240,40);
         mechArmy.setFont(new Font("Arial", Font.PLAIN, 14));
         mechArmy.setText("<html>" + "Size of the Mech Army:<br>" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - -<br></html>");
         root.add(mechArmy);
@@ -106,7 +110,7 @@ public class Main extends JFrame implements MainContract.View {
         mechArmySize = new JLabel();
         mechArmySize.setVerticalAlignment(JLabel.TOP);
         mechArmySize.setVerticalTextPosition(JLabel.TOP);
-        mechArmySize.setBounds(905,180,150,40);
+        mechArmySize.setBounds(905,195,150,40);
         mechArmySize.setFont(new Font("Arial", Font.PLAIN, 14));
         mechArmySize.setText("");
         root.add(mechArmySize);
@@ -119,7 +123,7 @@ public class Main extends JFrame implements MainContract.View {
         message.setForeground(Color.yellow);
         message.setBackground(Color.darkGray);
         message.setFont(new Font("Courier", Font.ITALIC, 14));
-        message.setBounds(750,540,240,70);
+        message.setBounds(750,580,240,70);
         message.setBorder(new EmptyBorder(10,10,0,0));
         message.setText("");
         root.add(message);
@@ -132,6 +136,10 @@ public class Main extends JFrame implements MainContract.View {
         mechImage = new JLabel();
         mechImage.setBounds(1010,180,240,200);
         root.add(mechImage);
+
+        mechDraftImage = new JLabel();
+        mechDraftImage.setBounds(1020,365,240,240);
+        root.add(mechDraftImage);
 
 
         /*images();
@@ -151,11 +159,14 @@ public class Main extends JFrame implements MainContract.View {
 
             if (Battlefield.battlefield[x][y].isBarrier()) {
                 mechImage.setIcon(new ImageIcon(barrierImage));
+                mechProfile.setText("");
+                mechArmySize.setText("");
 
             } else if (Battlefield.battlefield[x][y].getStandingOnIt()) {
                 mechProfile.setText(showMech.toString());
                 mechArmySize.setText("<html><font style=\"color: red;\">" +
                         String.valueOf(showMech.getOwner().getUniqueMechs().size()) + "</html>");
+                mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
                 if (showMech instanceof MechLight) {
                     mechImage.setIcon(new ImageIcon(mechLightImage));
                 } else if (showMech instanceof MechMedium) {
@@ -247,9 +258,8 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void setSelection(Position position, boolean selection) {
         Component component = layoutButtons.getComponent(position.x * 20 + position.y);
-        ((JButton) component).setBackground((selection ? Color.red : Color.gray));
+        ((JButton) component).setBorder(BorderFactory.createLineBorder(selection ? Color.red : Color.gray));
 
-        System.out.println(selection);
     }
 
     @Override
@@ -305,7 +315,7 @@ public class Main extends JFrame implements MainContract.View {
     @Override
     public void highlightAttackableItem(Position position, boolean highlight) {
         JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
-        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.cyan : Color.gray));
+        button.setBorder(BorderFactory.createLineBorder(highlight ? Color.magenta : Color.gray));
 
         if (highlight) {
             message(2);
@@ -337,9 +347,25 @@ public class Main extends JFrame implements MainContract.View {
             mechHeavyImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechHeavy.png"));
             mechAssaultImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechAssault.png"));
             barrierImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/barrier.png"));
+            mechDefaultDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-default-draft.png"));
+            mechLeftShoulderArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-leftShoulderArm-draft.png"));
+            mechRightShoulderArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-rightShoulderArm-draft.png"));
         } catch (
             IOException exp) {
             exp.printStackTrace();
+        }
+    }
+
+    public void setMechDraft(int state) {
+        images();
+        switch (state) {
+            case 0: mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
+            break;
+            case 1: mechDraftImage.setIcon(new ImageIcon(mechLeftShoulderArmDraftImage));
+            break;
+            case 2: mechDraftImage.setIcon(new ImageIcon(mechRightShoulderArmDraftImage));
+            break;
+            case 3:
         }
     }
 }

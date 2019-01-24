@@ -44,7 +44,7 @@ public class MainPresenter implements MainContract.Presenter {
                             selectedItem.getMech().getCanAttack() &&
                             game.isValidAttack(selectedPosition, position) &&
                             selectedItem.getMech().getOwner().equals(currentPlayer)) {
-                        game.attack(position, selectedItem.getMech().getAttackForce());
+                        view.setMechDraft(game.attack(position, selectedItem.getMech().getAttackForce()));
                         view.setSelection(selectedPosition, false);
                         nextPlayer();
                         view.showBattlefield(game.getBattlefield());
