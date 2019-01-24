@@ -120,19 +120,39 @@ public class Main extends JFrame implements MainContract.View {
 
                 button.setOpaque(true);
 
+                Mech showMech = Battlefield.battlefield[i][j].getMech();
+
                 if (Battlefield.battlefield[i][j].getStandingOnIt()) {
-                    if (Battlefield.battlefield[i][j].getMech() instanceof MechLight) {
-                        button.setText("L");
-                        button.setBackground(Color.yellow);
-                    } else if (Battlefield.battlefield[i][j].getMech() instanceof MechMedium) {
-                        button.setText("M");
-                        button.setBackground(Color.pink);
-                    } else if (Battlefield.battlefield[i][j].getMech() instanceof MechHeavy) {
-                        button.setText("H");
-                        button.setBackground(Color.orange);
-                    } else if (Battlefield.battlefield[i][j].getMech() instanceof MechAssault) {
-                        button.setText("A");
-                        button.setBackground(Color.green);
+
+                    if (showMech.getOwner().equals(Table.playerOne)) {
+                        if (showMech instanceof MechLight) {
+                            button.setText("L");
+                            button.setBackground(Color.orange);
+                        } else if (showMech instanceof MechMedium) {
+                            button.setText("M");
+                            button.setBackground(Color.orange);
+                        } else if (showMech instanceof MechHeavy) {
+                            button.setText("H");
+                            button.setBackground(Color.orange);
+                        } else if (showMech instanceof MechAssault) {
+                            button.setText("A");
+                            button.setBackground(Color.orange);
+                        }
+                    }
+                    if (showMech.getOwner().equals(Table.playerTwo)) {
+                        if (showMech instanceof MechLight) {
+                            button.setText("L");
+                            button.setBackground(Color.green);
+                        } else if (showMech instanceof MechMedium) {
+                            button.setText("M");
+                            button.setBackground(Color.green);
+                        } else if (showMech instanceof MechHeavy) {
+                            button.setText("H");
+                            button.setBackground(Color.green);
+                        } else if (showMech instanceof MechAssault) {
+                            button.setText("A");
+                            button.setBackground(Color.green);
+                        }
                     }
                 } else if (Battlefield.battlefield[i][j].isBarrier()) {
                     button.setText(Battlefield.battlefield[i][j].toString());
@@ -207,10 +227,8 @@ public class Main extends JFrame implements MainContract.View {
         JButton button = (JButton) layoutButtons.getComponent(position.x * 20 + position.y);
         button.setBorder(BorderFactory.createLineBorder(highlight ? Color.cyan : Color.gray));
 
-        if (highlight == true) {
+        if (highlight) {
             message(2);
-        } else {
-            message(0);
         }
 
     }

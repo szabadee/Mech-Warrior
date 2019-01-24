@@ -36,6 +36,8 @@ public class MainPresenter implements MainContract.Presenter {
                 }
 
                 if (selectedPosition != null) {
+                    removeHighlight();
+                    view.message(0);
                     BattlefieldItem selectedItem = game.getBattlefieldItem(selectedPosition);
 
                     if (selectedItem.getStandingOnIt() &&
@@ -77,7 +79,7 @@ public class MainPresenter implements MainContract.Presenter {
                 Math.max(item.getMech().maxStep(), itemPosition.y + item.getMech().maxStep()));
 
         Range range = new Range(p1, p2);
-        //game.barrierListener(range, itemPosition);
+        view.highlightRange(range, itemPosition);
 
     }
 
