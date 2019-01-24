@@ -46,6 +46,10 @@ public class Main extends JFrame implements MainContract.View {
     private BufferedImage mechDefaultDraftImage;
     private BufferedImage mechLeftShoulderArmDraftImage;
     private BufferedImage mechRightShoulderArmDraftImage;
+    private BufferedImage mechLeftLegDraftImage;
+    private BufferedImage mechRightLegDraftImage ;
+    private BufferedImage mechLeftArmDraftImage ;
+    private BufferedImage mechRightArmDraftImage ;
 
 
     public Main() {
@@ -350,6 +354,10 @@ public class Main extends JFrame implements MainContract.View {
             mechDefaultDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-default-draft.png"));
             mechLeftShoulderArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-leftShoulderArm-draft.png"));
             mechRightShoulderArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-rightShoulderArm-draft.png"));
+            mechLeftLegDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-leftLeg-draft.png"));
+            mechRightLegDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-rightLeg-draft.png"));
+            mechLeftArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-leftArm-draft.png"));
+            mechRightArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-rightArm-draft.png"));
         } catch (
             IOException exp) {
             exp.printStackTrace();
@@ -359,13 +367,26 @@ public class Main extends JFrame implements MainContract.View {
     public void setMechDraft(int state) {
         images();
         switch (state) {
-            case 0: mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
+            case 0: mechDraftImage.setIcon(null);
             break;
+
             case 1: mechDraftImage.setIcon(new ImageIcon(mechLeftShoulderArmDraftImage));
             break;
+
             case 2: mechDraftImage.setIcon(new ImageIcon(mechRightShoulderArmDraftImage));
             break;
-            case 3:
+
+            case 3: mechDraftImage.setIcon(new ImageIcon(mechLeftLegDraftImage));
+            break;
+
+            case 4: mechDraftImage.setIcon(new ImageIcon(mechRightLegDraftImage));
+            break;
+
+            case 5: mechDraftImage.setIcon(new ImageIcon(mechLeftArmDraftImage));
+            break;
+
+            case 6: mechDraftImage.setIcon(new ImageIcon(mechRightArmDraftImage));
+            break;
         }
     }
 }
