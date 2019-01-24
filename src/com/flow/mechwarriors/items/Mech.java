@@ -180,21 +180,21 @@ public abstract class Mech implements Action {
 
     @Override
     public String toString() {
-        return "<html><font style=\"font-family: 'Arial'; font-size: 12pt;\">" +
+        return "<html><font style=\"font-family: 'Arial'; font-size: 14pt; color: red;\">" +
                 mechType + "<br>" +
                 name + "<br>" +
                 weapon + "<br>" +
                 weaponRange + "<br>" +
                 attackForce + "<br>" +
-                stepRange + "<br><br>[armor] - - [hp] - - - - -<br> &nbsp;&nbsp;&nbsp; " +
-                leftLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftLeg[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                rightLeg[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightLeg[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                leftArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftArm[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                rightArm[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightArm[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                leftShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + leftShoulder[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                rightShoulder[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rightShoulder[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                torso[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + torso[1] + "<br> &nbsp;&nbsp;&nbsp; " +
-                head[0] + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + head[1] + "<br>" +
+                stepRange + "<br><br>[armor] - - [hp] - - -<br>&emsp;" +
+                leftLeg[0] + "&emsp;&emsp;&emsp;" + leftLeg[1] + "<br>&emsp;" +
+                rightLeg[0] + "&emsp;&emsp;&emsp;" + rightLeg[1] + "<br>&emsp;" +
+                leftArm[0] + "&emsp;&emsp;&emsp;" + leftArm[1] + "<br>&emsp;" +
+                rightArm[0] + "&emsp;&emsp;&emsp;" + rightArm[1] + "<br>&emsp;" +
+                leftShoulder[0] + "&emsp;&emsp;&emsp;" + leftShoulder[1] + "<br>&emsp;" +
+                rightShoulder[0] + "&emsp;&emsp;&emsp;" + rightShoulder[1] + "<br>&emsp;" +
+                torso[0] + "&emsp;&emsp;&emsp;" + torso[1] + "<br>&emsp;" +
+                head[0] + "&emsp;&emsp;&emsp;" + head[1] + "<br>" +
                 "</html>";
     }
 
