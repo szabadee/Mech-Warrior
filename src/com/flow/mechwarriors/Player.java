@@ -5,7 +5,7 @@ import com.flow.mechwarriors.items.Mech;
 import java.util.List;
 
 public class Player {
-    private final String name;
+    private String name;
     private List<Mech> uniqueMechs;
 
     public Player(String name, List<Mech> uniqeMechs) {
@@ -19,6 +19,10 @@ public class Player {
 
     public List getUniqueMechs() {
         return uniqueMechs;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

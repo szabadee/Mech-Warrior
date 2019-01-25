@@ -8,6 +8,7 @@ public class Main {
         EventQueue.invokeLater(() -> {
             new Sound();
             new Intro();
+
             View view = new View();
             view.setVisible(true);
         });

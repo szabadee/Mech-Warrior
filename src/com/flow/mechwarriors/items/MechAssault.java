@@ -3,7 +3,7 @@ package com.flow.mechwarriors.items;
 public class MechAssault extends Mech {
 
     public MechAssault (String name) {
-        super(name, 30, 35, 5, true, true);
+        super(name, 30, 35, 10, true, true);
         setWeapon("Missile");
         setWeaponRange(6);
         setStepRange(1);

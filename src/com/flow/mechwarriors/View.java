@@ -57,7 +57,7 @@ public class View extends JFrame implements MainContract.View {
 
         JPanel root = new JPanel();
         root.setLayout(null);
-        add(root);
+        //add(root);
 
         layoutButtons = new JPanel();
         layoutButtons.setBounds(0, 0, 720, 800);
@@ -199,6 +199,10 @@ public class View extends JFrame implements MainContract.View {
         };
 
         presenter = new MainPresenter(this);
+        //Intro intro = new Intro(this);
+        //add(intro);
+        add(root);
+
     }
 
     @Override
@@ -342,7 +346,7 @@ public class View extends JFrame implements MainContract.View {
                 break;
             case 1: message.setText("<html>Out of Range:<br>- invalid step or<br>- invalid attack or<br> - barrier is on the way!</html>");
                 break;
-            case 2: message.setText("<html>There is attackable Mech<br> in the near!</html>");
+            case 2: message.setText("<html>There is attackable Mech<br>near by!</html>");
                 break;
             case 3: message.setText("<html>Game Over!<br> The Player One Won</html>");
                 break;
