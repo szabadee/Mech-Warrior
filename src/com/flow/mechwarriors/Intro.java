@@ -23,7 +23,7 @@ public class Intro extends JFrame {
         JLabel background = new JLabel(new ImageIcon(backgroundImage));
         add(background);
 
-        JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog");
+        JOptionPane.showMessageDialog(null, "<html>Welcome to the Mech Warrior Game!<br>The first player will be select randomly<br>The player will win, if kill the other player's Mechs erlier");
 
         setVisible(false);
     }

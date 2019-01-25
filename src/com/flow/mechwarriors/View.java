@@ -143,11 +143,6 @@ public class View extends JFrame implements MainContract.View {
         root.add(mechDraftImage);
 
 
-        /*images();
-        layoutBackground = new JLabel(new ImageIcon(background));
-        layoutBackground.setBounds(0,0,1280, 800);
-        root.add(layoutBackground);*/
-
         actionListener = e -> {
             String[] array = e.getActionCommand().split(" ");
 
@@ -235,35 +230,36 @@ public class View extends JFrame implements MainContract.View {
                     if (foundMech.getOwner().equals(Table.playerOne)) {
                         if (foundMech instanceof MechLight) {
                             button.setText("L");
-                            button.setBackground(Color.orange);
+                            button.setBackground(new Color(255, 183, 77));
                         } else if (foundMech instanceof MechMedium) {
                             button.setText("M");
-                            button.setBackground(Color.orange);
+                            button.setBackground(new Color(255, 152, 0));
                         } else if (foundMech instanceof MechHeavy) {
                             button.setText("H");
-                            button.setBackground(Color.orange);
+                            button.setBackground(new Color(245, 124, 0));
                         } else if (foundMech instanceof MechAssault) {
                             button.setText("A");
-                            button.setBackground(Color.orange);
+                            button.setBackground(new Color(231, 81, 0));
                         }
                     }
                     if (foundMech.getOwner().equals(Table.playerTwo)) {
                         if (foundMech instanceof MechLight) {
                             button.setText("L");
-                            button.setBackground(Color.green);
+                            button.setBackground(new Color(174, 213, 129));
                         } else if (foundMech instanceof MechMedium) {
                             button.setText("M");
-                            button.setBackground(Color.green);
+                            button.setBackground(new Color(139, 195, 74));
                         } else if (foundMech instanceof MechHeavy) {
                             button.setText("H");
-                            button.setBackground(Color.green);
+                            button.setBackground(new Color(104, 159, 56));
                         } else if (foundMech instanceof MechAssault) {
                             button.setText("A");
-                            button.setBackground(Color.green);
+                            button.setBackground(new Color(51, 105, 30));
                         }
                     }
                 } else if (Battlefield.battlefield[i][j].isBarrier()) {
                     button.setText(Battlefield.battlefield[i][j].toString());
+                    button.setBackground(new Color(188, 170, 164));
                     button.createToolTip();
                     button.setToolTipText("Sorry, this is an Barrier");
                 }
@@ -294,7 +290,7 @@ public class View extends JFrame implements MainContract.View {
 
 
             if (component.getText().equals(player.getName())) {
-                component.setBackground(Color.GREEN);
+                component.setBackground(new Color(76, 175, 80));
             } else {
                 component.setBackground(null);
             }
@@ -310,8 +306,8 @@ public class View extends JFrame implements MainContract.View {
             for (int j = range.topLeft.y; j <= range.bottomRight.y; j++) {
                 if (center == null ||
                         center.x == i || center.y == j) {
-                    int index = i * 20 + j;
-                    /*if (Battlefield.battlefield[i][j].getStandingOnIt()) {
+                    /*int index = i * 20 + j;
+                    if (Battlefield.battlefield[i][j].getStandingOnIt()) {
                         ((JButton) layoutButtons.getComponent(index))
                                 .setBorder(BorderFactory.createLineBorder(Color.cyan));
                     }*/
