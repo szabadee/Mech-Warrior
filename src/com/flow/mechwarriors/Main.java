@@ -38,18 +38,22 @@ public class Main extends JFrame implements MainContract.View {
     private JLabel mechDraftImage;
     private BufferedImage backgroundImage;
     private BufferedImage headerImage;
-    private BufferedImage mechLightImage;
-    private BufferedImage mechMediumImage;
-    private BufferedImage mechHeavyImage;
-    private BufferedImage mechAssaultImage;
+    private BufferedImage mechLightImage1;
+    private BufferedImage mechMediumImage1;
+    private BufferedImage mechHeavyImage1;
+    private BufferedImage mechAssaultImage1;
+    private BufferedImage mechLightImage2;
+    private BufferedImage mechMediumImage2;
+    private BufferedImage mechHeavyImage2;
+    private BufferedImage mechAssaultImage2;
     private BufferedImage barrierImage;
     private BufferedImage mechDefaultDraftImage;
     private BufferedImage mechLeftShoulderArmDraftImage;
     private BufferedImage mechRightShoulderArmDraftImage;
     private BufferedImage mechLeftLegDraftImage;
-    private BufferedImage mechRightLegDraftImage ;
-    private BufferedImage mechLeftArmDraftImage ;
-    private BufferedImage mechRightArmDraftImage ;
+    private BufferedImage mechRightLegDraftImage;
+    private BufferedImage mechLeftArmDraftImage;
+    private BufferedImage mechRightArmDraftImage;
 
 
     public Main() {
@@ -127,7 +131,7 @@ public class Main extends JFrame implements MainContract.View {
         message.setForeground(Color.yellow);
         message.setBackground(Color.darkGray);
         message.setFont(new Font("Courier", Font.ITALIC, 14));
-        message.setBounds(750,580,240,70);
+        message.setBounds(750,580,240,80);
         message.setBorder(new EmptyBorder(10,10,0,0));
         message.setText("");
         root.add(message);
@@ -165,25 +169,44 @@ public class Main extends JFrame implements MainContract.View {
                 mechImage.setIcon(new ImageIcon(barrierImage));
                 mechProfile.setText("");
                 mechArmySize.setText("");
+                mechDraftImage.setIcon(null);
 
             } else if (Battlefield.battlefield[x][y].getStandingOnIt()) {
                 mechProfile.setText(showMech.toString());
                 mechArmySize.setText("<html><font style=\"color: red;\">" +
                         String.valueOf(showMech.getOwner().getUniqueMechs().size()) + "</html>");
                 mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
-                if (showMech instanceof MechLight) {
-                    mechImage.setIcon(new ImageIcon(mechLightImage));
-                } else if (showMech instanceof MechMedium) {
-                    mechImage.setIcon(new ImageIcon(mechMediumImage));
-                } else if (showMech instanceof MechHeavy) {
-                    mechImage.setIcon(new ImageIcon(mechHeavyImage));
-                } else if (showMech instanceof MechAssault) {
-                    mechImage.setIcon(new ImageIcon(mechAssaultImage));
+
+                if (showMech.getOwner().equals(Table.playerOne)) {
+
+                    if (showMech instanceof MechLight) {
+                        mechImage.setIcon(new ImageIcon(mechLightImage1));
+                    } else if (showMech instanceof MechMedium) {
+                        mechImage.setIcon(new ImageIcon(mechMediumImage1));
+                    } else if (showMech instanceof MechHeavy) {
+                        mechImage.setIcon(new ImageIcon(mechHeavyImage1));
+                    } else if (showMech instanceof MechAssault) {
+                        mechImage.setIcon(new ImageIcon(mechAssaultImage1));
+                    }
                 }
+
+                if (showMech.getOwner().equals(Table.playerTwo)) {
+                    if (showMech instanceof MechLight) {
+                        mechImage.setIcon(new ImageIcon(mechLightImage2));
+                    } else if (showMech instanceof MechMedium) {
+                        mechImage.setIcon(new ImageIcon(mechMediumImage2));
+                    } else if (showMech instanceof MechHeavy) {
+                        mechImage.setIcon(new ImageIcon(mechHeavyImage2));
+                    } else if (showMech instanceof MechAssault) {
+                        mechImage.setIcon(new ImageIcon(mechAssaultImage2));
+                    }
+                }
+
             } else {
                 mechProfile.setText("");
                 mechArmySize.setText("");
                 mechImage.setIcon(null);
+                mechDraftImage.setIcon(null);
             }
         };
 
@@ -332,7 +355,7 @@ public class Main extends JFrame implements MainContract.View {
         switch(messageCode) {
             case 0: message.setText(" ");
             break;
-            case 1: message.setText("Out of Range!");
+            case 1: message.setText("<html>Out of Range:<br>- invalid step or<br>- invalid attack or<br> - barrier is on the way!</html>");
             break;
             case 2: message.setText("<html>There is attackable Mech<br> in the near!</html>");
             break;
@@ -346,10 +369,14 @@ public class Main extends JFrame implements MainContract.View {
         try {
             backgroundImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/background.jpg"));
             headerImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-header.jpg"));
-            mechLightImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechLight.png"));
-            mechMediumImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechMedium.png"));
-            mechHeavyImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechHeavy.png"));
-            mechAssaultImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechAssault.png"));
+            mechLightImage1 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechLight1.png"));
+            mechMediumImage1 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechMedium1.png"));
+            mechHeavyImage1 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechHeavy1.png"));
+            mechAssaultImage1 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechAssault1.png"));
+            mechLightImage2 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechLight2.png"));
+            mechMediumImage2 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechMedium2.png"));
+            mechHeavyImage2 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechHeavy2.png"));
+            mechAssaultImage2 = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mechAssault2.png"));
             barrierImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/barrier.png"));
             mechDefaultDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-default-draft.png"));
             mechLeftShoulderArmDraftImage = ImageIO.read(new File("/Users/user/Works/Flow/Java/Projects/MechWarriors/src/com/flow/mechwarriors/images/mech-leftShoulderArm-draft.png"));
