@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class View extends JFrame implements MainContract.View {
+
     private ActionListener actionListener;
 
     private MainContract.Presenter presenter;
@@ -203,8 +204,6 @@ public class View extends JFrame implements MainContract.View {
         };
 
         presenter = new MainPresenter(this);
-        // JOptionPane.showMessageDialog(null, "A basic JOptionPane message dialog");
-
     }
 
     @Override
@@ -270,8 +269,6 @@ public class View extends JFrame implements MainContract.View {
                 }
             }
         }
-
-//        layoutButtons.repaint();
     }
 
     @Override
