@@ -20,7 +20,8 @@ public class View extends JFrame implements MainContract.View {
 
     private JPanel layoutButtons;
     private JPanel layoutPlayers;
-    private JLabel layoutBackground;
+    private JPanel introPanel;
+    private JLabel introBackground;
     private JLabel mechProfile;
     private JLabel mechProfileTags;
     private JLabel mechArmy;
@@ -50,27 +51,57 @@ public class View extends JFrame implements MainContract.View {
 
 
     public View() {
+        images();
+
         setTitle("Mech Warrior tabletop mini");
         setSize(1280, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel root = new JPanel();
-        root.setLayout(null);
-        //add(root);
+        introPanel = new JPanel();
+        introPanel.setLayout(null);
+
+        introBackground = new JLabel(new ImageIcon(backgroundImage));
+        introBackground.setBounds(0, 0, 1280, 800);
+        introBackground.setOpaque(true);
+
+        JTextField playerOneField = new JTextField();
+        playerOneField.setBounds(20,50, 150,30);
+
+        JTextField playerTwoField = new JTextField();
+        playerTwoField.setBounds(200,50, 150,30);
+
+        JButton startButton = new JButton("Go play!");
+        startButton.setBounds(150,100, 70,20);
+
+        introPanel.add(startButton);
+        introPanel.add(introBackground);
+        introPanel.add(playerOneField);
+        introPanel.add(playerTwoField);
+        add(introPanel);
+        repaint();
+
+        startButton.addActionListener(e -> {
+            Table.playerOne.setName(playerOneField.getName());
+            Table.playerTwo.setName(playerTwoField.getName());
+        });
+
+        JPanel gamePanel = new JPanel();
+        gamePanel.setLayout(null);
+        gamePanel.setOpaque(true);
 
         layoutButtons = new JPanel();
         layoutButtons.setBounds(0, 0, 720, 800);
         layoutButtons.setBackground(Color.LIGHT_GRAY);
         layoutButtons.setLayout(null);
-        root.add(layoutButtons);
+        gamePanel.add(layoutButtons);
 
         layoutPlayers = new JPanel();
         layoutPlayers.setBounds(750, 120, 500, 40);
         layoutPlayers.setBackground(Color.LIGHT_GRAY);
         layoutPlayers.setLayout(new GridLayout(1, 2,0,5));
         layoutPlayers.setBorder(new EmptyBorder(3,3,3,3));
-        root.add(layoutPlayers);
+        gamePanel.add(layoutPlayers);
 
         mechProfileTags = new JLabel();
         mechProfileTags.setVerticalAlignment(JLabel.TOP);
@@ -91,14 +122,14 @@ public class View extends JFrame implements MainContract.View {
                 "Right shoulder:<br>" +
                 "Torso:<br" +
                 ">Head:</html>");
-        root.add(mechProfileTags);
+        gamePanel.add(mechProfileTags);
 
         mechProfile = new JLabel();
         mechProfile.setVerticalAlignment(JLabel.TOP);
         mechProfile.setVerticalTextPosition(JLabel.TOP);
         mechProfile.setBounds(860,260,150,300);
         mechProfile.setText("");
-        root.add(mechProfile);
+        gamePanel.add(mechProfile);
 
         mechArmy = new JLabel();
         mechArmy.setVerticalAlignment(JLabel.TOP);
@@ -106,7 +137,7 @@ public class View extends JFrame implements MainContract.View {
         mechArmy.setBounds(750,195,240,40);
         mechArmy.setFont(new Font("Arial", Font.PLAIN, 14));
         mechArmy.setText("<html>" + "Size of the Mech Army:<br>" + "- - - - - - - - - - - - - - - - - - - - - - - - - - - -<br></html>");
-        root.add(mechArmy);
+        gamePanel.add(mechArmy);
 
         mechArmySize = new JLabel();
         mechArmySize.setVerticalAlignment(JLabel.TOP);
@@ -114,8 +145,7 @@ public class View extends JFrame implements MainContract.View {
         mechArmySize.setBounds(905,195,150,40);
         mechArmySize.setFont(new Font("Arial", Font.PLAIN, 14));
         mechArmySize.setText("");
-        root.add(mechArmySize);
-
+        gamePanel.add(mechArmySize);
 
         message = new JLabel();
         message.setVerticalAlignment(JLabel.TOP);
@@ -127,21 +157,19 @@ public class View extends JFrame implements MainContract.View {
         message.setBounds(750,580,240,80);
         message.setBorder(new EmptyBorder(10,10,0,0));
         message.setText("");
-        root.add(message);
+        gamePanel.add(message);
 
-        images();
         header = new JLabel(new ImageIcon(headerImage));
         header.setBounds(750,27,500,61);
-        root.add(header);
+        gamePanel.add(header);
 
         mechImage = new JLabel();
         mechImage.setBounds(1010,180,240,200);
-        root.add(mechImage);
+        gamePanel.add(mechImage);
 
         mechDraftImage = new JLabel();
         mechDraftImage.setBounds(1020,365,240,240);
-        root.add(mechDraftImage);
-
+        gamePanel.add(mechDraftImage);
 
         actionListener = e -> {
             String[] array = e.getActionCommand().split(" ");
@@ -163,7 +191,7 @@ public class View extends JFrame implements MainContract.View {
                 mechProfile.setText(showMech.toString());
                 mechArmySize.setText("<html><font style=\"color: red;\">" +
                         String.valueOf(showMech.getOwner().getUniqueMechs().size()) + "</html>");
-                mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
+                //mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
 
                 if (showMech.getOwner().equals(Table.playerOne)) {
 
@@ -198,10 +226,12 @@ public class View extends JFrame implements MainContract.View {
             }
         };
 
+        //JOptionPane.showMessageDialog(null, "Welcome to the Mech Warrior Game!");
+
         presenter = new MainPresenter(this);
-        //Intro intro = new Intro(this);
-        //add(intro);
-        add(root);
+
+        remove(introPanel);
+        add(gamePanel);
 
     }
 
@@ -265,7 +295,7 @@ public class View extends JFrame implements MainContract.View {
                     button.setText(Battlefield.battlefield[i][j].toString());
                     button.setBackground(new Color(188, 170, 164));
                     button.createToolTip();
-                    button.setToolTipText("Sorry, this is an Barrier");
+                    button.setToolTipText("Barrier");
                 }
             }
         }
@@ -346,11 +376,15 @@ public class View extends JFrame implements MainContract.View {
                 break;
             case 1: message.setText("<html>Out of Range:<br>- invalid step or<br>- invalid attack or<br> - barrier is on the way!</html>");
                 break;
-            case 2: message.setText("<html>There is attackable Mech<br>near by!</html>");
+            case 2: message.setText("<html>There is attackable Mech<br>nearby!</html>");
                 break;
             case 3: message.setText("<html>Game Over!<br> The Player One Won</html>");
                 break;
             case 4: message.setText("<html>Game Over!<br> The Player One Won</html>");
+                break;
+            case 5: message.setText("You cannot attack");
+                break;
+            case 6: message.setText("You cannot move");
         }
     }
 
@@ -381,6 +415,7 @@ public class View extends JFrame implements MainContract.View {
     }
 
     public void setMechDraft(int state) {
+        System.out.println("State: " + state);
         images();
         switch (state) {
             case 0: mechDraftImage.setIcon(null);
@@ -390,18 +425,25 @@ public class View extends JFrame implements MainContract.View {
                 break;
 
             case 2: mechDraftImage.setIcon(new ImageIcon(mechRightShoulderArmDraftImage));
+                    message(5);
                 break;
 
             case 3: mechDraftImage.setIcon(new ImageIcon(mechLeftLegDraftImage));
+                    message(6);
                 break;
 
             case 4: mechDraftImage.setIcon(new ImageIcon(mechRightLegDraftImage));
+                    message(6);
                 break;
 
             case 5: mechDraftImage.setIcon(new ImageIcon(mechLeftArmDraftImage));
                 break;
 
             case 6: mechDraftImage.setIcon(new ImageIcon(mechRightArmDraftImage));
+                    message(5);
+                break;
+
+            case 7: mechDraftImage.setIcon(new ImageIcon(mechDefaultDraftImage));
                 break;
         }
     }

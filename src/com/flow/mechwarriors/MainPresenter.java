@@ -23,6 +23,7 @@ public class MainPresenter implements MainContract.Presenter {
         Position selectedPosition = game.getSelectedPosition();
 
         if (battlefieldItem != null) {
+
             if (changeItemSelection(position, selectedPosition)) {
                 // highlightItemRange(position, battlefieldItem);
 

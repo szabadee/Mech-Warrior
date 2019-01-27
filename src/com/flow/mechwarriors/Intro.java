@@ -49,7 +49,7 @@ public class Intro extends JFrame {
             });
         }*/
 
-        //JOptionPane.showMessageDialog(null, "Welcome to the Mech Warrior Game!");
+        JOptionPane.showMessageDialog(null, "Welcome to the Mech Warrior Game!");
         setVisible(false);
     }
 
