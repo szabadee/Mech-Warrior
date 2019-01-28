@@ -33,8 +33,8 @@ public class Table {
         List<Mech> mechArmy = m.generateMechArmy();
         List<Mech> mechsOfPlayerOne = new ArrayList<>();
         List<Mech> mechsOfPlayerTwo = new ArrayList<>();
-        playerOne = new Player(" Player One: Chuck", mechsOfPlayerOne);
-        playerTwo = new Player(" Player Two: Norris", mechsOfPlayerTwo);
+        playerOne = new Player("Player one: " + Intro.playerOneName, mechsOfPlayerOne);
+        playerTwo = new Player("Player two: " + Intro.playerTwoName, mechsOfPlayerTwo);
         int randomIndex;
         int ascendingIndex = 0;
         int hasBeenIndex = mechArmy.size();
@@ -343,8 +343,6 @@ public class Table {
             }
 
         } while (counter != 1);
-
-        System.out.println(randomIndexes);
     }
 
     private void generateBarrier() {

@@ -57,8 +57,9 @@ public class View extends JFrame implements MainContract.View {
         setSize(1280, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setVisible(true);
 
-        introPanel = new JPanel();
+        /*introPanel = new JPanel();
         introPanel.setLayout(null);
 
         introBackground = new JLabel(new ImageIcon(backgroundImage));
@@ -84,7 +85,7 @@ public class View extends JFrame implements MainContract.View {
         startButton.addActionListener(e -> {
             Table.playerOne.setName(playerOneField.getName());
             Table.playerTwo.setName(playerTwoField.getName());
-        });
+        });*/
 
         JPanel gamePanel = new JPanel();
         gamePanel.setLayout(null);
@@ -230,7 +231,7 @@ public class View extends JFrame implements MainContract.View {
 
         presenter = new MainPresenter(this);
 
-        remove(introPanel);
+        //remove(introPanel);
         add(gamePanel);
 
     }

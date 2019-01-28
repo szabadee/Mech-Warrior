@@ -10,47 +10,46 @@ import java.io.IOException;
 public class Intro extends JFrame {
 
     private BufferedImage backgroundImage;
+    public static String playerOneName;
+    public static String playerTwoName;
 
     public Intro() {
         setTitle("Mech Warrior tabletop mini");
         setSize(1280, 800);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
 
         setImage();
 
-        /*JPanel contentPanel = new JPanel();
-        contentPanel.setBounds(100, 100, 400,200);
-        contentPanel.setLayout(null);
-        contentPanel.setVisible(true);
-        contentPanel.setOpaque(true);
-        add(contentPanel);
-
-        JTextField playerOneField = new JTextField();
-        playerOneField.setBounds(20,50, 150,30);
-        contentPanel.add(playerOneField);
-
-        JTextField playerTwoField = new JTextField();
-        playerTwoField.setBounds(200,50, 150,30);
-        contentPanel.add(playerTwoField);
-
-        JButton ok = new JButton("Go play!");
-        ok.setBounds(150,100, 70,20);
-        contentPanel.add(ok);*/
-
         JLabel background = new JLabel(new ImageIcon(backgroundImage));
+        background.setSize(1280, 800);
+        background.setVisible(true);
+        background.setOpaque(true);
         add(background);
 
-        /*if (!playerOneField.getText().isEmpty() && !playerTwoField.getText().isEmpty()) {
-            ok.addActionListener(e -> {
-                Table.playerOne.setName(playerOneField.getName());
-                Table.playerTwo.setName(playerTwoField.getName());
-            });
-        }*/
+        JTextField playerOneField = new JTextField("Player One");
+        playerOneField.setBounds(480,500, 150,35);
+        background.add(playerOneField);
 
-        JOptionPane.showMessageDialog(null, "Welcome to the Mech Warrior Game!");
-        setVisible(false);
+        JTextField playerTwoField = new JTextField();
+        playerTwoField.setBounds(650,500, 150,35);
+        background.add(playerTwoField);
+
+        JButton nextButton = new JButton("Go play!");
+        nextButton.setBounds(600,550, 80,35);
+        background.add(nextButton);
+
+        nextButton.addActionListener(e -> {
+            playerOneName = playerOneField.getText();
+            playerTwoName = playerTwoField.getText();
+            dispose();
+            View view = new View();
+            view.setVisible(true);
+        });
+
+        setLayout(null);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     public void setImage() {
@@ -62,5 +61,4 @@ public class Intro extends JFrame {
         }
     }
 
-    //<br>The first player will be select randomly<br>The player will win, if kill the other player's Mechs erlier
 }

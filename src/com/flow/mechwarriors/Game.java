@@ -219,9 +219,6 @@ public class Game {
 
         return 7;
 
-        // System.out.println(("Player One: " + Table.playerOne.getUniqueMechs().size()));
-        // System.out.println(("Player Two: " + Table.playerTwo.getUniqueMechs().size()));
-
     }
 
     public int chance(int num) {
